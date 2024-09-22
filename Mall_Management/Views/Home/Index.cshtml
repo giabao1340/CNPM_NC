@@ -4,50 +4,46 @@
     <title>Trang Chủ</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Content/custom.css" />
+    <link href="@Url.Content("~/Content/custom.css")" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-        <h3">Top Fixed </h3>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <p>A fixed navigation bar stays visible in a fixed position (top or bottom) independent of the page scroll.</p>
-        <h1>Scroll this page to see the effect</h1>
-
+    <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <a href="https://www.facebook.com/VanHanhMall/posts/pfbid0De6Yi39Yo2GSREqhhgu82bt5K46ye9UcwxKNQ2rxVALCBcqkcgVCsoKLeib6KyM6l">
+                    <img src="~/Images/banner1.png" class="d-block w-100" alt="Banner 1">
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a href="https://www.facebook.com/VanHanhMall/posts/pfbid05omxiQrbBaE2MBmW8RSWttEJkghnpJoarTnAmNwpr5jJucD93QFp5XQwce7Ytt3nl">
+                    <img src="~/Images/banner2.jpg" class="d-block w-100" alt="Banner 2">
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a href="https://www.facebook.com/photo/?fbid=503684802035304&set=a.264773669259753">
+                    <img src="~/Images/banner3.png" class="d-block w-100" alt="Banner 3">
+                </a>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="left-div"></div>
+    <div class="right-div"></div>
+    <h3 style="color: #FBA2D0; text-align: center;margin-top:35px;">TIÊU ĐIỂM</h3>
 
 </body>
 </html>

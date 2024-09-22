@@ -1,8 +1,74 @@
-﻿body {
-margin-top:120px;
+﻿main {
+    font-family: 'Roboto', sans-serif;
+    margin-top:120px;
+    margin-left:200px;
+    margin-right:200px;
 }
-.nav-cus {
-    color: #FBA2D0;
-    font-size:large;
-    margin-left:80px;
+.main-color {
+    font-size: 20px !important;
+    color: #FF9C67 !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+    .main-color:hover {
+        color: #FFC4A4 !important;
+    }
+
+h1, h2, h3 {
+    font-family: 'Roboto', sans-serif;
+}
+
+.icon-footer{
+    width:25px;
+    height:25px;
+}
+a {
+    color: #FF9C67; 
+    text-decoration: none; /* Bỏ gạch chân */
+    transition: color 0.3s ease-in-out;
+}
+
+    a:hover {
+        color: #FFC4A4; /* Màu tím khi hover */
+    }
+
+.custom-dropdown-menu {
+    margin-left: -55px;
+}
+.nav-item:hover .dropdown-menu {
+    display: block;
+}
+.carousel-item img {
+    height: 500px; /* Chiều cao của banner */
+    object-fit: cover; /* Giúp hình ảnh bao phủ hết khung banner */
+}
+.stick-left {
+    margin-top: 20px;
+    width: 320px;
+    height: 3px;
+    background-color: #FBA2D0;
+}
+.stick-right {
+    margin-top: 20px;
+    width: 320px;
+    height: 3px;
+    background-color: #FBA2D0;
+}
+.sticker{
+    margin-top:80px;
+}
+.left-div {
+    float: left; /* Đặt div bên trái */
+    width: 25%; /* Chiều rộng của div */
+    height: 3px;
+    background-color: #FBA2D0; /* Màu nền cho div */
+    margin-top:50px;
+}
+
+.right-div {
+    float: right; /* Đặt div bên phải */
+    width: 25%; /* Chiều rộng của div */
+    height: 3px;
+    background-color: #FBA2D0; /* Màu nền cho div */
+    margin-top: 50px;
 }

@@ -11,13 +11,12 @@ public class BundleConfig
                   "~/Content/custom.css"));
 
         // Bundle cho JavaScript
-        bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                    "~/Scripts/jquery-{version}.js"));
+        bundles.Add(new ScriptBundle("~/bundles/customScript").Include(
+                  "~/Scripts/script.js"));
 
         bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                   "~/Scripts/bootstrap.js"));
 
-        // Kích hoạt minification trong chế độ phát triển
         BundleTable.EnableOptimizations = true;
     }
 }

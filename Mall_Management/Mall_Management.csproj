@@ -146,7 +146,16 @@
     <Content Include="Content\custom.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\banner1.png" />
+    <Content Include="Images\banner2.jpg" />
+    <Content Include="Images\banner3.png" />
+    <Content Include="Images\bocongthuong.png" />
+    <Content Include="Images\icon-email.png" />
+    <Content Include="Images\icon-fb.png" />
+    <Content Include="Images\icon-intergra.png" />
+    <Content Include="Images\icon-youtube.png" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\user.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -201,6 +210,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\DanhMuc.cshtml" />
+    <Content Include="Views\Home\UuDai.cshtml" />
+    <Content Include="Views\Home\SuKien.cshtml" />
+    <Content Include="Views\Home\AdminPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,3 +7,4 @@
         navbarCollapse.classList.add('show');
     }
 });
+    

@@ -12,6 +12,22 @@ namespace Mall_Management.Controllers
         {
             return View();
         }
+        public ActionResult DanhMuc()
+        {
+            return View();
+        }
+        public ActionResult UuDai()
+        {
+            return View();
+        }
+        public ActionResult SuKien()
+        {
+            return View();
+        }
+        public ActionResult AdminPanel()
+        {
+            return View();
+        }
 
         public ActionResult About()
         {
