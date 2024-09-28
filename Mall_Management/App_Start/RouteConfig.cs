@@ -5,12 +5,9 @@ public class RouteConfig
 {
     public static void RegisterRoutes(RouteCollection routes)
     {
-        routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-        // Route dành cho Home controller
         routes.MapRoute(
-            name: "HomeRoute",
-            url: "Home/{action}/{id}",
+            name: "Default",
+            url: "{controller}/{action}/{id}",
             defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
         );
     }
