@@ -8,11 +8,20 @@ namespace Mall_Management.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
             return View();
         }
         public ActionResult DanhMuc()
+        {
+            return View();
+        }
+        public ActionResult DangNhap()
+        {
+            return View();
+        }
+        public ActionResult DangKy()
         {
             return View();
         }
@@ -24,7 +33,7 @@ namespace Mall_Management.Controllers
         {
             return View();
         }
-        public ActionResult AdminPanel()
+        public ActionResult MatBang()
         {
             return View();
         }

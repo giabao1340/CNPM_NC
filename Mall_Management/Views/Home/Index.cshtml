@@ -9,7 +9,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div id="bannerCarousel" class="carousel slide w-100" data-bs-ride="carousel" data-bs-interval="3000">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -41,9 +41,31 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <div class="left-div"></div>
-    <div class="right-div"></div>
-    <h3 style="color: #FBA2D0; text-align: center;margin-top:35px;">TIÊU ĐIỂM</h3>
 
+    <main>
+        <div class="highlight-container">
+            <div class="left-div"></div>
+            <h3 style="color: #FBA2D0;">TIÊU ĐIỂM</h3>
+            <div class="right-div"></div>
+        </div>
+
+        @*<div class="event-list">
+            @foreach (var item in Model)
+            {
+                <div class="event-item">
+                    <h3>@Html.DisplayFor(modelItem => item.EventName)</h3>
+                    <p><strong>Mô tả:</strong> @Html.DisplayFor(modelItem => item.Description)</p>
+                    <p><strong>Ngày bắt đầu:</strong> @Html.DisplayFor(modelItem => item.StartDate)</p>
+                    <p><strong>Ngày kết thúc:</strong> @Html.DisplayFor(modelItem => item.EndDate)</p>
+
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+                        <img src="@Url.Content("~/Images/" + item.Image)" alt="@item.EventName" style="width:200px;height:150px;" />
+                    }
+                </div>
+                <hr />
+            }
+        </div>*@
+    </main>
 </body>
 </html>

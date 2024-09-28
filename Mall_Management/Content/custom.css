@@ -24,12 +24,12 @@ h1, h2, h3 {
 }
 a {
     color: #FF9C67; 
-    text-decoration: none; /* Bỏ gạch chân */
+    text-decoration: none;
     transition: color 0.3s ease-in-out;
 }
 
     a:hover {
-        color: #FFC4A4; /* Màu tím khi hover */
+        color: #FFC4A4;
     }
 
 .custom-dropdown-menu {
@@ -38,37 +38,15 @@ a {
 .nav-item:hover .dropdown-menu {
     display: block;
 }
-.carousel-item img {
-    height: 500px; /* Chiều cao của banner */
-    object-fit: cover; /* Giúp hình ảnh bao phủ hết khung banner */
-}
-.stick-left {
-    margin-top: 20px;
-    width: 320px;
-    height: 3px;
-    background-color: #FBA2D0;
-}
-.stick-right {
-    margin-top: 20px;
-    width: 320px;
-    height: 3px;
-    background-color: #FBA2D0;
-}
-.sticker{
-    margin-top:80px;
-}
-.left-div {
-    float: left; /* Đặt div bên trái */
-    width: 25%; /* Chiều rộng của div */
-    height: 3px;
-    background-color: #FBA2D0; /* Màu nền cho div */
-    margin-top:50px;
+.highlight-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
 }
 
-.right-div {
-    float: right; /* Đặt div bên phải */
-    width: 25%; /* Chiều rộng của div */
+.left-div, .right-div {
+    width: 25%;
     height: 3px;
-    background-color: #FBA2D0; /* Màu nền cho div */
-    margin-top: 50px;
+    background-color: #FBA2D0;
 }

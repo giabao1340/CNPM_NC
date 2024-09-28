@@ -1,0 +1,269 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #EB567B, #3FBCF8);
+/*    height: 100%;
+    margin: 0;
+    width: 100%;*/
+}
+.login-container {
+    margin-top:120px;
+    position: relative;
+    left: 60%;
+    top: 10%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 25%;
+    height: 60%;
+}
+
+.login-form h2 {
+    position: relative;
+    bottom: 13px;
+    left: 10px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.Password label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/*.input-group {
+    width: 80%;
+    padding: 10px;
+}
+
+.Password {
+    width: 90%;
+    padding: 10px;
+}*/
+
+.signin {
+    position: absolute;
+    left: 30px;
+    width: 83%;
+    height: 10%;
+    padding: 10px;
+    background: linear-gradient(45deg, #EB567B,#3FBCF8);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    .signin:hover {
+        background: linear-gradient(45deg,#3FBCF8,#EB567B);
+    }
+
+.fb-btn:hover {
+    background: #f0f0f0;
+}
+
+.gg-btn:hover {
+    background: #f0f0f0;
+}
+
+.-input-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.Password {
+    position: relative;
+    margin-bottom: 85px;
+}
+
+.input-group input {
+    position: relative;
+    top: 10px;
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.Password input {
+    position: absolute;
+    top: 40px;
+    width: 96%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #EB567B;
+}
+
+.Password input:focus {
+    border-color: #EB567B;
+}
+
+.input-group label {
+    position: absolute;
+    top: 80px;
+    left: 30px;
+    color: #aaa;
+    font-size: 16px;
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.Password label {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    color: #aaa;
+    font-size: 16px;
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    font-size: 12px;
+    color: #3FBCF8;
+}
+
+.Password input:focus + label,
+.Password input:not(:placeholder-shown) + label {
+    font-size: 12px;
+    color: #3FBCF8;
+}
+
+.forgot-password {
+    position: relative;
+    top: 68px;
+    left: 15px;
+    text-decoration: none;
+}
+
+.line-with-text {
+    position: relative;
+    top: 70px;
+    left: 50px;
+    width: 350px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+    .line-with-text::before {
+        content: '';
+        display: inline-block;
+        width: 100%;
+        height: 1px;
+        background: #aaa;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        z-index: 1;
+    }
+
+.line-text {
+    position: relative;
+    background: white;
+    padding: 0 10px;
+    z-index: 2;
+    color: #666;
+}
+
+.fb-gg-btn {
+    flex-wrap: wrap;
+}
+
+.fb-btn {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .26);
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, .87);
+    font-size: .875rem;
+    outline: none;
+    padding: 0 2px;
+    width: 45%;
+    position: relative;
+    top: 80px;
+    left: 10px;
+    height: 10%;
+}
+
+.gg-btn {
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .26);
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, .87);
+    font-size: .875rem;
+    outline: none;
+    padding: 0 2px;
+    width: 45%;
+    position: relative;
+    top: 80px;
+    left: 10px;
+    height: 10%;
+}
+
+.chua-fb {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.chua-gg {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.fb {
+    position: relative;
+    bottom: 1px;
+    right: 5px;
+}
+
+.gg {
+    position: relative;
+    bottom: 1px;
+    right: 5px;
+}
+
+.text-fb {
+    position: relative;
+    bottom: 1px;
+    left: 1px;
+}
+
+.text-gg {
+    position: relative;
+    bottom: 1px;
+    left: 1px;
+}
+
+.dangki {
+    display: flex;
+    position: relative;
+    top: 130px;
+    left: 110px;
+    font-size: 1.1em;
+    color: #EB567B;
+}
+
+.link {
+    text-decoration: none;
+    position: relative;
+    left: 5px;
+}
