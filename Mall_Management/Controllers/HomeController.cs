@@ -17,14 +17,6 @@ namespace Mall_Management.Controllers
         {
             return View();
         }
-        public ActionResult DangNhap()
-        {
-            return View();
-        }
-        public ActionResult DangKy()
-        {
-            return View();
-        }
         public ActionResult UuDai()
         {
             return View();

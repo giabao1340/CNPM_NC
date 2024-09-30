@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "DangNhap";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -25,8 +24,8 @@
                 <label for="username">Mật Khẩu</label>
             </div>
             <button class="signin" type="submit">Đăng nhập</button>
+            <a href="#" class="forgot-password">Quên mật khẩu</a>
         </form>
-        <a href="#" class="forgot-password">Quên mật khẩu</a>
         <div class="line-with-text">
             <span class="line-text">Hoặc</span>
         </div>
@@ -51,7 +50,7 @@
         <div class="dangki">
             <div class="textbt"> Bạn chưa có tài khoản? </div>
             <div class="link">
-                <a href="https://localhost:44395/Home/dangki">Đăng Ký</a>
+                <a href="@Url.Action("DangKy", "Home")">Đăng Ký</a>
             </div>
         </div>
     </div>
