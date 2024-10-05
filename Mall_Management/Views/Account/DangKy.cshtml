@@ -1,6 +1,7 @@
-﻿
+﻿@model Mall_Management.Models.Account
+
 @{
-    ViewBag.Title = "DangKy";
+    ViewBag.Title = "Đăng Ký";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,34 +14,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="@Url.Content("~/Content/Register.css")" rel="stylesheet" />
-
 </head>
 <body>
     <div class="Dangky-container">
-        <form class="Dangky-form">
+        @using (Html.BeginForm("DangKy", "Account", FormMethod.Post, new { @class = "Dangky-form" }))
+        {
+            @Html.AntiForgeryToken()
             <h2>Đăng Ký</h2>
-            <div class="Name">
-                <input type="text" placeholder=" " id="username">
-                <label for="username">Họ Và Tên</label>
+
+            <div class="input">
+                @Html.TextBoxFor(m => m.Username, new { placeholder = "Họ và Tên" })
+                @Html.LabelFor(m => m.Username, "Họ và Tên")
+                @Html.ValidationMessageFor(m => m.Username)
             </div>
-            <div class="Email">
-                <input type="text" placeholder=" " id="email">
-                <label for="username">Địa chỉ email</label>
+
+            <div class="input">
+                @Html.TextBoxFor(m => m.Email, new { placeholder = "Địa chỉ email" })
+                @Html.LabelFor(m => m.Email, "Địa chỉ email")
+                @Html.ValidationMessageFor(m => m.Email)
             </div>
-            <div class="SDT">
-                <input type="text" placeholder=" " id="sdt">
-                <label for="username">Số Điện Thoại</label>
+
+            <div class="input">
+                @Html.TextBoxFor(m => m.Phone, new { placeholder = "Số Điện Thoại" })
+                @Html.LabelFor(m => m.Phone, "Số Điện Thoại")
+                @Html.ValidationMessageFor(m => m.Phone)
             </div>
-            <div class="Password">
-                <input type="password" placeholder=" " id="pass">
-                <label for="username">Mật Khẩu</label>
+
+            <div class="input">
+                @Html.PasswordFor(m => m.PasswordHash, new { placeholder = "Mật Khẩu" })
+                @Html.LabelFor(m => m.PasswordHash, "Mật Khẩu")
+                @Html.ValidationMessageFor(m => m.PasswordHash)
             </div>
-            <div class="CF-Password">
-                <input type="password" placeholder=" " id="cfpass">
-                <label for="username">Xác Nhận Mật Khẩu</label>
+
+            <div class="input">
+                @Html.PasswordFor(m => m.CFPassword, new { placeholder = "Xác Nhận Mật Khẩu" })
+                @Html.LabelFor(m => m.CFPassword, "Xác Nhận Mật Khẩu")
+                @Html.ValidationMessageFor(m => m.CFPassword)
             </div>
+
+
             <button class="signup" type="submit">Đăng Ký</button>
-        </form>
+        }
     </div>
 </body>
 </html>

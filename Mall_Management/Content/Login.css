@@ -1,266 +1,180 @@
-﻿body {
-    font-family: Arial, sans-serif;
+﻿/* General Styles */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
     background: linear-gradient(to right, #EB567B, #3FBCF8);
-    height: 100%;
+    height: 100vh;
     margin: 0;
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-container {
-    position: relative;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin-top: 350px;
     margin-left: 60%;
-    margin-top:150px;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 30%;
-    height: 45%;
 }
 
 .login-form h2 {
-    position: relative;
-    bottom: 8px;
-    left: 10px;
-    margin-bottom: 20px;
     color: #333;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-.Password label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
+    margin-bottom: 20px;
 }
 
 .input-group {
-    padding: 10px;
-}
-
-.Password {
-    padding: 10px;
-}
-
-.signin {
-    width: 95%;
-    position: relative;
-    left: 10px;
-    height: 10%;
-    padding: 10px;
-    background: linear-gradient(45deg, #EB567B,#3FBCF8);
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-    .signin:hover {
-        background: linear-gradient(45deg,#3FBCF8,#EB567B);
-    }
-
-.fb-btn:hover {
-    background: #f0f0f0;
-}
-
-.gg-btn:hover {
-    background: #f0f0f0;
-}
-
-.-input-group {
     position: relative;
     margin-bottom: 30px;
 }
 
-.Password {
-    position: relative;
-    margin-bottom: 85px;
-}
-
-.input-group input {
-    position: relative;
-    top: 10px;
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
-
-.Password input {
-    position: absolute;
-    top: 40px;
-    width: 96%;
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
-
-.input-group input:focus {
-    border-color: #EB567B;
-}
-
-.Password input:focus {
-    border-color: #EB567B;
-}
-
-.input-group label {
-    position: absolute;
-    bottom: 45px;
-    color: #aaa;
-    font-size: 16px;
-    transition: all 0.3s;
-    pointer-events: none;
-}
-
-.Password label {
-    position: absolute;
-    top: 15px;
-    left: 10px;
-    color: #aaa;
-    font-size: 16px;
-    transition: all 0.3s;
-    pointer-events: none;
-}
-
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label {
-    font-size: 12px;
-    color: #3FBCF8;
-}
-
-.Password input:focus + label,
-.Password input:not(:placeholder-shown) + label {
-    font-size: 12px;
-    color: #3FBCF8;
-}
-
-.forgot-password {
-    position: relative;
-    top: 15px;
-    left: 15px;
-    text-decoration: none;
-}
-
-.line-with-text {
-    position: relative;
-    top: 20px;
-    text-align: center;
-    margin: 20px 0;
-}
-
-    .line-with-text::before {
-        content: '';
-        display: inline-block;
+    .input-group input {
         width: 100%;
-        height: 1px;
-        background: #aaa;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        z-index: 1;
+        padding: 12px;
+        font-size: 16px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        transition: border-color 0.3s;
     }
 
-.line-text {
-    position: relative;
-    background: white;
-    padding: 0 10px;
-    z-index: 2;
+        .input-group input:focus {
+            border-color: #EB567B;
+            outline: none;
+        }
+
+    /* Label animation */
+    .input-group label {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        color: #aaa;
+        font-size: 16px;
+        transition: all 0.3s;
+        pointer-events: none;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+        top: -20px;
+        font-size: 12px;
+        color: #3FBCF8;
+    }
+
+.signin {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #EB567B, #3FBCF8);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+    .signin:hover {
+        background: linear-gradient(45deg, #3FBCF8, #EB567B);
+    }
+
+/* Forgot Password Link */
+.forgot-password {
+    display: block;
+    margin-top: 15px;
+    text-decoration: none;
     color: #666;
 }
 
-.fb-gg-btn {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    position: relative;
-    bottom: 50px;
-    gap: 10px; /* Tạo khoảng cách giữa các nút */
-}
+    .forgot-password:hover {
+        color: #EB567B;
+    }
 
-.fb-btn {
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, .26);
-    border-radius: 2px;
-    box-sizing: border-box;
-    color: rgba(0, 0, 0, .87);
-    font-size: .875rem;
-    outline: none;
-    padding: 0 2px;
-    width: 45%;
-    position: relative;
-    top: 80px;
-    left: 10px;
-    height: 10%;
-}
-
-.gg-btn {
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, .26);
-    border-radius: 2px;
-    box-sizing: border-box;
-    color: rgba(0, 0, 0, .87);
-    font-size: .875rem;
-    outline: none;
-    padding: 0 2px;
-    width: 45%;
-    position: relative;
-    top: 80px;
-    left: 10px;
-    height: 10%;
-}
-
-.chua-fb, .chua-gg {
+/* Line With Text */
+.line-with-text {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.fb {
+    margin: 20px 0;
     position: relative;
-    right: 5px;
 }
 
-.gg {
-    position: relative;
-    right: 5px;
+    .line-with-text::before,
+    .line-with-text::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background-color: #aaa;
+    }
+
+.line-text {
+    padding: 0 10px;
+    color: #666;
+    background-color: white;
 }
 
-.text-fb, .text-gg {
-    position: relative;
-    top: 5px;
-    left: 1px;
+/* Social Buttons */
+.fb-gg-btn {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
 }
 
+.fb-btn, .gg-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48%;
+    padding: 10px;
+    background-color: #fff; /* Nền trắng */
+    border: 1px solid rgba(0, 0, 0, .26);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+    .fb-btn:hover, .gg-btn:hover {
+        background-color: #f0f0f0; /* Chuyển sang màu xám nhạt khi hover */
+    }
+
+.fb img, .gg img {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+/* Sign up Link */
+.dangki {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    color: #EB567B;
+}
+
+    .dangki .link a {
+        text-decoration: none;
+        color: #EB567B;
+        margin-left: 5px;
+        transition: color 0.3s;
+    }
+
+        .dangki .link a:hover {
+            color: #3FBCF8;
+        }
+
+/* Responsive design */
 @media (max-width: 768px) {
+    .login-container {
+        padding: 30px;
+    }
+
     .fb-gg-btn {
-        flex-direction: column; 
-        align-items: center;
+        flex-direction: column;
     }
 
     .fb-btn, .gg-btn {
         width: 100%;
+        margin-bottom: 10px;
     }
-}
-
-.dangki {
-    justify-content: center;
-    display: flex;
-    position: relative;
-    top: 50px;
-    font-size: 1.1em;
-    color: #EB567B;
-}
-
-.link {
-    text-decoration: none;
-    position: relative;
-    left: 5px;
 }

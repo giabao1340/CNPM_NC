@@ -16,11 +16,14 @@ namespace Mall_Management.Models
     {
         public int AccountID { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
+        public string CFPassword { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public string Avata { get; set; }
+        public string Avatar { get; set; }
         public string Role { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }

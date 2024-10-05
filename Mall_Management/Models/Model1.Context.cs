@@ -33,6 +33,5 @@ namespace Mall_Management.Models
         public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<Space> Spaces { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

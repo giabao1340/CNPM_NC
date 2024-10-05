@@ -5,13 +5,15 @@
       <PropertyRef Name="AccountID" />
     </Key>
     <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="50" />
+    <Property Name="PasswordHash" Type="nvarchar" MaxLength="256" Nullable="false" />
     <Property Name="FullName" Type="nvarchar" MaxLength="100" />
-    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Phone" Type="nvarchar" MaxLength="20" />
-    <Property Name="Avata" Type="nvarchar(max)" />
+    <Property Name="Avatar" Type="nvarchar(max)" />
     <Property Name="Role" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="Brands">
     <Key>
@@ -94,17 +96,7 @@
     <Property Name="Position" Type="nvarchar" MaxLength="255" />
     <Property Name="BrandID" Type="int" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
-  <Association Name="FK__Brands__Category__3C69FB99">
+  <Association Name="FK__Brands__Category__403A8C7D">
     <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
     <End Role="Brands" Type="Self.Brands" Multiplicity="*" />
     <ReferentialConstraint>
@@ -116,7 +108,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Events__BrandID__4222D4EF">
+  <Association Name="FK__Events__BrandID__45F365D3">
     <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
     <End Role="Events" Type="Self.Events" Multiplicity="*" />
     <ReferentialConstraint>
@@ -128,7 +120,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Promotion__Brand__48CFD27E">
+  <Association Name="FK__Promotion__Brand__4CA06362">
     <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
     <End Role="Promotions" Type="Self.Promotions" Multiplicity="*" />
     <ReferentialConstraint>
@@ -140,7 +132,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Spaces__BrandID__45F365D3">
+  <Association Name="FK__Spaces__BrandID__49C3F6B7">
     <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
     <End Role="Spaces" Type="Self.Spaces" Multiplicity="*" />
     <ReferentialConstraint>
@@ -152,7 +144,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Staffs__BrandID__3F466844">
+  <Association Name="FK__Staffs__BrandID__4316F928">
     <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
     <End Role="Staffs" Type="Self.Staffs" Multiplicity="*" />
     <ReferentialConstraint>
@@ -173,24 +165,23 @@
     <EntitySet Name="Promotions" EntityType="Self.Promotions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Spaces" EntityType="Self.Spaces" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Brands__Category__3C69FB99" Association="Self.FK__Brands__Category__3C69FB99">
+    <AssociationSet Name="FK__Brands__Category__403A8C7D" Association="Self.FK__Brands__Category__403A8C7D">
       <End Role="Categories" EntitySet="Categories" />
       <End Role="Brands" EntitySet="Brands" />
     </AssociationSet>
-    <AssociationSet Name="FK__Events__BrandID__4222D4EF" Association="Self.FK__Events__BrandID__4222D4EF">
+    <AssociationSet Name="FK__Events__BrandID__45F365D3" Association="Self.FK__Events__BrandID__45F365D3">
       <End Role="Brands" EntitySet="Brands" />
       <End Role="Events" EntitySet="Events" />
     </AssociationSet>
-    <AssociationSet Name="FK__Promotion__Brand__48CFD27E" Association="Self.FK__Promotion__Brand__48CFD27E">
+    <AssociationSet Name="FK__Promotion__Brand__4CA06362" Association="Self.FK__Promotion__Brand__4CA06362">
       <End Role="Brands" EntitySet="Brands" />
       <End Role="Promotions" EntitySet="Promotions" />
     </AssociationSet>
-    <AssociationSet Name="FK__Spaces__BrandID__45F365D3" Association="Self.FK__Spaces__BrandID__45F365D3">
+    <AssociationSet Name="FK__Spaces__BrandID__49C3F6B7" Association="Self.FK__Spaces__BrandID__49C3F6B7">
       <End Role="Brands" EntitySet="Brands" />
       <End Role="Spaces" EntitySet="Spaces" />
     </AssociationSet>
-    <AssociationSet Name="FK__Staffs__BrandID__3F466844" Association="Self.FK__Staffs__BrandID__3F466844">
+    <AssociationSet Name="FK__Staffs__BrandID__4316F928" Association="Self.FK__Staffs__BrandID__4316F928">
       <End Role="Brands" EntitySet="Brands" />
       <End Role="Staffs" EntitySet="Staffs" />
     </AssociationSet>

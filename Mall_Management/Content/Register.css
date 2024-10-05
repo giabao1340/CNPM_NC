@@ -1,262 +1,98 @@
-﻿body {
-    font-family: Arial, sans-serif;
+﻿/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
     background: linear-gradient(to right, #EB567B, #3FBCF8);
-    height: 100%;
-    width: 100%;
-    margin:120px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-.head {
-    height: 8%;
+/* Container for form */
+.Dangky-form {
     background-color: white;
-}
-
-.Dangky-container {
-    position: relative;
-    left: 60%;
-    top: 10%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 25%;
-    height: 60%;
-}
-
-.Dangky-form h2 {
-    position: relative;
-    bottom: 17px;
-    left: 10px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.Name label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-.Email label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-.SDT label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-.Password label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-.CF-Password label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-.Name {
-    width: 90%;
-    padding: 10px;
-}
-
-.Email {
-    width: 90%;
-    padding: 10px;
-}
-
-.SDT {
-    width: 90%;
-    padding: 10px;
-}
-
-.Password {
-    width: 90%;
-    padding: 10px;
-}
-
-.CF-Password {
-    width: 90%;
-    padding: 10px;
-}
-
-.Name input {
-    position: relative;
-    top: 10px;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s;
+    max-width: 400px;
+    margin-top: 350px;
+    margin-left: 60%;
 }
 
-    .Name input:focus {
-        border-color: #EB567B;
+    .Dangky-form h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
     }
 
-.Name label {
-    position: absolute;
-    top: 80px;
-    left: 30px;
-    color: #aaa;
-    font-size: 16px;
-    transition: all 0.3s;
-    pointer-events: none;
-}
-
-.Name input:focus + label,
-.Name input:not(:placeholder-shown) + label {
-    font-size: 12px;
-    color: #3FBCF8;
-}
-
-.Email input {
+/* Input styles */
+.input {
     position: relative;
-    top: 25px;
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s;
+    margin-bottom: 30px;
 }
 
-    .Email input:focus {
-        border-color: #EB567B;
+    .input input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        transition: border-color 0.3s;
     }
 
-.Email label {
-    position: absolute;
-    top: 160px;
-    left: 30px;
-    color: #aaa;
-    font-size: 16px;
-    transition: all 0.3s;
-    pointer-events: none;
-}
+        .input input:focus {
+            border-color: #EB567B;
+            outline: none;
+        }
 
-.Email input:focus + label,
-.Email input:not(:placeholder-shown) + label {
-    font-size: 12px;
-    color: #3FBCF8;
-}
-
-.SDT input {
-    position: relative;
-    top: 38px;
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
-
-    .SDT input:focus {
-        border-color: #EB567B;
+    /* Label animation */
+    .input label {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        color: #aaa;
+        font-size: 16px;
+        transition: all 0.3s;
+        pointer-events: none;
     }
 
-.SDT label {
-    position: absolute;
-    top: 235px;
-    left: 30px;
-    color: #aaa;
-    font-size: 16px;
-    transition: all 0.3s;
-    pointer-events: none;
-}
-
-.SDT input:focus + label,
-.SDT input:not(:placeholder-shown) + label {
-    font-size: 12px;
-    color: #3FBCF8;
-}
-
-.Password input {
-    position: relative;
-    top: 50px;
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
-
-    .Password input:focus {
-        border-color: #EB567B;
+    .input input:focus + label,
+    .input input:not(:placeholder-shown) + label {
+        top: -20px;
+        font-size: 12px;
+        color: #3FBCF8;
     }
 
-.Password label {
-    position: absolute;
-    top: 310px;
-    left: 30px;
-    color: #aaa;
-    font-size: 16px;
-    transition: all 0.3s;
-    pointer-events: none;
-}
-
-.Password input:focus + label,
-.Password input:not(:placeholder-shown) + label {
-    font-size: 12px;
-    color: #3FBCF8;
-}
-
-.CF-Password input {
-    position: relative;
-    top: 60px;
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
-
-    .CF-Password input:focus {
-        border-color: #EB567B;
-    }
-
-.CF-Password label {
-    position: absolute;
-    top: 382px;
-    left: 30px;
-    color: #aaa;
-    font-size: 16px;
-    transition: all 0.3s;
-    pointer-events: none;
-}
-
-.CF-Password input:focus + label,
-.CF-Password input:not(:placeholder-shown) + label {
-    font-size: 12px;
-    color: #3FBCF8;
-}
-
+/* Submit button */
 .signup {
-    position: absolute;
-    left: 30px;
-    width: 90%;
-    height: 10%;
-    padding: 10px;
-    background: linear-gradient(45deg, #EB567B,#3FBCF8);
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #EB567B, #3FBCF8);
     border: none;
-    border-radius: 4px;
-    color: #fff;
+    border-radius: 5px;
+    color: white;
     font-size: 16px;
     cursor: pointer;
-    position: relative;
-    top: 65px;
-    left: 10px;
+    transition: background 0.3s;
 }
 
     .signup:hover {
-        background: linear-gradient(45deg,#3FBCF8,#EB567B);
+        background: linear-gradient(45deg, #3FBCF8, #EB567B);
     }
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .Dangky-form {
+        padding: 30px;
+    }
+
+    .input input {
+        font-size: 14px;
+    }
+
+    .signup {
+        font-size: 14px;
+    }
+}

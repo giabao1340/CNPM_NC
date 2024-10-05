@@ -4,8 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="04dd11757dd44d609d97bcb1a58f7542" Name="Diagram1" ZoomLevel="47">
-        <EntityTypeShape EntityType="mall_dbModel.Account" Width="1.5" PointX="1.625" PointY="3.125" IsExpanded="true" />
+      <Diagram DiagramId="256d615aec354fe8a4b33f9eb95e8e83" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="mall_dbModel.Account" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="mall_dbModel.Brand" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="mall_dbModel.Category" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="mall_dbModel.Event" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
@@ -13,12 +13,11 @@
         <EntityTypeShape EntityType="mall_dbModel.Promotion" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="mall_dbModel.Space" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="mall_dbModel.Staff" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="mall_dbModel.sysdiagram" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="mall_dbModel.FK__Brands__Category__3C69FB99" ManuallyRouted="false" />
-        <AssociationConnector Association="mall_dbModel.FK__Events__BrandID__4222D4EF" ManuallyRouted="false" />
-        <AssociationConnector Association="mall_dbModel.FK__Promotion__Brand__48CFD27E" ManuallyRouted="false" />
-        <AssociationConnector Association="mall_dbModel.FK__Spaces__BrandID__45F365D3" ManuallyRouted="false" />
-        <AssociationConnector Association="mall_dbModel.FK__Staffs__BrandID__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="mall_dbModel.FK__Brands__Category__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="mall_dbModel.FK__Events__BrandID__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="mall_dbModel.FK__Promotion__Brand__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="mall_dbModel.FK__Spaces__BrandID__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="mall_dbModel.FK__Staffs__BrandID__4316F928" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

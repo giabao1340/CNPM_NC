@@ -5,13 +5,15 @@
       <PropertyRef Name="AccountID" />
     </Key>
     <Property Name="AccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordHash" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="Avata" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
   </EntityType>
   <EntityType Name="Brand">
     <Key>
@@ -24,11 +26,11 @@
     <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Revenue" Type="Decimal" Precision="10" Scale="2" />
     <Property Name="CategoryID" Type="Int32" />
-    <NavigationProperty Name="Category" Relationship="Self.FK__Brands__Category__3C69FB99" FromRole="Brands" ToRole="Categories" />
-    <NavigationProperty Name="Events" Relationship="Self.FK__Events__BrandID__4222D4EF" FromRole="Brands" ToRole="Events" />
-    <NavigationProperty Name="Promotions" Relationship="Self.FK__Promotion__Brand__48CFD27E" FromRole="Brands" ToRole="Promotions" />
-    <NavigationProperty Name="Spaces" Relationship="Self.FK__Spaces__BrandID__45F365D3" FromRole="Brands" ToRole="Spaces" />
-    <NavigationProperty Name="Staffs" Relationship="Self.FK__Staffs__BrandID__3F466844" FromRole="Brands" ToRole="Staffs" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Brands__Category__403A8C7D" FromRole="Brands" ToRole="Categories" />
+    <NavigationProperty Name="Events" Relationship="Self.FK__Events__BrandID__45F365D3" FromRole="Brands" ToRole="Events" />
+    <NavigationProperty Name="Promotions" Relationship="Self.FK__Promotion__Brand__4CA06362" FromRole="Brands" ToRole="Promotions" />
+    <NavigationProperty Name="Spaces" Relationship="Self.FK__Spaces__BrandID__49C3F6B7" FromRole="Brands" ToRole="Spaces" />
+    <NavigationProperty Name="Staffs" Relationship="Self.FK__Staffs__BrandID__4316F928" FromRole="Brands" ToRole="Staffs" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
@@ -36,7 +38,7 @@
     </Key>
     <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Brands" Relationship="Self.FK__Brands__Category__3C69FB99" FromRole="Categories" ToRole="Brands" />
+    <NavigationProperty Name="Brands" Relationship="Self.FK__Brands__Category__403A8C7D" FromRole="Categories" ToRole="Brands" />
   </EntityType>
   <EntityType Name="Event">
     <Key>
@@ -50,7 +52,7 @@
     <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="BrandID" Type="Int32" />
     <Property Name="Register" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Brand" Relationship="Self.FK__Events__BrandID__4222D4EF" FromRole="Events" ToRole="Brands" />
+    <NavigationProperty Name="Brand" Relationship="Self.FK__Events__BrandID__45F365D3" FromRole="Events" ToRole="Brands" />
   </EntityType>
   <EntityType Name="ParkingTicket">
     <Key>
@@ -74,7 +76,7 @@
     <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="BrandID" Type="Int32" />
-    <NavigationProperty Name="Brand" Relationship="Self.FK__Promotion__Brand__48CFD27E" FromRole="Promotions" ToRole="Brands" />
+    <NavigationProperty Name="Brand" Relationship="Self.FK__Promotion__Brand__4CA06362" FromRole="Promotions" ToRole="Brands" />
   </EntityType>
   <EntityType Name="Space">
     <Key>
@@ -90,7 +92,7 @@
     <Property Name="Status" Type="Int32" />
     <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-    <NavigationProperty Name="Brand" Relationship="Self.FK__Spaces__BrandID__45F365D3" FromRole="Spaces" ToRole="Brands" />
+    <NavigationProperty Name="Brand" Relationship="Self.FK__Spaces__BrandID__49C3F6B7" FromRole="Spaces" ToRole="Brands" />
   </EntityType>
   <EntityType Name="Staff">
     <Key>
@@ -102,19 +104,9 @@
     <Property Name="BirthYear" Type="Int32" />
     <Property Name="Position" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="BrandID" Type="Int32" />
-    <NavigationProperty Name="Brand" Relationship="Self.FK__Staffs__BrandID__3F466844" FromRole="Staffs" ToRole="Brands" />
+    <NavigationProperty Name="Brand" Relationship="Self.FK__Staffs__BrandID__4316F928" FromRole="Staffs" ToRole="Brands" />
   </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
-  <Association Name="FK__Brands__Category__3C69FB99">
+  <Association Name="FK__Brands__Category__403A8C7D">
     <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Brands" Type="Self.Brand" Multiplicity="*" />
     <ReferentialConstraint>
@@ -126,7 +118,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Events__BrandID__4222D4EF">
+  <Association Name="FK__Events__BrandID__45F365D3">
     <End Role="Brands" Type="Self.Brand" Multiplicity="0..1" />
     <End Role="Events" Type="Self.Event" Multiplicity="*" />
     <ReferentialConstraint>
@@ -138,7 +130,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Promotion__Brand__48CFD27E">
+  <Association Name="FK__Promotion__Brand__4CA06362">
     <End Role="Brands" Type="Self.Brand" Multiplicity="0..1" />
     <End Role="Promotions" Type="Self.Promotion" Multiplicity="*" />
     <ReferentialConstraint>
@@ -150,7 +142,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Spaces__BrandID__45F365D3">
+  <Association Name="FK__Spaces__BrandID__49C3F6B7">
     <End Role="Brands" Type="Self.Brand" Multiplicity="0..1" />
     <End Role="Spaces" Type="Self.Space" Multiplicity="*" />
     <ReferentialConstraint>
@@ -162,7 +154,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Staffs__BrandID__3F466844">
+  <Association Name="FK__Staffs__BrandID__4316F928">
     <End Role="Brands" Type="Self.Brand" Multiplicity="0..1" />
     <End Role="Staffs" Type="Self.Staff" Multiplicity="*" />
     <ReferentialConstraint>
@@ -183,24 +175,23 @@
     <EntitySet Name="Promotions" EntityType="Self.Promotion" />
     <EntitySet Name="Spaces" EntityType="Self.Space" />
     <EntitySet Name="Staffs" EntityType="Self.Staff" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-    <AssociationSet Name="FK__Brands__Category__3C69FB99" Association="Self.FK__Brands__Category__3C69FB99">
+    <AssociationSet Name="FK__Brands__Category__403A8C7D" Association="Self.FK__Brands__Category__403A8C7D">
       <End Role="Categories" EntitySet="Categories" />
       <End Role="Brands" EntitySet="Brands" />
     </AssociationSet>
-    <AssociationSet Name="FK__Events__BrandID__4222D4EF" Association="Self.FK__Events__BrandID__4222D4EF">
+    <AssociationSet Name="FK__Events__BrandID__45F365D3" Association="Self.FK__Events__BrandID__45F365D3">
       <End Role="Brands" EntitySet="Brands" />
       <End Role="Events" EntitySet="Events" />
     </AssociationSet>
-    <AssociationSet Name="FK__Promotion__Brand__48CFD27E" Association="Self.FK__Promotion__Brand__48CFD27E">
+    <AssociationSet Name="FK__Promotion__Brand__4CA06362" Association="Self.FK__Promotion__Brand__4CA06362">
       <End Role="Brands" EntitySet="Brands" />
       <End Role="Promotions" EntitySet="Promotions" />
     </AssociationSet>
-    <AssociationSet Name="FK__Spaces__BrandID__45F365D3" Association="Self.FK__Spaces__BrandID__45F365D3">
+    <AssociationSet Name="FK__Spaces__BrandID__49C3F6B7" Association="Self.FK__Spaces__BrandID__49C3F6B7">
       <End Role="Brands" EntitySet="Brands" />
       <End Role="Spaces" EntitySet="Spaces" />
     </AssociationSet>
-    <AssociationSet Name="FK__Staffs__BrandID__3F466844" Association="Self.FK__Staffs__BrandID__3F466844">
+    <AssociationSet Name="FK__Staffs__BrandID__4316F928" Association="Self.FK__Staffs__BrandID__4316F928">
       <End Role="Brands" EntitySet="Brands" />
       <End Role="Staffs" EntitySet="Staffs" />
     </AssociationSet>

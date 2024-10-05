@@ -3,13 +3,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<html>
+<!DOCTYPE html>
+<html lang="vi">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
-    <link href="@Url.Content("~/Content/custom.css")" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="@Url.Content("~/Content/Login.css")" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="~/Content/Login.css" rel="stylesheet" />
 </head>
 <body>
     <div class="login-container">
@@ -19,9 +23,9 @@
                 <input type="text" placeholder=" " id="username">
                 <label for="username">Tên đăng nhập</label>
             </div>
-            <div class="Password">
+            <div class="input-group">
                 <input type="password" placeholder=" " id="pass">
-                <label for="username">Mật Khẩu</label>
+                <label for="pass">Mật Khẩu</label>
             </div>
             <button class="signin" type="submit">Đăng nhập</button>
             <a href="#" class="forgot-password">Quên mật khẩu</a>
@@ -33,17 +37,15 @@
             <button class="fb-btn">
                 <div class="chua-fb">
                     <div class="fb">
-                        <img src="~/Images/fb.jpg" alt="Facebook Logo">
+                        <img src="~/Images/icon-fb.png" alt="Facebook Logo">
                     </div>
-                    <div class="text-fb"><h4>Facebook</h4></div>
                 </div>
             </button>
             <button class="gg-btn">
                 <div class="chua-gg">
                     <div class="gg">
-                        <img src="~/Images/gg.jpg" alt="Google Logo">
+                        <img src="~/Images/icon-gg.png" alt="Google Logo">
                     </div>
-                    <div class="text-gg"><h4>Google</h4></div>
                 </div>
             </button>
         </div>
