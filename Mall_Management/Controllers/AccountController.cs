@@ -3,7 +3,9 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using System.Data.Entity.Infrastructure;
-using System.Web.Security;  // This is fine for older versions of Entity Framework
+using System.Web.Security;
+using System.Data.Entity.Validation;
+using System.Data.Entity; 
 
 public class AccountController : Controller
 {
@@ -42,8 +44,6 @@ public class AccountController : Controller
             // Additional properties
             account.Role = "User";  // Default role for new users
             account.CreatedDate = DateTime.Now;  // Store the current date/time
-            account.IsActive = true;  // Assume user is active upon registration
-
             // Add the new account to the database
             db.Accounts.Add(account);
 
@@ -74,7 +74,6 @@ public class AccountController : Controller
     {
         return View();
     }
-
     [HttpPost]
     [ValidateAntiForgeryToken]
     public ActionResult DangNhap(string UsernameOrEmail, string Password)
@@ -84,25 +83,26 @@ public class AccountController : Controller
             ModelState.AddModelError(string.Empty, "Username/Email and Password are required.");
             return View();
         }
-
-        // Try to find the user by either username or email
         var account = db.Accounts.FirstOrDefault(a => a.Username == UsernameOrEmail || a.Email == UsernameOrEmail);
 
         if (account != null)
         {
-            // Check if the provided password matches the hashed password
             bool isPasswordValid = BCrypt.Net.BCrypt.Verify(Password, account.PasswordHash);
 
             if (isPasswordValid)
             {
-                // Optionally, use Forms Authentication to create an auth cookie
-                FormsAuthentication.SetAuthCookie(account.Username, false); // false = do not persist cookie
+                FormsAuthentication.SetAuthCookie(account.Username, false);
 
-                // Set session variables or handle login success logic
                 Session["Username"] = account.Username;
                 Session["Role"] = account.Role;
+                Session["IsActive"] = account.IsActive;
 
-                return RedirectToAction("Index", "Home");  // Redirect to the homepage after successful login
+                account.IsActive = true;
+
+                db.Entry(account).State = EntityState.Modified; // Ensure the entity is marked as modified
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -119,11 +119,26 @@ public class AccountController : Controller
 
 
 
-    //public ActionResult DangXuat()
-    //{
-    //    FormsAuthentication.SignOut();
-    //    Session.Clear();
-    //    // Redirect to the login page or home page after logout
-    //    return RedirectToAction("DangNhap", "Account");
-    //}
+
+
+    public ActionResult DangXuat()
+    {
+        var username = Session["Username"];
+        if (username != null)
+        {
+            var account = db.Accounts.FirstOrDefault(a => a.Username == (string)username);
+
+            if (account != null)
+            {
+                account.IsActive = false;
+
+                db.SaveChanges();
+            }
+
+            Session.Clear();
+            FormsAuthentication.SignOut();
+        }
+        return RedirectToAction("DangNhap", "Account");
+    }
+
 }

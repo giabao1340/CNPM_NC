@@ -12,18 +12,18 @@ namespace Mall_Management.Models
         [StringLength(50, ErrorMessage = "Username cannot be longer than 50 characters.")]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "Password is required.")]
+        // Password is only used during registration or change, hashed before saving
         [RegularExpression(@"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
             ErrorMessage = "Password must be at least 8 characters long, including at least one letter, one number, and one special character.")]
-        public string Password { get; set; }  // Plain-text password
+        public string Password { get; set; }  // Password should be hashed before storage
 
-        public string PasswordHash { get; set; }  // Hashed password
+        public string PasswordHash { get; set; }  // Store hashed password
 
+        // Password confirmation, only used in forms, not needed in database models
         [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string CFPassword { get; set; }
 
-        //[Required(ErrorMessage = "Full Name is required.")]
-        //[StringLength(100, ErrorMessage = "Full Name cannot be longer than 100 characters.")]
+        [StringLength(100, ErrorMessage = "Full Name cannot be longer than 100 characters.")]
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Email is required.")]
@@ -31,15 +31,15 @@ namespace Mall_Management.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Phone number is required.")]
-        [Phone(ErrorMessage = "invalid phone number.")]
+        [Phone(ErrorMessage = "Invalid phone number.")]
         public string Phone { get; set; }
 
         public string Avatar { get; set; }
 
-        public string Role { get; set; }
+        public string Role { get; set; }  // Or use an enum for consistency
 
-        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }  // Nullable date
 
-        public Nullable<bool> IsActive { get; set; }
+        public bool IsActive { get; set; } = false;  // Default to false
     }
 }
