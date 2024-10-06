@@ -189,6 +189,7 @@
     <Compile Include="Models\ParkingTicket.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PasswordChangeViewModel.cs" />
     <Compile Include="Models\Promotion.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -312,6 +313,7 @@
     <Content Include="Views\Home\MatBang.cshtml" />
     <Content Include="Views\Account\DangNhap.cshtml" />
     <Content Include="Views\Account\DangKy.cshtml" />
+    <Content Include="Views\Account\DoiMatKhau.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

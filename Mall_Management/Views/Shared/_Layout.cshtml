@@ -52,11 +52,20 @@
                         <img src="~/Images/user.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
                     </a>
                     <ul class="dropdown-menu custom-dropdown-menu">
-                        <li><a class="dropdown-item" href="@Url.Action("DangKy", "Account")">Đăng Ký</a></li>
-                        <li><a class="dropdown-item" href="@Url.Action("DangNhap", "Account")">Đăng Nhập</a></li>
-                        <li><a class="dropdown-item" href="@Url.Action("DangXuat", "Account")">Đăng xuất</a></li>
-                        <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+                        @if (Session["IsActive"] != null && (bool)Session["IsActive"] == true)
+                        {
+                            <!-- User is logged in (IsActive = true) -->
+                            <li><a class="dropdown-item" href="@Url.Action("DangXuat", "Account")">Đăng xuất</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("DoiMatKhau", "Account")">Đổi mật khẩu</a></li>
+                        }
+                        else
+                        {
+                            <!-- User is not logged in (IsActive = false) -->
+                            <li><a class="dropdown-item" href="@Url.Action("DangKy", "Account")">Đăng Ký</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("DangNhap", "Account")">Đăng Nhập</a></li>
+                        }
                     </ul>
+
                 </div>
             </div>
         </div>
