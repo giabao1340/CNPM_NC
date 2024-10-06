@@ -19,7 +19,7 @@ namespace Mall_Management.Models
 
         public string PasswordHash { get; set; }  // Hashed password
 
-        //[Compare("PasswordHash", ErrorMessage = "Passwords do not match.")]
+        [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string CFPassword { get; set; }
 
         //[Required(ErrorMessage = "Full Name is required.")]
