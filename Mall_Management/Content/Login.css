@@ -20,33 +20,32 @@ body {
     margin-top: 350px;
     margin-left: 60%;
 }
-
-.login-form h2 {
-    color: #333;
-    margin-bottom: 20px;
+h2{
+    margin-bottom :30px;
 }
 
-.input-group {
+/* Input styles */
+.input {
     position: relative;
     margin-bottom: 30px;
 }
 
-    .input-group input {
+    .input input {
         width: 100%;
-        padding: 12px;
+        padding: 10px;
         font-size: 16px;
         border: 2px solid #ddd;
-        border-radius: 5px;
+        border-radius: 4px;
         transition: border-color 0.3s;
     }
 
-        .input-group input:focus {
-            border-color: #EB567B;
+        .input input:focus {
+            border-color: #ddd;
             outline: none;
         }
 
     /* Label animation */
-    .input-group label {
+    .input label {
         position: absolute;
         left: 12px;
         top: 12px;
@@ -56,9 +55,9 @@ body {
         pointer-events: none;
     }
 
-    .input-group input:focus + label,
-    .input-group input:not(:placeholder-shown) + label {
-        top: -20px;
+    .input input:focus + label,
+    .input input:not(:placeholder-shown) + label {
+        top: -30px;
         font-size: 12px;
         color: #3FBCF8;
     }
@@ -96,7 +95,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 0;
+    margin: 10px;
     position: relative;
 }
 
@@ -145,23 +144,22 @@ body {
 }
 
 /* Sign up Link */
-.dangki {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    color: #EB567B;
+/* Submit button */
+.login {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #EB567B, #3FBCF8);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
-    .dangki .link a {
-        text-decoration: none;
-        color: #EB567B;
-        margin-left: 5px;
-        transition: color 0.3s;
+    .login:hover {
+        background: linear-gradient(45deg, #3FBCF8, #EB567B);
     }
-
-        .dangki .link a:hover {
-            color: #3FBCF8;
-        }
 
 /* Responsive design */
 @media (max-width: 768px) {

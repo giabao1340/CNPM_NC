@@ -12,24 +12,34 @@
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/Content/custom.css" rel="stylesheet" />
     <link href="~/Content/Login.css" rel="stylesheet" />
 </head>
 <body>
     <div class="login-container">
-        <form class="login-form">
-            <h2>Đăng nhập</h2>
-            <div class="input-group">
-                <input type="text" placeholder=" " id="username">
-                <label for="username">Tên đăng nhập</label>
+        @using (Html.BeginForm("DangNhap", "Account", FormMethod.Post, new { @class = "Login-form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h2>Đăng Nhập</h2>
+
+            <!-- Validation Summary -->
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <!-- Username or Email -->
+            <div class="input">
+                @Html.TextBox("UsernameOrEmail", null, new { placeholder = "Tên đăng nhập hoặc Email", @class = "form-control" })
+                @Html.Label("UsernameOrEmail", "Tên đăng nhập hoặc Email", new { @class = "form-label" })
             </div>
-            <div class="input-group">
-                <input type="password" placeholder=" " id="pass">
-                <label for="pass">Mật Khẩu</label>
+
+            <!-- Password -->
+            <div class="input">
+                @Html.Password("Password", null, new { placeholder = "Mật khẩu", @class = "form-control" })
+                @Html.Label("Password", "Mật khẩu", new { @class = "form-label" })
             </div>
-            <button class="signin" type="submit">Đăng nhập</button>
-            <a href="#" class="forgot-password">Quên mật khẩu</a>
-        </form>
+
+            <!-- Submit Button -->
+            <button class="login" type="submit">Đăng Nhập</button>
+        }
+        <a href="#" class="forgot-password">Quên mật khẩu</a>
         <div class="line-with-text">
             <span class="line-text">Hoặc</span>
         </div>

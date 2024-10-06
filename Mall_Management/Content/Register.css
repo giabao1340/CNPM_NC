@@ -60,7 +60,7 @@ body {
 
     .input input:focus + label,
     .input input:not(:placeholder-shown) + label {
-        top: -20px;
+        top: -30px;
         font-size: 12px;
         color: #3FBCF8;
     }
