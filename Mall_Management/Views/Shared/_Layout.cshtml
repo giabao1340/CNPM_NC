@@ -40,8 +40,20 @@
                         <a class="nav-link main-color" href="@Url.Action("SuKien", "Home")">SỰ KIỆN</a>
                     </li>
                     <li class="nav-item ms-5">
-                        <a class="nav-link main-color" href="@Url.Action("MatBang", "Home")">MẶT BẰNG</a>
+                        @{
+                            var role = Session["Role"] as string; 
+                        }
+
+                        @if (role == "Admin")
+                        {
+                            <a class="nav-link main-color" href="@Url.Action("AdminPanel", "Admin")">ADMIN PANEL</a>
+                        }
+                        else
+                        {
+                            <a class="nav-link main-color" href="@Url.Action("MatBang", "Home")">MẶT BẰNG</a>
+                        }
                     </li>
+
                 </ul>
                 <form class="d-flex ms-5">
                     <input class="form-control me-2" type="text" placeholder="Search">
