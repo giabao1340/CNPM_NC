@@ -134,7 +134,6 @@ public class AccountController : Controller
 
                 db.SaveChanges();
             }
-
             Session.Clear();
             FormsAuthentication.SignOut();
         }
