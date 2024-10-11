@@ -1,6 +1,6 @@
-﻿@model Mall_Management.Models.Account
+﻿@model PasswordChangeViewModel
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <title>Đổi Mật Khẩu</title>
     <meta charset="utf-8">
@@ -12,32 +12,47 @@
 </head>
 <body>
     <div class="Dangky-container">
-        @using (Html.BeginForm("ChangePassword", "Account", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            <h2>Đổi Mật Khẩu</h2>
-            @*<div class="form-group">*@
-                @*@Html.LabelFor(m => m.CurrentPassword, new { @class = "control-label" })
-                @Html.PasswordFor(m => m.CurrentPassword, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.CurrentPassword, "", new { @class = "text-danger" })
-            </div>
+    <!-- Display Success Message -->
+    if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.NewPassword, new { @class = "control-label" })
-                @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.NewPassword, "", new { @class = "text-danger" })
-            </div>
+    <!-- Form to Change Password -->
+    @using (Html.BeginForm("DoiMatKhau", "Account", FormMethod.Post, new { @class = "Dangky-form" }))
+    {
+        @Html.AntiForgeryToken()
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-            </div>*@
+        <h2>Đổi Mật Khẩu</h2>
 
-            <input type="submit" value="Change Password" class="btn btn-primary" />
+        <!-- Display validation summary -->
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <button class="signup" type="submit">Đăng Ký</button>
-        }
-    </div>
+        <!-- Current Password -->
+        <div class="input">
+            @Html.PasswordFor(m => m.CurrentPassword, new { placeholder = "Nhập mật khẩu hiện tại", @class = "form-control" })
+            @Html.LabelFor(m => m.CurrentPassword, "Nhập mật khẩu hiện tại", new { @class = "form-label" })
+            @Html.ValidationMessageFor(m => m.CurrentPassword, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- New Password -->
+        <div class="input">
+            @Html.PasswordFor(m => m.NewPassword, new { placeholder = "Nhập mật khẩu mới", @class = "form-control" })
+            @Html.LabelFor(m => m.NewPassword, "Nhập mật khẩu mới", new { @class = "form-label" })
+            @Html.ValidationMessageFor(m => m.NewPassword, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Confirm New Password -->
+        <div class="input">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Xác nhận mật khẩu mới", @class = "form-control" })
+            @Html.LabelFor(m => m.ConfirmPassword, "Xác nhận mật khẩu mới", new { @class = "form-label" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+
+        <button class="signup" type="submit">Đổi Mật Khẩu</button>
+    }
+</div>
 </body>
 </html>

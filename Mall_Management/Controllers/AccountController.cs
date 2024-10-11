@@ -6,6 +6,9 @@ using System.Data.Entity.Infrastructure;
 using System.Web.Security;
 using System.Data.Entity.Validation;
 using System.Data.Entity;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 
 public class AccountController : Controller
 {
@@ -118,9 +121,6 @@ public class AccountController : Controller
     }
 
 
-
-
-
     public ActionResult DangXuat()
     {
         var username = Session["Username"];
@@ -141,4 +141,57 @@ public class AccountController : Controller
         return RedirectToAction("DangNhap", "Account");
     }
 
+    [HttpGet]
+    public ActionResult DoiMatKhau()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult> DoiMatKhau(PasswordChangeViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model); // Return the view with validation errors
+        }
+
+        // Fallback to session-based authentication if User.Identity.Name is not populated
+        var currentUsername = User.Identity.Name;
+        if (string.IsNullOrEmpty(currentUsername))
+        {
+            currentUsername = Session["Username"]?.ToString(); // Check session if identity name is missing
+        }
+
+        if (string.IsNullOrEmpty(currentUsername))
+        {
+            ModelState.AddModelError(string.Empty, "Không thể tìm thấy tài khoản đang đăng nhập.");
+            return View(model);
+        }
+
+        var account = await db.Accounts.SingleOrDefaultAsync(a => a.Username == currentUsername);
+
+        if (account == null)
+        {
+            ModelState.AddModelError(string.Empty, "Tài khoản không tồn tại.");
+            return View(model);
+        }
+
+        // Validate current password using BCrypt
+        if (!BCrypt.Net.BCrypt.Verify(model.CurrentPassword, account.PasswordHash))
+        {
+            ModelState.AddModelError(string.Empty, "Mật khẩu hiện tại không đúng.");
+            return View(model);
+        }
+
+        // Hash the new password using BCrypt before saving it to the database
+        account.PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.NewPassword);
+
+        // Save the changes to the database
+        db.Entry(account).State = EntityState.Modified;
+        await db.SaveChangesAsync();
+
+        TempData["SuccessMessage"] = "Mật khẩu đã được thay đổi thành công!";
+        return RedirectToAction("Index", "Home");
+    }
 }
