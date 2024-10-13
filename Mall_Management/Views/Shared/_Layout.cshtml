@@ -1,11 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <title>Trang Chủ</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @Scripts.Render("~/bundles/modernizr")
-    <link href="@Url.Content("~/Content/custom.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link href="@Url.Content("~/Content/custom.css")" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <nav id="mynavbar" class="navbar navbar-expand-sm fixed-top bg-white">
@@ -22,7 +23,7 @@
                         <a class="nav-link main-color" href="@Url.Action("Index", "Home")">TRANG CHỦ</a>
                     </li>
                     <li class="nav-item dropdown ms-5">
-                        <a class="nav-link main-color" href="@Url.Action("DanhMuc", "Home")" role="button">
+                        <a class="nav-link main-color" href="@Url.Action("Index", "Brand")" role="button">
                             THƯƠNG HIỆU
                         </a>
                         <ul class="dropdown-menu">

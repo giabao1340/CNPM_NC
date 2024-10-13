@@ -156,6 +156,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BrandController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -204,6 +205,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\admin.css" />
+    <Content Include="Content\AdminCSS\plugins.bundle.css" />
+    <Content Include="Content\AdminCSS\style.bundle.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -316,9 +319,10 @@
     <Content Include="Views\Account\DangNhap.cshtml" />
     <Content Include="Views\Account\DangKy.cshtml" />
     <Content Include="Views\Account\DoiMatKhau.cshtml" />
+    <Content Include="Views\Shared\_MainLayout.cshtml" />
+    <Content Include="Views\Shared\_HeaderLayout.cshtml" />
     <Content Include="Views\Admin\AdminPanel.cshtml" />
-    <Content Include="Views\Shared\Main_Layout.cshtml" />
-    <Content Include="Views\Shared\Header_Layout.cshtml" />
+    <Content Include="Views\Brand\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
