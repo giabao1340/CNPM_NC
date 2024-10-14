@@ -328,7 +328,11 @@
     <Content Include="Views\Shared\_MainLayout.cshtml" />
     <Content Include="Views\Shared\_HeaderLayout.cshtml" />
     <Content Include="Views\Brand\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Home\ThuongHieu.cshtml" />
+=======
+    <Content Include="Views\Brand\AmThuc.cshtml" />
+>>>>>>> 834d704712d48b41d89c42d03944b85e60a931f0
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
