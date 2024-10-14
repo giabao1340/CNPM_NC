@@ -13,5 +13,9 @@ namespace Mall_Management.Controllers
         {
             return View();
         }
+        public ActionResult AmThuc()
+        {
+            return View();
+        }
     }
 }
