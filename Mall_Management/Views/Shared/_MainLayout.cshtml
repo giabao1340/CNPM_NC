@@ -48,7 +48,7 @@
                 <!--begin::Brand-->
                 <div class="aside-logo flex-column-auto" id="kt_aside_logo" style="margin-top: 25px">
                     <!--begin::Logo-->
-                    <a class="fs-1 fw-bolder text-white" href="@Url.Action("Index","Products")">
+                    <a class="fs-1 fw-bolder text-white" href="@Url.Action("Index","Home")">
                         <img src="~/Images/logo.png" style=" width: 176px; height: auto; border-radius: 2px; object-fit: cover;" />
                     </a>
                     <!--end::Logo-->
@@ -251,8 +251,9 @@
                 </div>
                 <!--end::Aside menu-->
             </div>
-            @RenderBody()
-
+            <div style="margin-left:280px">
+                @RenderBody()
+            </div>
             <!--end::Aside-->
         </div>
      </div>

@@ -13,6 +13,10 @@ namespace Mall_Management.Controllers
         {
             return View();
         }
+        public ActionResult ThuongHieu()
+        {
+            return View();
+        }
         public ActionResult DanhMuc()
         {
             return View();

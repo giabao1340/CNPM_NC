@@ -23,7 +23,7 @@
                         <a class="nav-link main-color" href="@Url.Action("Index", "Home")">TRANG CHỦ</a>
                     </li>
                     <li class="nav-item dropdown ms-5">
-                        <a class="nav-link main-color" href="@Url.Action("Index", "Brand")" role="button">
+                        <a class="nav-link main-color" href="@Url.Action("ThuongHieu", "Home")" role="button">
                             THƯƠNG HIỆU
                         </a>
                         <ul class="dropdown-menu">
@@ -47,7 +47,7 @@
 
                         @if (role == "Admin")
                         {
-                            <a class="nav-link main-color" href="@Url.Action("AdminPanel", "Admin")">ADMIN PANEL</a>
+                            <a class="nav-link main-color" href="@Url.Action("Index", "Brand")">ADMIN PANEL</a>
                         }
                         else
                         {

@@ -95,3 +95,7 @@ C:\Users\luong\source\repos\Mall_Management\Mall_Management\bin\System.Runtime.C
 C:\Users\luong\source\repos\Mall_Management\Mall_Management\bin\System.Data.SQLite.dll
 C:\Users\luong\source\repos\Mall_Management\Mall_Management\bin\System.Data.SQLite.Linq.dll
 C:\Users\luong\source\repos\Mall_Management\Mall_Management\bin\System.Data.SQLite.xml
+C:\Users\luong\source\repos\Mall_Management\Mall_Management\bin\PagedList.dll
+C:\Users\luong\source\repos\Mall_Management\Mall_Management\bin\PagedList.Mvc.dll
+C:\Users\luong\source\repos\Mall_Management\Mall_Management\bin\PagedList.xml
+C:\Users\luong\source\repos\Mall_Management\Mall_Management\bin\PagedList.Mvc.xml
