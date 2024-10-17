@@ -28,7 +28,6 @@ namespace Mall_Management.Models
         public string Image { get; set; }
         public string Url { get; set; }
         public string Description { get; set; }
-        public Nullable<decimal> Revenue { get; set; }
         public Nullable<int> CategoryID { get; set; }
     
         public virtual Category Category { get; set; }

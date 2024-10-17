@@ -6,9 +6,9 @@
     </Key>
     <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Username" Type="nvarchar" MaxLength="50" />
-    <Property Name="PasswordHash" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar" MaxLength="256" />
     <Property Name="FullName" Type="nvarchar" MaxLength="100" />
-    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
     <Property Name="Phone" Type="nvarchar" MaxLength="20" />
     <Property Name="Avatar" Type="nvarchar(max)" />
     <Property Name="Role" Type="nvarchar" MaxLength="50" />
@@ -20,11 +20,10 @@
       <PropertyRef Name="BrandID" />
     </Key>
     <Property Name="BrandID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="BrandName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="BrandName" Type="nvarchar" MaxLength="100" />
     <Property Name="Image" Type="nvarchar(max)" />
     <Property Name="Url" Type="varchar(max)" />
     <Property Name="Description" Type="nvarchar" MaxLength="255" />
-    <Property Name="Revenue" Type="decimal" Precision="10" Scale="2" />
     <Property Name="CategoryID" Type="int" />
   </EntityType>
   <EntityType Name="Categories">
@@ -32,7 +31,7 @@
       <PropertyRef Name="CategoryID" />
     </Key>
     <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Events">
     <Key>
@@ -42,20 +41,10 @@
     <Property Name="EventName" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="255" />
     <Property Name="Image" Type="nvarchar(max)" />
-    <Property Name="StartDate" Type="datetime" Nullable="false" />
-    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
     <Property Name="BrandID" Type="int" />
     <Property Name="Register" Type="nvarchar" MaxLength="255" />
-  </EntityType>
-  <EntityType Name="ParkingTickets">
-    <Key>
-      <PropertyRef Name="TicketID" />
-    </Key>
-    <Property Name="TicketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="LicensePlate" Type="varchar" MaxLength="10" />
-    <Property Name="Prices" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="TimeStart" Type="datetime" />
-    <Property Name="TimeEnd" Type="datetime" />
   </EntityType>
   <EntityType Name="Promotions">
     <Key>
@@ -76,14 +65,14 @@
     </Key>
     <Property Name="SpaceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="BrandID" Type="int" />
-    <Property Name="SpaceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="SpaceName" Type="nvarchar" MaxLength="100" />
     <Property Name="Size" Type="decimal" Precision="10" Scale="2" />
     <Property Name="Location" Type="nvarchar" MaxLength="100" />
     <Property Name="Image" Type="nvarchar(max)" />
     <Property Name="RentalPrice" Type="decimal" Precision="10" Scale="2" />
     <Property Name="Status" Type="int" />
-    <Property Name="StartDate" Type="datetime" Nullable="false" />
-    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
   </EntityType>
   <EntityType Name="Staffs">
     <Key>
@@ -161,7 +150,6 @@
     <EntitySet Name="Brands" EntityType="Self.Brands" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ParkingTickets" EntityType="Self.ParkingTickets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Promotions" EntityType="Self.Promotions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Spaces" EntityType="Self.Spaces" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />

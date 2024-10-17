@@ -25,7 +25,6 @@
           <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="Url" ColumnName="Url" />
           <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Revenue" ColumnName="Revenue" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -49,17 +48,6 @@
           <ScalarProperty Name="EndDate" ColumnName="EndDate" />
           <ScalarProperty Name="BrandID" ColumnName="BrandID" />
           <ScalarProperty Name="Register" ColumnName="Register" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ParkingTickets">
-      <EntityTypeMapping TypeName="mall_dbModel.ParkingTicket">
-        <MappingFragment StoreEntitySet="ParkingTickets">
-          <ScalarProperty Name="TicketID" ColumnName="TicketID" />
-          <ScalarProperty Name="LicensePlate" ColumnName="LicensePlate" />
-          <ScalarProperty Name="Prices" ColumnName="Prices" />
-          <ScalarProperty Name="TimeStart" ColumnName="TimeStart" />
-          <ScalarProperty Name="TimeEnd" ColumnName="TimeEnd" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

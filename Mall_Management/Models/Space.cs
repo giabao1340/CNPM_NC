@@ -22,8 +22,8 @@ namespace Mall_Management.Models
         public string Image { get; set; }
         public Nullable<decimal> RentalPrice { get; set; }
         public Nullable<int> Status { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
     
         public virtual Brand Brand { get; set; }
     }

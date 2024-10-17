@@ -29,7 +29,6 @@ namespace Mall_Management.Models
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Event> Events { get; set; }
-        public virtual DbSet<ParkingTicket> ParkingTickets { get; set; }
         public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<Space> Spaces { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }

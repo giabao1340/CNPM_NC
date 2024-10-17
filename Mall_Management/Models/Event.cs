@@ -18,8 +18,8 @@ namespace Mall_Management.Models
         public string EventName { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<int> BrandID { get; set; }
         public string Register { get; set; }
     

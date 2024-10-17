@@ -193,9 +193,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\ParkingTicket.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\PasswordChangeViewModel.cs" />
     <Compile Include="Models\Promotion.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -210,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\admin.css" />
+    <Content Include="Content\AdminCSS\PagedList.css" />
     <Content Include="Content\AdminCSS\plugins.bundle.css" />
     <Content Include="Content\AdminCSS\style.bundle.css" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -291,6 +289,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\AdminJs\brands.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
