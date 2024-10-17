@@ -234,19 +234,53 @@
     <Content Include="Content\Register.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\88.jpg" />
+    <Content Include="Images\akahouse.jpg" />
+    <Content Include="Images\alfresco.jpg" />
     <Content Include="Images\banner1.png" />
     <Content Include="Images\banner2.jpg" />
     <Content Include="Images\banner3.png" />
+    <Content Include="Images\beechenghiang.jpg" />
+    <Content Include="Images\BOBAPOP.jpg" />
     <Content Include="Images\bocongthuong.png" />
+    <Content Include="Images\buffethoangyen.jpg" />
+    <Content Include="Images\CHANGKANGKUNG.jpg" />
+    <Content Include="Images\dookki.jpg" />
     <Content Include="Images\fb.jpg" />
     <Content Include="Images\gg.jpg" />
+    <Content Include="Images\gogihouse.jpg" />
+    <Content Include="Images\haidilao.jpg" />
+    <Content Include="Images\highlandcoffee.jpg" />
+    <Content Include="Images\hotpotstory.jpg" />
+    <Content Include="Images\hutong.jpg" />
     <Content Include="Images\icon-email.png" />
     <Content Include="Images\icon-fb.png" />
     <Content Include="Images\icon-gg.png" />
     <Content Include="Images\icon-intergra.png" />
     <Content Include="Images\icon-youtube.png" />
+    <Content Include="Images\jollibee.jpg" />
+    <Content Include="Images\khaolao.jpg" />
+    <Content Include="Images\kichikichi.jpg" />
+    <Content Include="Images\KINGBBQ.jpg" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\LokLok.jpg" />
+    <Content Include="Images\lotteria.jpg" />
+    <Content Include="Images\makmak.jpg" />
+    <Content Include="Images\marukameudon.jpg" />
+    <Content Include="Images\MEIWEI.jpg" />
+    <Content Include="Images\phuclong.jpg" />
+    <Content Include="Images\pizzacompany.jpg" />
+    <Content Include="Images\shabuya.jpg" />
+    <Content Include="Images\spicybox.jpg" />
+    <Content Include="Images\starbuckscoffee.jpg" />
+    <Content Include="Images\sumobbq.jpg" />
+    <Content Include="Images\tasakibbq.jpg" />
+    <Content Include="Images\texaschicken.jpg" />
+    <Content Include="Images\thaiexpress.jpg" />
+    <Content Include="Images\tocotoco.jpg" />
     <Content Include="Images\user.png" />
+    <Content Include="Images\v.haiyen.jpg" />
+    <Content Include="Images\YAMAZAKIBAKERY.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -328,11 +362,8 @@
     <Content Include="Views\Shared\_MainLayout.cshtml" />
     <Content Include="Views\Shared\_HeaderLayout.cshtml" />
     <Content Include="Views\Brand\Index.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Home\ThuongHieu.cshtml" />
-=======
     <Content Include="Views\Brand\AmThuc.cshtml" />
->>>>>>> 834d704712d48b41d89c42d03944b85e60a931f0
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
