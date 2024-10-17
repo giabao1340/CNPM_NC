@@ -361,9 +361,8 @@
     <Content Include="Views\Account\DoiMatKhau.cshtml" />
     <Content Include="Views\Shared\_MainLayout.cshtml" />
     <Content Include="Views\Shared\_HeaderLayout.cshtml" />
-    <Content Include="Views\Brand\Index.cshtml" />
     <Content Include="Views\Home\ThuongHieu.cshtml" />
-    <Content Include="Views\Brand\AmThuc.cshtml" />
+    <Content Include="Views\Brand\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
