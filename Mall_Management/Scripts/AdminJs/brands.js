@@ -42,104 +42,30 @@ document.getElementById('edit__save').addEventListener('click', function () {
     });
 
 });
-////1. Thêm mới 
-////2. Chỉnh sửa
-////3. Xóa
-////4. Tìm kiếm gợi ý
-////------------------------------------------------/
-const createModal = $('#create-modal')
-const editModal = $('#edit-modal')
-const deleteModal = $('#delete-modal');
-let brandID;
-$('.dimis-modal').click(function () {
-    createModal.modal('hide');
-    editModal.modal('hide');
-    deleteModal.modal('hide');
-});
-//1. thêm mới
-$('#create__open').click(function () {
-    createModal.modal('show');
-});
-$('#create__save').click(function () {
-    const name = $('#create__input').val()
-    if (name == "") {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top',
-            showConfirmButton: false,
-            timer: 1500,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-        Toast.fire({
-            icon: 'warning',
-            title: 'Nhập tên loại'
-        })
-        return;
-    }
-    return $.ajax({
-        type: "POST",
-        url: '/Brands/Create',
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ brandName: name }),
-        dataType: "json",
-        success: function (result) {
-            if (result == "exist") {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Tên đã tồn tại'
-                })
-                return;
-            }
-            else {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 1000,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Thêm thành công'
-                })
-                setTimeout(function () {
-                    window.location.reload();
-                }, 500);
-                createModalLogin.modal('hide');
-                return;
+document.getElementById('delete__save').addEventListener('click', function () {
+    // Lấy giá trị của Brand ID từ input ẩn (hoặc bất kỳ nguồn nào khác mà bạn lưu trữ ID thương hiệu cần xóa)
+    const brandID = document.getElementById('deleteBrandID').value;
+
+    // Thực hiện thao tác xóa hoặc gửi yêu cầu AJAX để xóa
+    console.log({
+        brandID: brandID
+    });
+
+    // Ví dụ: Gửi yêu cầu xóa qua AJAX
+    $.ajax({
+        url: '/Brand/Delete',
+        type: 'POST',
+        data: { id: brandID },
+        success: function (response) {
+            if (response.success) {
+                alert('Thương hiệu đã được xóa thành công!');
+                location.reload(); // Tải lại trang để cập nhật sau khi xóa
+            } else {
+                alert('Đã có lỗi xảy ra khi xóa thương hiệu.');
             }
         },
         error: function () {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 1500,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-            Toast.fire({
-                icon: 'error',
-                title: 'Thêm không thành công'
-            })
+            alert('Đã có lỗi xảy ra trong quá trình xóa thương hiệu.');
         }
     });
 });
@@ -164,62 +90,111 @@ function deleteOpen(id, name) {
     document.getElementById('deleteBrandName').textContent = name;
     deleteModal.show();
 }
-function saveEdit() {
+
+
+////1. Thêm mới 
+////2. Chỉnh sửa
+////3. Xóa
+////4. Tìm kiếm gợi ý
+////------------------------------------------------/
+const createModal = $('#create-modal')
+const editModal = $('#edit-modal')
+const deleteModal = $('#delete-modal');
+let brandID;
+$('.dimis-modal').click(function () {
+    createModal.modal('hide');
+    editModal.modal('hide');
+    deleteModal.modal('hide');
+});
+//1. thêm mới
+function createBrand() {
     var brandData = {
-        id: $('#brandId').val(),  // ID thương hiệu
-        BrandName: $('#brandName').val(),  // Tên thương hiệu
-        Image: $('#image').val(),  // Hình ảnh thương hiệu
-        Description: $('#description').val(),  // Mô tả
-        Url: $('#url').val()  // URL thương hiệu
+        BrandName: $("#createBrandName").val(),
+        Image: $("#createBrandImage").val(),
+        Description: $("#createBrandDescription").val(),
+        Url: $("#createBrandUrl").val()
     };
 
-    console.log(brandData);  // In ra console để kiểm tra dữ liệu
-
     $.ajax({
-        url: '/Brand/Edit',  // URL gửi yêu cầu AJAX
+        url: '/Brand/Create',
         type: 'POST',
-        data: brandData,  // Dữ liệu được gửi lên server
+        data: brandData,
         success: function (response) {
-            if (response === 'success') {
-                alert('Cập nhật thành công!');
-            } else if (response === 'exist') {
+            if (response === "success") {
+                alert('Thương hiệu đã được thêm thành công!');
+                location.reload(); // Reload page after success
+            } else if (response === "exist") {
                 alert('Tên thương hiệu đã tồn tại!');
             } else {
-                alert('Có lỗi xảy ra!');
+                alert('Đã có lỗi xảy ra!');
             }
         },
-        error: function (xhr, status, error) {
-            console.log('Lỗi: ', error);  // In chi tiết lỗi ra console
+        error: function () {
+            alert('Đã có lỗi xảy ra trong quá trình thêm thương hiệu.');
+        }
+    });
+}
+
+function saveEdit() {
+    // Thu thập dữ liệu từ form
+    var brandID = $("#editBrandID").val();
+    var brandData = {
+        BrandID: brandID,
+        BrandName: $("#editBrandName").val(),
+        Image: $("#editBrandImage").val(),
+        Description: $("#editBrandDescription").val(),
+        Url: $("#editBrandUrl").val()
+    };
+
+    // Gửi AJAX request để cập nhật thông tin thương hiệu
+    $.ajax({
+        url: '/Brand/Edit',  // Đảm bảo URL đúng với controller của bạn
+        type: 'POST',
+        data: { id: brandID, brand: brandData },  // Truyền id và dữ liệu brand
+        success: function (response) {
+            if (response === "success") {
+                alert('Cập nhật thương hiệu thành công!');
+                $('#editBrandModal').modal('hide'); // Đóng modal sau khi thành công
+                location.reload();  // Tải lại trang để cập nhật
+            } else if (response === "exist") {
+                alert('Tên thương hiệu đã tồn tại!');
+            } else {
+                alert('Đã có lỗi xảy ra!');
+            }
+        },
+        error: function () {
+            alert('Đã có lỗi xảy ra trong quá trình cập nhật thương hiệu.');
         }
     });
 }
 
 
-function confirmDelete() {
-    var brandID = document.getElementById('deleteBrandID').value;
 
-    // Gửi AJAX request tới controller
+
+function deleteOpen(id, name) {
+    console.log("Delete Open Called with ID: ", id);
+    // Mở modal xóa
+    var deleteModal = new bootstrap.Modal(document.getElementById('deleteBrandModal'));
+    document.getElementById('deleteBrandID').value = id;
+    document.getElementById('deleteBrandName').textContent = name;
+    deleteModal.show();
+}
+
+function confirmDelete() {
+    var brandID = $("#editBrandID").val();  // Lấy ID của thương hiệu cần xóa
+    // Gửi AJAX request để xóa thương hiệu
     $.ajax({
-        
-        url: '/Brand/Delete', 
+        url: '/Brand/Delete',  // Đảm bảo URL đúng với controller của bạn
         type: 'POST',
-        data: {
-            id: brandID
-        },
+        data: { id: brandID },  // Gửi ID thương hiệu cần xóa
         success: function (response) {
-            if (response === "success") {
-                alert("Xóa thành công!");
-                location.reload();  // Tải lại trang sau khi xóa thành công
+            if (response.success) {
+                alert('Thương hiệu đã được xóa thành công!');
+                $('#editBrandModal').modal('hide');  // Đóng modal sau khi xóa thành công
+                location.reload();  // Tải lại trang để cập nhật
             } else {
-                alert("Có lỗi xảy ra.");
+                alert(response.message);
             }
         },
-        error: function () {
-            alert("Có lỗi trong quá trình xóa.");
-        }
     });
-
-    // Đóng modal sau khi gửi yêu cầu
-    var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteBrandModal'));
-    deleteModal.hide();
 }

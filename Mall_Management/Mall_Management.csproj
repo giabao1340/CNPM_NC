@@ -289,7 +289,18 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\AdminJs\auth.js" />
     <Content Include="Scripts\AdminJs\brands.js" />
+    <Content Include="Scripts\AdminJs\discounts.js" />
+    <Content Include="Scripts\AdminJs\genres.js" />
+    <Content Include="Scripts\AdminJs\orders.js" />
+    <Content Include="Scripts\AdminJs\plugins.bundle.js" />
+    <Content Include="Scripts\AdminJs\products.js" />
+    <Content Include="Scripts\AdminJs\repry-feedback.js" />
+    <Content Include="Scripts\AdminJs\scripts.bundle.js" />
+    <Content Include="Scripts\AdminJs\vis-timeline.bundle.js" />
+    <Content Include="Scripts\AdminJs\widgets.bundle.js" />
+    <Content Include="Scripts\AdminJs\widgets.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />

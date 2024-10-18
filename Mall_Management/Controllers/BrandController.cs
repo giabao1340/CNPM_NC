@@ -54,19 +54,20 @@ namespace Mall_Management.Controllers
             catch (Exception ex)
             {
                 // Log lỗi nếu cần
+                Console.WriteLine(ex);
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
 
 
         [HttpPost]
-        public JsonResult Edit(int id, Brand brand)
+        public JsonResult Edit(Brand brand)
         {
             string result = "error";
             try
             {
                 // Tìm thương hiệu cần sửa
-                Brand brandToUpdate = _db.Brands.FirstOrDefault(m => m.BrandID == id);
+                Brand brandToUpdate = _db.Brands.FirstOrDefault(m => m.BrandID == brand.BrandID);
 
                 // Nếu không tìm thấy thương hiệu
                 if (brandToUpdate == null)
@@ -74,8 +75,8 @@ namespace Mall_Management.Controllers
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
 
-                // Kiểm tra nếu tên thương hiệu đã tồn tại cho một thương hiệu khác
-                var checkExist = _db.Brands.FirstOrDefault(m => m.BrandName == brand.BrandName && m.BrandID != id);
+                // Kiểm tra nếu tên thương hiệu đã tồn tại cho một thương hiệu khác, bỏ qua thương hiệu hiện tại
+                var checkExist = _db.Brands.FirstOrDefault(m => m.BrandName == brand.BrandName && m.BrandID != brand.BrandID);
                 if (checkExist != null)
                 {
                     result = "exist";
@@ -96,15 +97,16 @@ namespace Mall_Management.Controllers
             catch (Exception ex)
             {
                 // Log lỗi nếu cần
+                Console.WriteLine(ex);
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
 
 
+
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            string result = "error";
             try
             {
                 // Tìm thương hiệu cần xóa
@@ -119,11 +121,11 @@ namespace Mall_Management.Controllers
                 // Xóa thương hiệu
                 _db.Brands.Remove(brand);
                 _db.SaveChanges();
-                result = "success";
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 // Log lỗi nếu cần
                 return Json(new { success = false, message = "Error occurred while deleting the brand" }, JsonRequestBehavior.AllowGet);
             }
