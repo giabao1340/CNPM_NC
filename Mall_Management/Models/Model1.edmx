@@ -29,6 +29,7 @@
           <Property Name="Image" Type="nvarchar(max)" />
           <Property Name="Url" Type="varchar(max)" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Floor" Type="nvarchar" MaxLength="50" />
           <Property Name="CategoryID" Type="int" />
         </EntityType>
         <EntityType Name="Categories">
@@ -208,6 +209,7 @@
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Floor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CategoryID" Type="Int32" />
           <NavigationProperty Name="Category" Relationship="Self.FK__Brands__Category__403A8C7D" FromRole="Brands" ToRole="Categories" />
           <NavigationProperty Name="Events" Relationship="Self.FK__Events__BrandID__45F365D3" FromRole="Brands" ToRole="Events" />
@@ -398,6 +400,7 @@
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Floor" ColumnName="Floor" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
               </MappingFragment>
             </EntityTypeMapping>

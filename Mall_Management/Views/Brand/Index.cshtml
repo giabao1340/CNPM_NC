@@ -21,7 +21,7 @@
                     <!--begin::Toolbar-->
                     <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                         <!--begin::Add Game Account-->
-                        <button type="button" class="btn btn-primary" id="create__open">
+                        <button type="button" class="btn btn-primary" id="create__open" onclick="createOpen()">
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -51,6 +51,7 @@
                                     <th class="min-w-50px" tabindex="1" arowspan="1" colspan="1" style="width:100px;">ID</th>
                                     <th class="min-w-150px" tabindex="2" rowspan="1" colspan="1" style="width:220px;">Tên thương hiệu</th>
                                     <th class="min-w-125px" tabindex="5" rowspan="1" colspan="1" style="width:140px;">Hình ảnh</th>
+                                    <th class="min-w-125px" tabindex="5" rowspan="1" colspan="1" style="width:140px;">Tầng</th>
                                     <th class="min-w-125px" tabindex="5" rowspan="1" colspan="1" style="width:220px;">Mô tả</th>
                                     <th class="min-w-125px" tabindex="5" rowspan="1" colspan="1" style="width:200px;">Url</th>
                                     <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 130px;">Hành động</th>
@@ -89,7 +90,7 @@
                                                     <span>No image available</span>
                                                 }
                                             </td>
-
+                                            <td>@item.Floor</td>
                                             <td>@Truncate(item.Description, 50)</td>
                                             <td>@item.Url</td>
 
@@ -105,7 +106,7 @@
 
                                                     <ul class="dropdown-menu dropdown-menu-end">
                                                         <li>
-                                                            <a href="#" onclick="editOpen('@item.BrandID', '@item.BrandName', '@item.Image', '@item.Description', '@item.Url')" class="dropdown-item">Chỉnh sửa</a>
+                                                            <a href="#" onclick="editOpen('@item.BrandID', '@item.BrandName', '@item.Image', '@item.Floor', '@item.Description', '@item.Url')" class="dropdown-item">Chỉnh sửa</a>
                                                         </li>
                                                         <li>
                                                             <a href="#" onclick="deleteOpen('@item.BrandID', '@item.BrandName')" class="dropdown-item">Xóa</a>
@@ -138,7 +139,7 @@
 </div>
 
 <!--begin::Modal - Create-->
-<div class="modal fade" id="create-modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="createBrandModal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -192,6 +193,17 @@
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
                     <!--end::Input group-->
+                    <!--begin::Input group: Floor-->
+                    <div class="d-flex flex-column mb-8 fv-row">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Tầng</span>
+                        </label>
+                        <!--end::Label-->
+                        <input type="text" id="floor" name="floor" class="form-control form-control-solid" placeholder="Nhập Tầng">
+                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                    </div>
+                    <!--end::Input group-->
                     <!--begin::Input group: Description-->
                     <div class="d-flex flex-column mb-8 fv-row">
                         <!--begin::Label-->
@@ -217,7 +229,7 @@
                     <!--begin::Actions-->
                     <div class="text-center">
                         <button type="button" class="btn btn-light me-3 dimis-modal">Hủy bỏ</button>
-                        <button type="button" id="create__save" class="btn btn-primary">Lưu</button>
+                        <button type="button" id="create__save" class="btn btn-primary" onclick="saveCreate()">Lưu</button>
                     </div>
                     <!--end::Actions-->
                 </form>
@@ -249,6 +261,10 @@
                     <div class="mb-3">
                         <label for="editBrandImage" class="form-label">Hình ảnh</label>
                         <input type="text" class="form-control" id="editBrandImage" name="Image">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editBrandFloor" class="form-label">Tầng</label>
+                        <input type="text" class="form-control" id="editBrandFloor" name="Floor">
                     </div>
                     <div class="mb-3">
                         <label for="editBrandDescription" class="form-label">Mô tả</label>

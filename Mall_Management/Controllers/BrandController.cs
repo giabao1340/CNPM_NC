@@ -31,31 +31,37 @@ namespace Mall_Management.Controllers
             return View(list.ToPagedList(pageNumber, pageSize));
         }
 
+        // POST: Create a new brand
         [HttpPost]
         public JsonResult Create(Brand brand)
         {
             string result = "false";
             try
             {
-                // Kiểm tra nếu thương hiệu đã tồn tại
+                // Validate that BrandName is not empty
+                if (string.IsNullOrEmpty(brand.BrandName) || string.IsNullOrEmpty(brand.Floor))
+                {
+                    return Json(new { success = false, message = "Brand name and floor are required." }, JsonRequestBehavior.AllowGet);
+                }
+
+                // Check if the brand name already exists
                 Brand checkExist = _db.Brands.SingleOrDefault(m => m.BrandName == brand.BrandName);
                 if (checkExist != null)
                 {
                     result = "exist";
-                    return Json(result, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = false, message = "Brand already exists." }, JsonRequestBehavior.AllowGet);
                 }
 
-                // Thêm thương hiệu mới vào cơ sở dữ liệu
+                // Add the new brand
                 _db.Brands.Add(brand);
                 _db.SaveChanges();
                 result = "success";
-                return Json(result, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, message = "Brand created successfully!" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                // Log lỗi nếu cần
-                Console.WriteLine(ex);
-                return Json(result, JsonRequestBehavior.AllowGet);
+                Console.WriteLine(ex); // Log the exception if needed
+                return Json(new { success = false, message = "Error occurred during brand creation." }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -86,6 +92,7 @@ namespace Mall_Management.Controllers
                 // Cập nhật thông tin thương hiệu
                 brandToUpdate.BrandName = brand.BrandName;
                 brandToUpdate.Image = brand.Image;
+                brandToUpdate.Floor = brand.Floor;
                 brandToUpdate.Description = brand.Description;
                 brandToUpdate.Url = brand.Url;
 

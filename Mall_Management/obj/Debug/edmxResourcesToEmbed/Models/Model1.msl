@@ -25,6 +25,7 @@
           <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="Url" ColumnName="Url" />
           <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Floor" ColumnName="Floor" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
         </MappingFragment>
       </EntityTypeMapping>

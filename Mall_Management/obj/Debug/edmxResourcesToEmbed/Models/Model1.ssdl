@@ -24,6 +24,7 @@
     <Property Name="Image" Type="nvarchar(max)" />
     <Property Name="Url" Type="varchar(max)" />
     <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="Floor" Type="nvarchar" MaxLength="50" />
     <Property Name="CategoryID" Type="int" />
   </EntityType>
   <EntityType Name="Categories">

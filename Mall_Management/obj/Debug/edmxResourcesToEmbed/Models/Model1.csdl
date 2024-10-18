@@ -24,6 +24,7 @@
     <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Floor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CategoryID" Type="Int32" />
     <NavigationProperty Name="Category" Relationship="Self.FK__Brands__Category__403A8C7D" FromRole="Brands" ToRole="Categories" />
     <NavigationProperty Name="Events" Relationship="Self.FK__Events__BrandID__45F365D3" FromRole="Brands" ToRole="Events" />
