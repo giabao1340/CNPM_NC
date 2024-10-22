@@ -2,7 +2,9 @@
 using PagedList;
 using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -31,39 +33,44 @@ namespace Mall_Management.Controllers
             return View(list.ToPagedList(pageNumber, pageSize));
         }
 
+
         // POST: Create a new brand
         [HttpPost]
-        public JsonResult Create(Brand brand)
+        public JsonResult Create(Brand brand, HttpPostedFileBase image)
         {
-            string result = "false";
             try
             {
-                // Validate that BrandName is not empty
+                // Validate that BrandName and Floor are not empty
                 if (string.IsNullOrEmpty(brand.BrandName) || string.IsNullOrEmpty(brand.Floor))
                 {
                     return Json(new { success = false, message = "Brand name and floor are required." }, JsonRequestBehavior.AllowGet);
                 }
 
-                // Check if the brand name already exists
-                Brand checkExist = _db.Brands.SingleOrDefault(m => m.BrandName == brand.BrandName);
-                if (checkExist != null)
+                // Handle image upload (if an image is provided)
+                if (image != null && image.ContentLength > 0)
                 {
-                    result = "exist";
-                    return Json(new { success = false, message = "Brand already exists." }, JsonRequestBehavior.AllowGet);
+                    // Get the file name and save it to the "Images/Brands" folder
+                    var fileName = Path.GetFileName(image.FileName);
+                    var path = Path.Combine(Server.MapPath("~/images/"), fileName);
+                    image.SaveAs(path);
+
+                    // Update the brand's image path to store the correct relative URL
+                    brand.Image = "/images/" + fileName;
                 }
 
-                // Add the new brand
+                // Add the new brand to the database
                 _db.Brands.Add(brand);
                 _db.SaveChanges();
-                result = "success";
+
                 return Json(new { success = true, message = "Brand created successfully!" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex); // Log the exception if needed
-                return Json(new { success = false, message = "Error occurred during brand creation." }, JsonRequestBehavior.AllowGet);
+                // Return detailed error for debugging
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
 
 
         [HttpPost]
@@ -144,5 +151,48 @@ namespace Mall_Management.Controllers
             base.Dispose(disposing);
         }
 
+        [HttpPost]
+        public JsonResult UploadImage()
+        {
+            try
+            {
+                // Kiểm tra xem có file nào trong request không
+                if (Request.Files.Count > 0)
+                {
+                    var file = Request.Files[0];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        // Đường dẫn đến thư mục lưu file (~/images)
+                        var folderPath = Server.MapPath("~/images");
+
+                        // Kiểm tra nếu thư mục ~/images chưa tồn tại, thì tạo mới thư mục
+                        if (!Directory.Exists(folderPath))
+                        {
+                            Directory.CreateDirectory(folderPath);
+                        }
+
+                        // Tạo tên file và đường dẫn đầy đủ để lưu file
+                        var fileName = Path.GetFileName(file.FileName);
+                        var filePath = Path.Combine(folderPath, fileName);
+
+                        // Lưu file vào thư mục ~/images
+                        file.SaveAs(filePath);
+
+                        // Trả về đường dẫn của file để client hiển thị ảnh
+                        return Json(new { filePath = "/images/" + fileName });
+                    }
+                    else
+                    {
+                        return Json(new { error = "File không hợp lệ hoặc rỗng." });
+                    }
+                }
+
+                return Json(new { error = "Không tìm thấy file trong request." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = "Đã có lỗi xảy ra: " + ex.Message });
+            }
+        }
     }
 }

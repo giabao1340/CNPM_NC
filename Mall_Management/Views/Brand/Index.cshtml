@@ -83,13 +83,14 @@
                                             <td>
                                                 @if (!string.IsNullOrEmpty(item.Image))
                                                 {
-                                                    <img src="~/Images/dookki.jpg" alt="Brand Image" style="width: 100px; height: auto;" />
+                                                    <img src="@Url.Content(item.Image)" alt="Brand Image" style="width: 100px; height: auto;" />
                                                 }
                                                 else
                                                 {
                                                     <span>No image available</span>
                                                 }
                                             </td>
+
                                             <td>@item.Floor</td>
                                             <td>@Truncate(item.Description, 50)</td>
                                             <td>@item.Url</td>
@@ -137,7 +138,6 @@
         </div>
     </div>
 </div>
-
 <!--begin::Modal - Create-->
 <div class="modal fade" id="createBrandModal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
@@ -147,7 +147,7 @@
             <!--begin::Modal header-->
             <div class="modal-header pb-0 border-0 justify-content-end">
                 <!--begin::Close-->
-                <div class="btn btn-sm btn-icon btn-active-color-primary dimis-modal">
+                <div class="btn btn-sm btn-icon btn-active-color-primary dimis-modal" data-bs-dismiss="modal">
                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                     <span class="svg-icon svg-icon-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -163,7 +163,7 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                 <!--begin:Form-->
-                <form id="kt_modal_new_brand_form" class="form" action="#">
+                <form id="kt_modal_new_brand_form" action="/Brand/Create" method="post" enctype="multipart/form-data">
                     <!--begin::Heading-->
                     <div class="mb-13 text-center">
                         <!--begin::Title-->
@@ -183,15 +183,15 @@
                     </div>
                     <!--end::Input group-->
                     <!--begin::Input group: Image-->
-                    <div class="d-flex flex-column mb-8 fv-row">
-                        <!--begin::Label-->
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span>Ảnh thương hiệu (URL)</span>
-                        </label>
-                        <!--end::Label-->
-                        <input type="text" id="image" name="image" class="form-control form-control-solid" placeholder="Nhập đường dẫn ảnh thương hiệu">
-                        <div class="fv-plugins-message-container invalid-feedback"></div>
-                    </div>
+                    @using (Html.BeginForm("UploadImage", "Brand", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <span>Ảnh thương hiệu (Chọn ảnh)</span>
+                            </label>
+                            <input type="file" id="image" name="image" class="form-control form-control-solid" accept="image/*">
+                        </div>
+                    }
                     <!--end::Input group-->
                     <!--begin::Input group: Floor-->
                     <div class="d-flex flex-column mb-8 fv-row">
@@ -228,8 +228,8 @@
                     <!--end::Input group-->
                     <!--begin::Actions-->
                     <div class="text-center">
-                        <button type="button" class="btn btn-light me-3 dimis-modal">Hủy bỏ</button>
-                        <button type="button" id="create__save" class="btn btn-primary" onclick="saveCreate()">Lưu</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" id="create__save" class="btn btn-primary" value="Upload" onclick="saveCreate()">Lưu</button>
                     </div>
                     <!--end::Actions-->
                 </form>
@@ -259,8 +259,13 @@
                         <input type="text" class="form-control" id="editBrandName" name="BrandName">
                     </div>
                     <div class="mb-3">
-                        <label for="editBrandImage" class="form-label">Hình ảnh</label>
-                        <input type="text" class="form-control" id="editBrandImage" name="Image">
+                        <label for="editBrandName" class="form-label">
+                            <span>Ảnh thương hiệu (Chọn ảnh)</span>
+                        </label>
+                        <input type="file" class="form-control" id="editBrandImage" name="Image" accept="image/*" onchange="previewImage()">
+                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                        <!-- Khung hiển thị ảnh xem trước -->
+                        <div id="imagePreview" style="margin-top: 20px;"></div>
                     </div>
                     <div class="mb-3">
                         <label for="editBrandFloor" class="form-label">Tầng</label>
@@ -297,7 +302,7 @@
                 <input type="hidden" id="deleteBrandID" name="BrandID">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                 <button type="button" id="delete__save" class="btn btn-danger" onclick="confirmDelete()">Xóa</button>
             </div>
         </div>

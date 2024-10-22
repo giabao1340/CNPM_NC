@@ -73,81 +73,47 @@ document.getElementById('delete__save').addEventListener('click', function () {
     });
 });
 
-$('#create__save').click(function () {
-    let formData = {
-        brandName: $('#brandName').val(),
-        image: $('#image').val(),
-        description: $('#description').val(),
-        url: $('#url').val(),
-        floor: $('#floor').val()
-    };
-
-    $.ajax({
-        url: '/Brand/Create',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(formData),
-        success: function (response) {
-            if (response.success) {
-                alert('Thương hiệu đã được tạo thành công!');
-                $('#create-modal').modal('hide');
-                location.reload();
-            } else {
-                alert(response.message);
-                // Hiển thị lỗi chi tiết nếu có
-                if (response.errors) {
-                    response.errors.forEach(function (error) {
-                        console.log(error.errorMessage); // Hiển thị lỗi ở console hoặc tùy chỉnh hiển thị ở giao diện
-                    });
-                }
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error("Error occurred: " + error);
-            alert('Có lỗi xảy ra, vui lòng thử lại!');
-        }
-    });
-});
-
-function createOpen() {
-    console.log("Create Open Called");
-    // Mở modal thêm mới
-    var createModal = new bootstrap.Modal(document.getElementById('create-modal'));
-
-    // Xóa sạch các giá trị trong các input trước khi mở modal
-    document.getElementById('createBrandName').value = '';
-    document.getElementById('createBrandImage').value = '';
-    document.getElementById('createBrandFloor').value = '';
-    document.getElementById('createBrandDescription').value = '';
-    document.getElementById('createBrandUrl').value = '';
-    createModal.show();
-}
 
 
 function createOpen(id, name, image, floor, description, url) {
-    console.log("Edit Open Called with ID: ", id);
-    // Mở modal chỉnh sửa
-    var editModal = new bootstrap.Modal(document.getElementById('createBrandModal'));
-    document.getElementById('editBrandID').value = id;
-    document.getElementById('editBrandName').value = name;
-    document.getElementById('editBrandImage').value = image;
-    document.getElementById('editBrandFloor').value = floor;
-    document.getElementById('editBrandDescription').value = description;
-    document.getElementById('editBrandUrl').value = url;
-    editModal.show();
+    console.log("Create Open Called with ID: ", id);
+
+    // Mở modal tạo mới
+    var createModal = new bootstrap.Modal(document.getElementById('createBrandModal'));
+
+    // Thiết lập các trường input của modal về giá trị mặc định (rỗng)
+    //document.getElementById('createBrandName').value = '';
+    //document.getElementById('createBrandImage').value = '';
+    //document.getElementById('createBrandFloor').value = '';
+    //document.getElementById('createBrandDescription').value = '';
+    //document.getElementById('createBrandUrl').value = '';
+
+    // Hiển thị modal
+    createModal.show();
 }
+
 
 
 function editOpen(id, name, image, floor, description, url) {
     console.log("Edit Open Called with ID: ", id);
     // Mở modal chỉnh sửa
     var editModal = new bootstrap.Modal(document.getElementById('editBrandModal'));
+
     document.getElementById('editBrandID').value = id;
     document.getElementById('editBrandName').value = name;
-    document.getElementById('editBrandImage').value = image;
     document.getElementById('editBrandFloor').value = floor;
     document.getElementById('editBrandDescription').value = description;
     document.getElementById('editBrandUrl').value = url;
+
+    // Kiểm tra xem phần tử currentImage có tồn tại không
+    var currentImageElement = document.getElementById('editBrandImage');
+    if (currentImageElement) {
+        // Hiển thị ảnh hiện tại nếu phần tử tồn tại
+        currentImageElement.src = image;
+    } else {
+        console.log('Element with id="currentImage" not found in the DOM.');
+    }
+
     editModal.show();
 }
 
@@ -163,11 +129,11 @@ function deleteOpen(id, name) {
 
 function saveCreate() {
     // Lấy giá trị từ các trường nhập liệu trong modal
-    var brandName = document.getElementById('createBrandName').value;
-    var brandImage = document.getElementById('createBrandImage').value;
-    var brandFloor = document.getElementById('createBrandFloor').value;
-    var brandDescription = document.getElementById('createBrandDescription').value;
-    var brandUrl = document.getElementById('createBrandUrl').value;
+    var brandName = document.getElementById('brandName').value;
+    var brandImage = document.getElementById('image').files[0]; // Lấy file từ input type="file"
+    var brandFloor = document.getElementById('floor').value;
+    var brandDescription = document.getElementById('description').value;
+    var brandUrl = document.getElementById('url').value;
 
     // Kiểm tra các trường bắt buộc
     if (!brandName || !brandFloor) {
@@ -175,27 +141,25 @@ function saveCreate() {
         return;
     }
 
-    // Tạo đối tượng dữ liệu cần gửi lên server
-    var brandData = {
-        BrandName: brandName,
-        Image: brandImage,
-        Floor: brandFloor,
-        Description: brandDescription,
-        Url: brandUrl
-    };
+    // Tạo FormData để chứa dữ liệu cần gửi
+    var formData = new FormData();
+    formData.append("BrandName", brandName);
+    formData.append("Image", brandImage);  // Thêm file ảnh vào FormData
+    formData.append("Floor", brandFloor);
+    formData.append("Description", brandDescription);
+    formData.append("Url", brandUrl);
 
     // Gọi AJAX để gửi dữ liệu lên server
     $.ajax({
-        url: '/Brand/Create',  // URL đến controller để xử lý tạo mới
+        url: '/Brand/Create',
         type: 'POST',
-        data: brandData,
+        data: formData,
+        contentType: false, // Để jQuery không tự động đặt Content-Type
+        processData: false, // Để jQuery không xử lý dữ liệu (vì đây là FormData)
         success: function (response) {
             if (response.success) {
-                alert("Thêm thương hiệu thành công!");
-                // Ẩn modal sau khi thành công
                 var createModal = bootstrap.Modal.getInstance(document.getElementById('createBrandModal'));
                 createModal.hide();
-                // Làm mới lại danh sách thương hiệu (tùy vào cách bạn thực hiện load lại dữ liệu)
                 location.reload();  // Làm mới trang sau khi lưu thành công
             } else if (response.message === "exist") {
                 alert("Tên thương hiệu đã tồn tại, vui lòng chọn tên khác.");
@@ -208,6 +172,7 @@ function saveCreate() {
         }
     });
 }
+
 
 
 function saveEdit() {
@@ -244,9 +209,6 @@ function saveEdit() {
     });
 }
 
-
-
-
 function deleteOpen(id, name) {
     console.log("Delete Open Called with ID: ", id);
     // Mở modal xóa
@@ -265,7 +227,7 @@ function confirmDelete() {
         data: { id: brandID },  // Gửi ID thương hiệu cần xóa
         success: function (response) {
             if (response.success) {
-                alert('Thương hiệu đã được xóa thành công!');
+                //alert('Thương hiệu đã được xóa thành công!');
                 $('#editBrandModal').modal('hide');  // Đóng modal sau khi xóa thành công
                 location.reload();  // Tải lại trang để cập nhật
             } else {
@@ -273,4 +235,54 @@ function confirmDelete() {
             }
         },
     });
+}
+
+
+document.getElementById('image').addEventListener('change', function () {
+    var formData = new FormData();
+    formData.append("image", this.files[0]);
+
+    $.ajax({
+        url: '/Brand/UploadImage',
+        type: 'POST',
+        data: formData,
+        contentType: false,  // Không đặt Content-Type, FormData sẽ tự xử lý
+        processData: false,  // Không xử lý dữ liệu theo kiểu mặc định của jQuery
+        success: function (data) {
+            if (data.filePath) {
+                console.log('File đã upload thành công:', data.filePath);
+                showUploadedImage(data.filePath);  // Hiển thị ảnh sau khi upload
+            } else {
+                console.log('Lỗi:', data.error);
+            }
+        },
+        error: function (err) {
+            console.error('Upload thất bại:', err);
+        }
+    });
+});
+
+
+function showUploadedImage(filePath) {
+    document.getElementById('imagePreview').innerHTML = '<img src="' + filePath + '" style="max-width: 300px; height: auto;" />';
+}
+
+
+function previewImage() {
+    var input = document.getElementById('image');
+    var preview = document.getElementById('imagePreview');
+    preview.innerHTML = ''; // Xóa ảnh xem trước cũ
+
+    var file = input.files[0];
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.maxWidth = '300px'; // Kích thước ảnh xem trước
+            img.style.height = 'auto';
+            preview.appendChild(img);
+        }
+        reader.readAsDataURL(file);
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mall_Management.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -38,6 +39,10 @@ namespace Mall_Management.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
+            return View();
+        }
+        public ActionResult AmThuc()
+        {
             return View();
         }
 
