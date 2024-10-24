@@ -104,7 +104,7 @@ function editOpen(id, name, image, floor, description, url) {
     document.getElementById('editBrandFloor').value = floor;
     document.getElementById('editBrandDescription').value = description;
     document.getElementById('editBrandUrl').value = url;
-
+Default
     // Kiểm tra xem phần tử currentImage có tồn tại không
     var currentImageElement = document.getElementById('editBrandImage');
     if (currentImageElement) {
@@ -161,10 +161,10 @@ function saveCreate() {
                 var createModal = bootstrap.Modal.getInstance(document.getElementById('createBrandModal'));
                 createModal.hide();
                 location.reload();  // Làm mới trang sau khi lưu thành công
-            } else if (response.message === "exist") {
+            } else if (response.message === "Brand name already exists") {
                 alert("Tên thương hiệu đã tồn tại, vui lòng chọn tên khác.");
             } else {
-                alert("Đã xảy ra lỗi khi thêm thương hiệu.");
+                alert("Tên thương hiệu đã tồn tại, vui lòng chọn tên khác.");
             }
         },
         error: function () {

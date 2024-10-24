@@ -46,6 +46,13 @@ namespace Mall_Management.Controllers
                     return Json(new { success = false, message = "Brand name and floor are required." }, JsonRequestBehavior.AllowGet);
                 }
 
+                // Check if the brand name already exists in the database
+                var existingBrand = _db.Brands.FirstOrDefault(b => b.BrandName == brand.BrandName);
+                if (existingBrand != null)
+                {
+                    return Json(new { success = false, message = "Brand name already exists." }, JsonRequestBehavior.AllowGet);
+                }
+
                 // Handle image upload (if an image is provided)
                 if (image != null && image.ContentLength > 0)
                 {
@@ -71,10 +78,8 @@ namespace Mall_Management.Controllers
             }
         }
 
-
-
         [HttpPost]
-        public JsonResult Edit(Brand brand)
+        public JsonResult Edit(Brand brand, HttpPostedFileBase image)
         {
             string result = "error";
             try
@@ -96,9 +101,56 @@ namespace Mall_Management.Controllers
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
 
-                // Cập nhật thông tin thương hiệu
+                // Xử lý ảnh nếu người dùng upload ảnh mới
+                if (image != null && image.ContentLength > 0)
+                {
+                    // Đổi tên file ảnh để tránh trùng lặp
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName).ToLower();
+
+                    // Chỉ cho phép định dạng ảnh hợp lệ
+                    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                    if (!allowedExtensions.Contains(extension))
+                    {
+                        return Json(new { result = "invalid_image_format" }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    var newFileName = $"{fileName}_{DateTime.Now.Ticks}{extension}";
+
+                    // Đường dẫn lưu ảnh trên server
+                    var path = Path.Combine(Server.MapPath("~/images/"), newFileName);
+                    try
+                    {
+                        image.SaveAs(path);  // Lưu ảnh lên server
+                    }
+                    catch (Exception e)
+                    {
+                        return Json(new { result = "file_save_error", message = e.Message }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    // Xóa ảnh cũ (nếu có) khi thay ảnh mới
+                    if (!string.IsNullOrEmpty(brandToUpdate.Image))
+                    {
+                        var oldImagePath = Server.MapPath(brandToUpdate.Image);
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            try
+                            {
+                                System.IO.File.Delete(oldImagePath);
+                            }
+                            catch (Exception e)
+                            {
+                                return Json(new { result = "delete_old_image_error", message = e.Message }, JsonRequestBehavior.AllowGet);
+                            }
+                        }
+                    }
+
+                    // Cập nhật đường dẫn ảnh mới vào CSDL (lưu đường dẫn tương đối)
+                    brandToUpdate.Image = "/images/" + newFileName;
+                }
+
+                // Cập nhật các thông tin khác của thương hiệu
                 brandToUpdate.BrandName = brand.BrandName;
-                brandToUpdate.Image = brand.Image;
                 brandToUpdate.Floor = brand.Floor;
                 brandToUpdate.Description = brand.Description;
                 brandToUpdate.Url = brand.Url;

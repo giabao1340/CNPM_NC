@@ -1,5 +1,6 @@
 ﻿@using PagedList.Mvc
 @model  PagedList.PagedList<Mall_Management.Models.Brand>
+
 @{
     ViewBag.Title = "Danh sách thương hiệu";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
@@ -46,17 +47,16 @@
                         <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="list-product">
                             <!--begin::Table head-->
                             <thead>
-                                <!--begin::Table row-->
                                 <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0" style="height:115px">
-                                    <th class="min-w-50px" tabindex="1" arowspan="1" colspan="1" style="width:100px;">ID</th>
-                                    <th class="min-w-150px" tabindex="2" rowspan="1" colspan="1" style="width:220px;">Tên thương hiệu</th>
-                                    <th class="min-w-125px" tabindex="5" rowspan="1" colspan="1" style="width:140px;">Hình ảnh</th>
-                                    <th class="min-w-125px" tabindex="5" rowspan="1" colspan="1" style="width:140px;">Tầng</th>
-                                    <th class="min-w-125px" tabindex="5" rowspan="1" colspan="1" style="width:220px;">Mô tả</th>
-                                    <th class="min-w-125px" tabindex="5" rowspan="1" colspan="1" style="width:200px;">Url</th>
-                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 130px;">Hành động</th>
+                                    <th class="min-w-50px">ID</th>
+                                    <th class="min-w-150px">Tên thương hiệu</th>
+                                    <th class="min-w-125px">Hình ảnh</th>
+                                    <th class="min-w-125px">Tầng</th>
+                                    <th class="min-w-125px">Danh mục</th> <!-- Thêm cột Danh mục -->
+                                    <th class="min-w-125px">Mô tả</th>
+                                    <th class="min-w-125px">Url</th>
+                                    <th class="text-end min-w-100px">Hành động</th>
                                 </tr>
-                                <!--end::Table row-->
                             </thead>
                             <!--end::Table head-->
                             <!--begin::Table body-->
@@ -78,8 +78,6 @@
                                         <tr class="odd row-height" id="item_@item.BrandID">
                                             <td>@item.BrandID</td>
                                             <td>@item.BrandName</td>
-
-                                            <!-- Display Image -->
                                             <td>
                                                 @if (!string.IsNullOrEmpty(item.Image))
                                                 {
@@ -90,12 +88,13 @@
                                                     <span>No image available</span>
                                                 }
                                             </td>
-
                                             <td>@item.Floor</td>
+
+                                            <!-- Hiển thị tên Danh mục -->
+                                            <td>@item.Category?.CategoryName</td>
+
                                             <td>@Truncate(item.Description, 50)</td>
                                             <td>@item.Url</td>
-
-                                            <!--begin::Action-->
                                             <td class="text-end">
                                                 <div class="dropdown">
                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
@@ -115,12 +114,10 @@
                                                     </ul>
                                                 </div>
                                             </td>
-                                            <!--end::Action-->
                                         </tr>
                                     }
                                 }
                             </tbody>
-
 
                             <!--end::Table body-->
                         </table>
@@ -193,6 +190,18 @@
                         </div>
                     }
                     <!--end::Input group-->
+                    <!--begin::Input group: Category-->
+                    <!--<div class="d-flex flex-column mb-8 fv-row">-->
+                        <!--begin::Label-->
+                        <!--<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                            <span>Danh mục</span>
+                        </label>-->
+                        <!--end::Label-->
+                        <!--<select id="categoryID" name="categoryID" class="form-select form-control-solid" required>
+                            <option value="">Chọn danh mục</option>
+                        </select>
+                    </div>-->
+                    <!--end::Input group-->
                     <!--begin::Input group: Floor-->
                     <div class="d-flex flex-column mb-8 fv-row">
                         <!--begin::Label-->
@@ -258,15 +267,15 @@
                         <label for="editBrandName" class="form-label">Tên thương hiệu</label>
                         <input type="text" class="form-control" id="editBrandName" name="BrandName">
                     </div>
-                    <div class="mb-3">
-                        <label for="editBrandName" class="form-label">
-                            <span>Ảnh thương hiệu (Chọn ảnh)</span>
-                        </label>
-                        <input type="file" class="form-control" id="editBrandImage" name="Image" accept="image/*" onchange="previewImage()">
-                        <div class="fv-plugins-message-container invalid-feedback"></div>
-                        <!-- Khung hiển thị ảnh xem trước -->
-                        <div id="imagePreview" style="margin-top: 20px;"></div>
-                    </div>
+                    @using (Html.BeginForm("UploadImage", "Brand", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                <span>Ảnh thương hiệu (Chọn ảnh)</span>
+                            </label>
+                            <input type="file" id="image" name="image" class="form-control form-control-solid" accept="image/*">
+                        </div>
+                    }
                     <div class="mb-3">
                         <label for="editBrandFloor" class="form-label">Tầng</label>
                         <input type="text" class="form-control" id="editBrandFloor" name="Floor">
