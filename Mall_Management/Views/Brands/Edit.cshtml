@@ -1,0 +1,113 @@
+﻿@model Mall_Management.Models.Brand
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<style>
+    body {
+        display: flex;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #fff;
+        margin: 15px;
+    }
+
+    .form-container {
+        width: 800px;
+        height: auto;
+        padding: 20px;
+        background-color: #ffffff;
+    }
+
+    .form-group {
+        margin: 15px;
+    }
+
+    /* Thêm style cho phần hiển thị hình ảnh */
+    .image-preview {
+        margin-bottom: 20px;
+    }
+
+        .image-preview img {
+            max-width: 200px;
+            height: auto;
+        }
+</style>
+
+@using (Html.BeginForm("Edit", "Brands", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal form-container">
+    <h4>Brand</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.BrandID)
+    @Html.HiddenFor(model => model.Image) <!-- Giữ lại đường dẫn ảnh cũ -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.BrandName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BrandName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BrandName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <!-- Hiển thị hình ảnh hiện tại -->
+    <div class="form-group image-preview">
+        <label class="control-label col-md-2">Current Image</label>
+        <div class="col-md-10">
+            @if (!string.IsNullOrEmpty(Model.Image))
+            {
+                <img src="@Url.Content(Model.Image)" alt="Current Image" />
+            }
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" id="image" name="image" class="form-control" accept="image/*" />
+            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Floor, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Floor, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Floor, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Đóng", "Index", null, new { @class = "btn btn-danger" })
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}

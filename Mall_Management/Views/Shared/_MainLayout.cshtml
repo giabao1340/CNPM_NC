@@ -47,7 +47,7 @@
                 <div class="aside-logo flex-column-auto" id="kt_aside_logo" style="margin-top: 25px">
                     <!--begin::Logo-->
                     <a class="fs-1 fw-bolder text-white" href="@Url.Action("Index","Home")">
-                        <img src="~/wwwroot/images/logo.png" style=" width: 176px; height: auto; border-radius: 2px; object-fit: cover;" />
+                        <img src="~/images/logo.png" style=" width: 176px; height: auto; border-radius: 2px; object-fit: cover;" />
                     </a>
                     <!--end::Logo-->
                     <!--begin::Aside toggler-->
@@ -84,8 +84,8 @@
                             </div>
                             <div class="menu-item">
                                 <a class="menu-link
-                                   @(ViewContext.RouteData.Values["Controller"].ToString() == "ProductsAdmin" ? "active" : "")"
-                                   href="@Url.Action("Index","Brand")">
+                                   @(ViewContext.RouteData.Values["Controller"].ToString() == "Brands" ? "active" : "")"
+                                   href="@Url.Action("Index","Brands")">
                                     <span class="menu-icon">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                         <span class="svg-icon svg-icon-2">
@@ -102,8 +102,8 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Brands" ? "active" : "")"
-                                   href="@Url.Action("Index","Brands")">
+                                <a class="menu-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Evens" ? "active" : "")"
+                                   href="@Url.Action("Index","Evens")">
                                     <span class="menu-icon">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                         <svg xmlns="http://www.w3.org/2000/svg"

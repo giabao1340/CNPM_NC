@@ -1,0 +1,13 @@
+﻿.form-container {
+    max-width: 600px;
+    margin: 50px auto; /* Centers the form horizontally and adds margin at the top */
+    border: 2px solid #ccc; /* Adds a border around the form */
+    padding: 20px; /* Adds padding inside the form */
+    border-radius: 10px; /* Adds rounded corners to the border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for a modern look */
+    background-color: #f9f9f9; /* Light background for contrast */
+}
+
+.form-horizontal hr {
+    border-color: #ddd; /* Softens the color of the horizontal rule */
+}

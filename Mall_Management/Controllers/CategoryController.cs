@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Mall_Management.Models;  // Adjust the namespace for your models 
 
@@ -23,20 +25,20 @@ namespace Mall_Management.Controllers
         }
 
 
-        public ActionResult Details(int id)
-        {
-            // Fetch the category from the database
-            var category = _db.Categories.FirstOrDefault(c => c.CategoryID == id);
+        //public ActionResult Details(int id)
+        //{
+        //    // Fetch the category from the database
+        //    var category = _db.Categories.FirstOrDefault(c => c.CategoryID == id);
 
-            // Check if category is null (not found in the database)
-            if (category == null)
-            {
-                return HttpNotFound();  // Or you can redirect to an error page
-            }
+        //    // Check if category is null (not found in the database)
+        //    if (category == null)
+        //    {
+        //        return HttpNotFound();  // Or you can redirect to an error page
+        //    }
 
-            // Pass the category to the view
-            return View(category);
-        }
+        //    // Pass the category to the view
+        //    return View(category);
+        //}
 
 
         // GET: Category/Create
@@ -122,50 +124,25 @@ namespace Mall_Management.Controllers
         }
 
 
-        // GET: Category/Delete/5
-        public ActionResult Delete(int id)
-        {
-            // Find the category by id
-            var category = _db.Categories.FirstOrDefault(c => c.CategoryID == id);
-
-            // If no category is found, return 404
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-
-            // Pass the category to the view for confirmation
-            return View(category);
-        }
-
-        // POST: Category/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public JsonResult Delete(int id)
         {
             try
             {
-                // Fetch the category to delete from the database
-                var category = _db.Categories.FirstOrDefault(c => c.CategoryID == id);
-
+                var category = _db.Categories.Find(id);
                 if (category == null)
                 {
-                    return HttpNotFound();
+                    return Json(new { success = false, message = "Thương hiệu không tồn tại." });
                 }
 
-                // Remove the category from the DbContext
                 _db.Categories.Remove(category);
-
-                // Save the changes to the database
                 _db.SaveChanges();
 
-                // Redirect to the Index page after deletion
-                return RedirectToAction("Index");
+                return Json(new { success = true, message = "Xóa thành công." });
             }
-            catch
+            catch (Exception ex)
             {
-                // In case of any exception, redisplay the delete view
-                return View();
+                return Json(new { success = false, message = "Có lỗi xảy ra: " + ex.Message });
             }
         }
     }
