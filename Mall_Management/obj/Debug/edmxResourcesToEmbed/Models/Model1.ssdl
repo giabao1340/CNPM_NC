@@ -40,7 +40,7 @@
     </Key>
     <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="EventName" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="Image" Type="nvarchar(max)" />
     <Property Name="StartDate" Type="datetime" />
     <Property Name="EndDate" Type="datetime" />

@@ -163,7 +163,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BrandsController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ViewPageBrandController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -263,6 +265,10 @@
     <Content Include="images\df1ab49a-1574-45bd-a2cf-9df64fd0f366_gogihouse.jpg" />
     <Content Include="images\dookki.jpg" />
     <Content Include="images\e6436b3c-c8dc-4cb0-8d96-d9c71b7258a9_phuclong.jpg" />
+    <Content Include="images\event1.png" />
+    <Content Include="images\event2.jpg" />
+    <Content Include="images\event3.png" />
+    <Content Include="images\event4.png" />
     <Content Include="images\fb.jpg" />
     <Content Include="images\gg.jpg" />
     <Content Include="images\gogihouse.jpg" />
@@ -378,20 +384,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\DanhMuc.cshtml" />
-    <Content Include="Views\Home\UuDai.cshtml" />
-    <Content Include="Views\Home\SuKien.cshtml" />
-    <Content Include="Views\Home\MatBang.cshtml" />
     <Content Include="Views\Account\DangNhap.cshtml" />
     <Content Include="Views\Account\DangKy.cshtml" />
     <Content Include="Views\Account\DoiMatKhau.cshtml" />
     <Content Include="Views\Shared\_MainLayout.cshtml" />
     <Content Include="Views\Shared\_HeaderLayout.cshtml" />
-    <Content Include="Views\Home\ThuongHieu.cshtml" />
-    <Content Include="Views\Home\AmThuc.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Details.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
@@ -401,6 +399,11 @@
     <Content Include="Views\Brands\Create.cshtml" />
     <Content Include="Views\Brands\Edit.cshtml" />
     <Content Include="Views\Brands\Index.cshtml" />
+    <Content Include="Views\Events\Create.cshtml" />
+    <Content Include="Views\Events\Details.cshtml" />
+    <Content Include="Views\Events\Edit.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\ViewPageBrand\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

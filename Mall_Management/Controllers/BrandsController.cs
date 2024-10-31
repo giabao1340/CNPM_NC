@@ -48,40 +48,40 @@ namespace Mall_Management.Controllers
         // POST: Brands/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-[HttpPost]
-[ValidateAntiForgeryToken]
-public ActionResult Create([Bind(Include = "BrandID,BrandName,Url,Description,Floor,CategoryID")] Brand brand, HttpPostedFileBase image)
-{
-    // Kiểm tra nếu tên thương hiệu đã tồn tại
-    var existingBrand = db.Brands.FirstOrDefault(b => b.BrandName == brand.BrandName);
-    if (existingBrand != null)
-    {
-        ModelState.AddModelError("BrandName", "Thương hiệu đã tồn tại.");
-    }
-
-    if (ModelState.IsValid)
-    {
-        // Kiểm tra xem file image có được chọn không
-        if (image != null && image.ContentLength > 0)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "BrandID,BrandName,Url,Description,Floor,CategoryID")] Brand brand, HttpPostedFileBase image)
         {
-            // Tạo tên file duy nhất và lưu vào thư mục
-            var fileName = Guid.NewGuid() + Path.GetExtension(image.FileName);
-            var path = Path.Combine(Server.MapPath("~/images/"), fileName);
-            image.SaveAs(path);
+            // Kiểm tra nếu tên thương hiệu đã tồn tại
+            var existingBrand = db.Brands.FirstOrDefault(b => b.BrandName == brand.BrandName);
+            if (existingBrand != null)
+            {
+                ModelState.AddModelError("BrandName", "Thương hiệu đã tồn tại.");
+            }
 
-            // Lưu đường dẫn ảnh vào thuộc tính Image của đối tượng Brand
-            brand.Image = "/images/" + fileName;
+            if (ModelState.IsValid)
+            {
+                // Kiểm tra xem file image có được chọn không
+                if (image != null && image.ContentLength > 0)
+                {
+                    // Tạo tên file duy nhất và lưu vào thư mục
+                    var fileName = Guid.NewGuid() + Path.GetExtension(image.FileName);
+                    var path = Path.Combine(Server.MapPath("~/images/"), fileName);
+                    image.SaveAs(path);
+
+                    // Lưu đường dẫn ảnh vào thuộc tính Image của đối tượng Brand
+                    brand.Image = "/images/" + fileName;
+                }
+
+                // Lưu đối tượng Brand vào cơ sở dữ liệu
+                db.Brands.Add(brand);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", brand.CategoryID);
+            return View(brand);
         }
-
-        // Lưu đối tượng Brand vào cơ sở dữ liệu
-        db.Brands.Add(brand);
-        db.SaveChanges();
-        return RedirectToAction("Index");
-    }
-
-    ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", brand.CategoryID);
-    return View(brand);
-}
 
 
         // GET: Brands/Edit/5

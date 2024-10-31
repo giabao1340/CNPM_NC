@@ -1,0 +1,200 @@
+﻿@model IEnumerable<Mall_Management.Models.Brand>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<html>
+<head>
+    <style>
+        .container-product {
+            margin-top: 100px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 sản phẩm trên một hàng */
+            gap: 30px; /* Khoảng cách giữa các sản phẩm */
+        }
+
+        .product {
+            width: 330px;
+        }
+
+        .product-head {
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+        }
+
+        .horizontal-line {
+            height: 4px; /* Độ dày của thanh */
+            background-color: #e74c3c; /* Màu đỏ */
+            width: 60%; /* Độ dài thanh */
+            margin: 30px auto; /* Căn giữa */
+        }
+
+        .product-info {
+            text-align: center;
+            background: linear-gradient(45deg, #EB567B, #3FBCF8);
+        }
+
+        .product-info-name {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .product-info-descrip {
+            font-size: 17px;
+        }
+
+        .floor {
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .floor-search {
+            margin-top: 150px;
+            font-size: 20px;
+        }
+
+        .floor-table {
+            display: grid;
+            place-items: center;
+        }
+
+        .floor-B {
+            position: relative;
+            right: 70px;
+            top: 2px;
+        }
+
+        .space-floor-B {
+            position: relative;
+            right: 65px;
+        }
+
+        .floor-1 {
+            position: relative;
+            right: 60px;
+            top: 2px;
+        }
+
+        .space-floor-1 {
+            position: relative;
+            right: 55px;
+        }
+
+        .floor-2 {
+            position: relative;
+            right: 50px;
+            top: 2px;
+        }
+
+        .space-floor-2 {
+            position: relative;
+            right: 45px;
+        }
+
+        .floor-3 {
+            position: relative;
+            right: 40px;
+            top: 2px;
+        }
+
+        .space-floor-3 {
+            position: relative;
+            right: 35px;
+        }
+
+        .floor-4 {
+            position: relative;
+            right: 30px;
+            top: 2px;
+        }
+
+        .space-floor-4 {
+            position: relative;
+            right: 25px;
+        }
+
+        .floor-5 {
+            position: relative;
+            right: 20px;
+            top: 2px;
+        }
+
+        .space-floor-5 {
+            position: relative;
+            right: 15px;
+        }
+
+        .floor-6 {
+            position: relative;
+            right: 10px;
+            top: 2px;
+        }
+
+        .space-floor-6 {
+            position: relative;
+            right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="floor-search">
+        <table class="floor-table">
+            <tr>
+                <td class="floor-B">
+                    <a href="http://localhost:51356/Brand/TangB">Tầng B</a>
+                </td>
+                <td class="space-floor-B">|</td>
+                <td class="floor-1">
+                    <a href="http://localhost:51356/Brand/Tang1">Tầng 1</a>
+                </td>
+                <td class="space-floor-1">|</td>
+                <td class="floor-2">
+                    <a href="http://localhost:51356/Brand/Tang2">Tầng 2</a>
+                </td>
+                <td class="space-floor-2">|</td>
+                <td class="floor-3">
+                    <a href="http://localhost:51356/Brand/Tang3">Tầng 3</a>
+                </td>
+                <td class="space-floor-3">|</td>
+                <td class="floor-4">
+                    <a href="http://localhost:51356/Brand/Tang4">Tầng 4</a>
+                </td>
+                <td class="space-floor-4">|</td>
+                <td class="floor-5">
+                    <a href="http://localhost:51356/Brand/Tang5">Tầng 5</a>
+                </td>
+                <td class="space-floor-5">|</td>
+                <td class="floor-6">
+                    <a href="http://localhost:51356/Brand/Tang6">Tầng 6</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="container-product">
+        @foreach (var item in Model)
+        {
+            <div class="product">
+                <div class="product-head">
+                    <a href="@item.Url"><img src="@Url.Content(item.Image)"></a>
+                </div>
+                @functions {
+                    public string Truncate(string text, int maxLength)
+                    {
+                        if (string.IsNullOrEmpty(text)) return text;
+
+                        return text.Length > maxLength ? text.Substring(0, maxLength) + "..." : text;
+                    }
+                }
+                <div class="product-info">
+                    <div class="product-info-name">@item.BrandName</div>
+                    <div class="product-info-descrip">@Truncate(item.Description, 50)</div>
+                </div>
+                <div class="horizontal-line"></div>
+                <div class="floor">Tầng @item.Floor</div>
+            </div>
+        }
+    </div>
+</body>
+</html>
