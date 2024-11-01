@@ -394,7 +394,6 @@
     <Content Include="Views\Category\Details.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
-    <Content Include="Views\Category\DeleteConfirmed.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Brands\Create.cshtml" />
     <Content Include="Views\Brands\Edit.cshtml" />
