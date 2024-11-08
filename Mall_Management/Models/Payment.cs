@@ -12,17 +12,14 @@ namespace Mall_Management.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Promotion
+    public partial class Payment
     {
-        public int PromotionID { get; set; }
-        public string PromotionName { get; set; }
-        public string Image { get; set; }
-        public string Description { get; set; }
-        public decimal Discount { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
-        public Nullable<int> BrandID { get; set; }
+        public int PaymentID { get; set; }
+        public int ContractID { get; set; }
+        public System.DateTime PaymentDate { get; set; }
+        public decimal Amount { get; set; }
+        public string Status { get; set; }
     
-        public virtual Brand Brand { get; set; }
+        public virtual Contract Contract { get; set; }
     }
 }

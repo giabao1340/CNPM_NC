@@ -33,16 +33,15 @@
                             <li><a class="dropdown-item" href="#">GIÁO DỤC</a></li>
                         </ul>
                     </li>
-
-                    <li class="nav-item ms-5">
-                        <a class="nav-link main-color" href="@Url.Action("UuDai", "Home")">ƯU ĐÃI</a>
-                    </li>
-                    <li class="nav-item ms-5">
+                    <li class="nav-item ms-4">
                         <a class="nav-link main-color" href="@Url.Action("SuKien", "Home")">SỰ KIỆN</a>
                     </li>
-                    <li class="nav-item ms-5">
+                    <li class="nav-item ms-4">
+                        <a class="nav-link main-color" href="@Url.Action("Map", "Home")">SƠ ĐỒ TẦNG</a>
+                    </li>
+                    <li class="nav-item ms-4">
                         @{
-                            var role = Session["Role"] as string; 
+                            var role = Session["Role"] as string;
                         }
 
                         @if (role == "Admin")
@@ -56,7 +55,7 @@
                     </li>
 
                 </ul>
-                <form class="d-flex ms-5">
+                <form class="d-flex ms-4">
                     <input class="form-control me-2" type="text" placeholder="Search">
                     <button class="btn btn-primary" type="button">Search</button>
                 </form>

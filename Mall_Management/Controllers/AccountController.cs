@@ -26,16 +26,23 @@ public class AccountController : Controller
         if (ModelState.IsValid)
         {
             // Check if username or email already exists
-            var existingUser = db.Accounts.FirstOrDefault(a => a.Username == account.Username || a.Email == account.Email);
+            var existingUser = db.Accounts.FirstOrDefault(a => a.Username == account.Username);
+            var existingEmail = db.Accounts.FirstOrDefault(a => a.Email == account.Email);
             if (existingUser != null)
             {
-                // Use ModelState.AddModelError to display the error on the page near the input field
-                ModelState.AddModelError(string.Empty, "Username or Email already exists. Please try again.");
+                ModelState.AddModelError("Username", "Username already exists. Please try again.");
+            }
+            if (existingEmail != null)
+            {
+                ModelState.AddModelError("Email", "Email already exists. Please try again.");
+            }
+            if (existingUser != null || existingEmail != null)
+            {
                 return View(account);
             }
 
             // Check if password and confirm password match
-            if (account.Password != CFPassword)  // Compare plain-text password
+            if (account.Password != CFPassword)
             {
                 ModelState.AddModelError(string.Empty, "The password and confirm password do not match. Please try again.");
                 return View(account);
@@ -45,8 +52,8 @@ public class AccountController : Controller
             account.PasswordHash = BCrypt.Net.BCrypt.HashPassword(account.Password);
 
             // Additional properties
-            account.Role = "User";  // Default role for new users
-            account.CreatedDate = DateTime.Now;  // Store the current date/time
+            account.CreatedDate = DateTime.Now;
+            account.Role = "User";
             // Add the new account to the database
             db.Accounts.Add(account);
 
@@ -58,18 +65,17 @@ public class AccountController : Controller
             }
             catch (DbUpdateException ex)
             {
-                // Log the detailed exception message (you can extend this by using a logger)
+                // Log the detailed exception message (using logger is recommended)
                 var errorMessage = ex.InnerException?.Message;
-                Console.WriteLine(errorMessage);  // Replace with logging in a real-world app
+                Console.WriteLine(errorMessage);
                 ModelState.AddModelError(string.Empty, "An error occurred while saving to the database. Please try again.");
                 return View(account);
             }
-
         }
 
         // If we get here, something went wrong with model validation
         ModelState.AddModelError(string.Empty, "Registration failed. Please check your input and try again.");
-        return View(account);
+        return RedirectToAction("DangNhap", "Account");
     }
 
 

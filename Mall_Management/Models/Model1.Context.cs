@@ -10,14 +10,11 @@
 namespace Mall_Management.Models
 {
     using System;
-    using System.Collections;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.SqlClient;
-
+    
     public partial class mall_dbEntities : DbContext
     {
-        private string connectionString = "data source=MSI;initial catalog=mall_db;integrated security=True;trustservercertificate=True;MultipleActiveResultSets=True;";
         public mall_dbEntities()
             : base("name=mall_dbEntities")
         {
@@ -31,33 +28,11 @@ namespace Mall_Management.Models
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Contract> Contracts { get; set; }
         public virtual DbSet<Event> Events { get; set; }
-        public virtual DbSet<Promotion> Promotions { get; set; }
+        public virtual DbSet<Invoice> Invoices { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Space> Spaces { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
-
-        public ArrayList get(String sql)
-        {
-            ArrayList datalist = new ArrayList();
-            SqlConnection connection = new SqlConnection(connectionString);
-            SqlCommand command = new SqlCommand(sql, connection);
-
-            connection.Open();
-
-            using (SqlDataReader r = command.ExecuteReader())
-            {
-                while (r.Read())
-                {
-                    ArrayList row = new ArrayList();
-                    for (int i = 0; i < r.FieldCount; i++)
-                    {
-                        row.Add(r.GetValue(i).ToString());
-                    }
-                    datalist.Add(row);
-                }
-            }
-            connection.Close();
-            return datalist;
-        }
     }
 }

@@ -4,19 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cc4e3d44c4434ad6ad8acb6f930e71a4" Name="Diagram1">
-        <EntityTypeShape EntityType="mall_dbModel.Account" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="mall_dbModel.Brand" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="mall_dbModel.Category" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="mall_dbModel.Event" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="mall_dbModel.Promotion" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="mall_dbModel.Space" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="mall_dbModel.Staff" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
+      <Diagram DiagramId="469fb67ced3247fe85168a5bf39804f5" Name="Diagram1">
+        <EntityTypeShape EntityType="mall_dbModel.Account" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="mall_dbModel.Brand" Width="1.5" PointX="10" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="mall_dbModel.Category" Width="1.5" PointX="7.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="mall_dbModel.Contract" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="mall_dbModel.Event" Width="1.5" PointX="12.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="mall_dbModel.Invoice" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="mall_dbModel.Payment" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="mall_dbModel.Space" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mall_dbModel.Staff" Width="1.5" PointX="12.25" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="mall_dbModel.FK__Contracts__Accou__4D94879B" ManuallyRouted="false" />
         <AssociationConnector Association="mall_dbModel.FK__Brands__Category__403A8C7D" ManuallyRouted="false" />
         <AssociationConnector Association="mall_dbModel.FK__Events__BrandID__45F365D3" ManuallyRouted="false" />
-        <AssociationConnector Association="mall_dbModel.FK__Promotion__Brand__4CA06362" ManuallyRouted="false" />
-        <AssociationConnector Association="mall_dbModel.FK__Spaces__BrandID__49C3F6B7" ManuallyRouted="false" />
         <AssociationConnector Association="mall_dbModel.FK__Staffs__BrandID__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="mall_dbModel.FK__Contracts__Space__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="mall_dbModel.FK__Invoices__Contra__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="mall_dbModel.FK__Payments__Contra__5165187F" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

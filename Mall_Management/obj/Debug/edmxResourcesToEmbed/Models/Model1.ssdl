@@ -8,12 +8,14 @@
     <Property Name="Username" Type="nvarchar" MaxLength="50" />
     <Property Name="PasswordHash" Type="nvarchar" MaxLength="256" />
     <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+    <Property Name="IdentityNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="Email" Type="nvarchar" MaxLength="100" />
     <Property Name="Phone" Type="nvarchar" MaxLength="20" />
     <Property Name="Avatar" Type="nvarchar(max)" />
     <Property Name="Role" Type="nvarchar" MaxLength="50" />
-    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedDate" Type="date" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="BusinessName" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Brands">
     <Key>
@@ -23,7 +25,7 @@
     <Property Name="BrandName" Type="nvarchar" MaxLength="100" />
     <Property Name="Image" Type="nvarchar(max)" />
     <Property Name="Url" Type="varchar(max)" />
-    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="Description" Type="text" />
     <Property Name="Floor" Type="nvarchar" MaxLength="50" />
     <Property Name="CategoryID" Type="int" />
   </EntityType>
@@ -34,46 +36,64 @@
     <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CategoryName" Type="nvarchar" MaxLength="100" />
   </EntityType>
+  <EntityType Name="Contracts">
+    <Key>
+      <PropertyRef Name="ContractID" />
+    </Key>
+    <Property Name="ContractID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SpaceID" Type="int" Nullable="false" />
+    <Property Name="AccountID" Type="int" Nullable="false" />
+    <Property Name="StartDate" Type="date" Nullable="false" />
+    <Property Name="EndDate" Type="date" />
+    <Property Name="RentAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="Events">
     <Key>
       <PropertyRef Name="EventID" />
     </Key>
     <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="EventName" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="EventName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="ntext" />
     <Property Name="Image" Type="nvarchar(max)" />
-    <Property Name="StartDate" Type="datetime" />
-    <Property Name="EndDate" Type="datetime" />
+    <Property Name="StartDate" Type="date" />
+    <Property Name="EndDate" Type="date" />
     <Property Name="BrandID" Type="int" />
     <Property Name="Register" Type="nvarchar" MaxLength="255" />
   </EntityType>
-  <EntityType Name="Promotions">
+  <EntityType Name="Invoices">
     <Key>
-      <PropertyRef Name="PromotionID" />
+      <PropertyRef Name="InvoiceID" />
     </Key>
-    <Property Name="PromotionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PromotionName" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="Image" Type="nvarchar(max)" />
-    <Property Name="Description" Type="nvarchar(max)" />
-    <Property Name="Discount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="StartDate" Type="datetime" Nullable="false" />
-    <Property Name="EndDate" Type="datetime" Nullable="false" />
-    <Property Name="BrandID" Type="int" />
+    <Property Name="InvoiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContractID" Type="int" Nullable="false" />
+    <Property Name="InvoiceDate" Type="date" Nullable="false" />
+    <Property Name="DueDate" Type="date" Nullable="false" />
+    <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="PaidAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="PaymentID" />
+    </Key>
+    <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContractID" Type="int" Nullable="false" />
+    <Property Name="PaymentDate" Type="date" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Spaces">
     <Key>
       <PropertyRef Name="SpaceID" />
     </Key>
     <Property Name="SpaceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="BrandID" Type="int" />
-    <Property Name="SpaceName" Type="nvarchar" MaxLength="100" />
-    <Property Name="Size" Type="decimal" Precision="10" Scale="2" />
-    <Property Name="Location" Type="nvarchar" MaxLength="100" />
+    <Property Name="SpaceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Location" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="Image" Type="nvarchar(max)" />
-    <Property Name="RentalPrice" Type="decimal" Precision="10" Scale="2" />
-    <Property Name="Status" Type="int" />
-    <Property Name="StartDate" Type="datetime" />
-    <Property Name="EndDate" Type="datetime" />
+    <Property Name="Area" Type="float" Nullable="false" />
+    <Property Name="RentalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Staffs">
     <Key>
@@ -98,6 +118,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Contracts__Accou__4D94879B">
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+    <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="AccountID" />
+      </Principal>
+      <Dependent Role="Contracts">
+        <PropertyRef Name="AccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Contracts__Space__4CA06362">
+    <End Role="Spaces" Type="Self.Spaces" Multiplicity="1" />
+    <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Spaces">
+        <PropertyRef Name="SpaceID" />
+      </Principal>
+      <Dependent Role="Contracts">
+        <PropertyRef Name="SpaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Events__BrandID__45F365D3">
     <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
     <End Role="Events" Type="Self.Events" Multiplicity="*" />
@@ -110,27 +154,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Promotion__Brand__4CA06362">
-    <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
-    <End Role="Promotions" Type="Self.Promotions" Multiplicity="*" />
+  <Association Name="FK__Invoices__Contra__5629CD9C">
+    <End Role="Contracts" Type="Self.Contracts" Multiplicity="1" />
+    <End Role="Invoices" Type="Self.Invoices" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Brands">
-        <PropertyRef Name="BrandID" />
+      <Principal Role="Contracts">
+        <PropertyRef Name="ContractID" />
       </Principal>
-      <Dependent Role="Promotions">
-        <PropertyRef Name="BrandID" />
+      <Dependent Role="Invoices">
+        <PropertyRef Name="ContractID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Spaces__BrandID__49C3F6B7">
-    <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
-    <End Role="Spaces" Type="Self.Spaces" Multiplicity="*" />
+  <Association Name="FK__Payments__Contra__5165187F">
+    <End Role="Contracts" Type="Self.Contracts" Multiplicity="1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Brands">
-        <PropertyRef Name="BrandID" />
+      <Principal Role="Contracts">
+        <PropertyRef Name="ContractID" />
       </Principal>
-      <Dependent Role="Spaces">
-        <PropertyRef Name="BrandID" />
+      <Dependent Role="Payments">
+        <PropertyRef Name="ContractID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -150,25 +194,35 @@
     <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Brands" EntityType="Self.Brands" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contracts" EntityType="Self.Contracts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Promotions" EntityType="Self.Promotions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invoices" EntityType="Self.Invoices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Spaces" EntityType="Self.Spaces" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Brands__Category__403A8C7D" Association="Self.FK__Brands__Category__403A8C7D">
       <End Role="Categories" EntitySet="Categories" />
       <End Role="Brands" EntitySet="Brands" />
     </AssociationSet>
+    <AssociationSet Name="FK__Contracts__Accou__4D94879B" Association="Self.FK__Contracts__Accou__4D94879B">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Contracts" EntitySet="Contracts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Contracts__Space__4CA06362" Association="Self.FK__Contracts__Space__4CA06362">
+      <End Role="Spaces" EntitySet="Spaces" />
+      <End Role="Contracts" EntitySet="Contracts" />
+    </AssociationSet>
     <AssociationSet Name="FK__Events__BrandID__45F365D3" Association="Self.FK__Events__BrandID__45F365D3">
       <End Role="Brands" EntitySet="Brands" />
       <End Role="Events" EntitySet="Events" />
     </AssociationSet>
-    <AssociationSet Name="FK__Promotion__Brand__4CA06362" Association="Self.FK__Promotion__Brand__4CA06362">
-      <End Role="Brands" EntitySet="Brands" />
-      <End Role="Promotions" EntitySet="Promotions" />
+    <AssociationSet Name="FK__Invoices__Contra__5629CD9C" Association="Self.FK__Invoices__Contra__5629CD9C">
+      <End Role="Contracts" EntitySet="Contracts" />
+      <End Role="Invoices" EntitySet="Invoices" />
     </AssociationSet>
-    <AssociationSet Name="FK__Spaces__BrandID__49C3F6B7" Association="Self.FK__Spaces__BrandID__49C3F6B7">
-      <End Role="Brands" EntitySet="Brands" />
-      <End Role="Spaces" EntitySet="Spaces" />
+    <AssociationSet Name="FK__Payments__Contra__5165187F" Association="Self.FK__Payments__Contra__5165187F">
+      <End Role="Contracts" EntitySet="Contracts" />
+      <End Role="Payments" EntitySet="Payments" />
     </AssociationSet>
     <AssociationSet Name="FK__Staffs__BrandID__4316F928" Association="Self.FK__Staffs__BrandID__4316F928">
       <End Role="Brands" EntitySet="Brands" />
