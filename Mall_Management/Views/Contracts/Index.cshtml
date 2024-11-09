@@ -1,0 +1,140 @@
+﻿@model IEnumerable<Mall_Management.Models.Contract>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<div class="card-body py-4">
+    <!--begin::Table-->
+    <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="table-responsive">
+            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="list-product">
+                <!--begin::Table head-->
+                <thead>
+                    <!--begin::Table row-->
+                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                        <th class="min-w-50px" tabindex="1" arowspan="1" colspan="1" style="width:50px;">ID</th>
+                        <th class="min-w-110px" tabindex="2" rowspan="1" colspan="1" style="width:110px;">Họ tên</th>
+                        <th class="min-w-70px" tabindex="5" rowspan="1" colspan="1" style="width:80px;">Số điện thoại</th>
+                        <th class="min-w-70px" tabindex="5" rowspan="1" colspan="1" style="width:80px;">Mặt bằng</th>
+                        <th class="min-w-275px" tabindex="5" rowspan="1" colspan="1" style="width:280px;">Trạng thái</th>
+                        <th class="min-w-100px" tabindex="5" rowspan="1" colspan="1" style="width: 120px;">Ngày bắt đầu</th>
+                        <th class="min-w-100px" tabindex="5" rowspan="1" colspan="1" style="width:120px;">Ngày kết thúc</th>
+                        <th class="min-w-70px" rowspan="1" colspan="1" style="width: 100px;">Tổng tiền</th>
+
+                    </tr>
+                    <!--end::Table row-->
+                </thead>
+                <!--end::Table head-->
+                <!--begin::Table body-->
+                <tbody class="text-gray-600 fw-bold">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="odd" id="item_@item.ContractID">
+                            <td>@item.ContractID </td>
+                            <td>@item.Account.FullName </td>
+                            <td>@item.Account.Phone</td>
+                            <td>@item.Space.SpaceName</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a class="btn @(item.Status == "Pending" ? "btn-info" : "btn-light-info")"
+                                       id="waiting_btn_@item.ContractID"
+                                       data-status="Pending"
+                                       onclick="changeStatus(@item.ContractID, 'Pending')">Chờ phê duyệt</a>
+
+                                    <a class="btn @(item.Status == "Active" ? "btn-success" : "btn-light-success")"
+                                       id="on_process_btn_@item.ContractID"
+                                       data-status="Active"
+                                       onclick="changeStatus(@item.ContractID, 'Active')">Đã phê duyệt</a>
+
+                                    <a class="btn @(item.Status == "Terminated" ? "btn-danger" : "btn-light-danger")"
+                                       id="comlpleted_btn_@item.ContractID"
+                                       data-status="Terminated"
+                                       onclick="changeStatus(@item.ContractID, 'Terminated')">Hủy hợp đồng</a>
+                                </div>
+                            </td>
+
+                            <td>@item.StartDate</td>
+                            <td>@item.EndDate</td>
+                            <td>@item.RentAmount</td>
+                            <!--begin::Action=-->
+                            <td class="text-end">
+                                <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                    Hành động
+                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                    <span class="svg-icon svg-icon-5 m-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black"></path>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </a>
+                                <!--begin::Menu-->
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3">
+                                        <a href="@Url.Action("Details","Contracts",new { id = item.ContractID})" class="menu-link px-3">Chi tiết</a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3">
+                                        <a onclick="cancleOpen(@item.ContractID)" class="menu-link px-3">Hủy đơn hàng</a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                </div>
+                                <!--end::Menu-->
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--end::Table-->
+<script>
+function changeStatus(contractId, status) {
+    // Gửi yêu cầu AJAX để cập nhật trạng thái hợp đồng
+    $.ajax({
+        url: '@Url.Action("UpdateStatus", "Contracts")', // Đường dẫn đến action cập nhật trạng thái
+        type: 'POST',
+        data: {
+            contractId: contractId,
+            status: status
+        },
+        success: function(response) {
+            if (response.success) {
+                // Cập nhật giao diện sau khi trạng thái đã được thay đổi
+                // Lấy các nút trong dòng hiện tại
+                var waitingBtn = $('#waiting_btn_' + contractId);
+                var processBtn = $('#on_process_btn_' + contractId);
+                var completedBtn = $('#comlpleted_btn_' + contractId);
+
+                // Cập nhật nút dựa trên trạng thái mới
+                if (status === 'Pending') {
+                    waitingBtn.removeClass('btn-light-info').addClass('btn-info');
+                    processBtn.removeClass('btn-success').addClass('btn-light-success');
+                    completedBtn.removeClass('btn-danger').addClass('btn-light-danger');
+                } else if (status === 'Active') {
+                    waitingBtn.removeClass('btn-info').addClass('btn-light-info');
+                    processBtn.removeClass('btn-light-success').addClass('btn-success');
+                    completedBtn.removeClass('btn-danger').addClass('btn-light-danger');
+                } else if (status === 'Terminated') {
+                    waitingBtn.removeClass('btn-info').addClass('btn-light-info');
+                    processBtn.removeClass('btn-success').addClass('btn-light-success');
+                    completedBtn.removeClass('btn-light-danger').addClass('btn-danger');
+                }
+
+                alert('Trạng thái hợp đồng đã được cập nhật thành công!');
+            } else {
+                alert('Có lỗi xảy ra khi cập nhật trạng thái!');
+            }
+        },
+        error: function() {
+            alert('Có lỗi xảy ra khi gửi yêu cầu.');
+        }
+    });
+}
+
+
+</script>

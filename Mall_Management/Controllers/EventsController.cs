@@ -112,16 +112,27 @@ namespace Mall_Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Kiểm tra nếu tên sự kiện đã tồn tại, bỏ qua sự kiện hiện tại
-                var existingEvent = db.Events.FirstOrDefault(b => b.EventName == events.EventName && b.EventID != events.EventID);
-                if (existingEvent != null)
+                // Fetch existing event data to retain unmodified values
+                var existingEvent = await db.Events.AsNoTracking().FirstOrDefaultAsync(b => b.EventID == events.EventID);
+                if (existingEvent == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Check if EventName is unique, excluding the current event
+                var duplicateEvent = db.Events.FirstOrDefault(b => b.EventName == events.EventName && b.EventID != events.EventID);
+                if (duplicateEvent != null)
                 {
                     ModelState.AddModelError("EventName", "Sự kiện đã tồn tại.");
                     ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", events.BrandID);
                     return View(events);
                 }
 
-                // Xử lý ảnh tải lên
+                // Retain original StartDate and EndDate if they aren't updated
+                events.StartDate = events.StartDate == default ? existingEvent.StartDate : events.StartDate;
+                events.EndDate = events.EndDate == default ? existingEvent.EndDate : events.EndDate;
+
+                // Handle image upload
                 if (image != null && image.ContentLength > 0)
                 {
                     var fileName = Guid.NewGuid() + Path.GetExtension(image.FileName);
@@ -131,7 +142,7 @@ namespace Mall_Management.Controllers
                 }
                 else
                 {
-                    events.Image = db.Events.AsNoTracking().Where(b => b.EventID == events.EventID).Select(b => b.Image).FirstOrDefault();
+                    events.Image = existingEvent.Image; // Keep existing image if no new image is uploaded
                 }
 
                 db.Entry(events).State = EntityState.Modified;
@@ -139,10 +150,11 @@ namespace Mall_Management.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Đảm bảo SelectList cho BrandID khi có lỗi
+            // Ensure SelectList for BrandID on error
             ViewBag.BrandID = new SelectList(db.Brands, "BrandID", "BrandName", events.BrandID);
             return View(events);
         }
+
 
 
         [HttpPost]

@@ -152,29 +152,13 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Discounts" ? "active" : "")"
-                                   href="@Url.Action("Index","Discounts")">
-                                    <span class="menu-icon">
-                                        <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 viewBox="0 0 448 512">
-                                                <path d="M0 80L0 229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7L48 32C21.5 32 0 53.5 0 80zm112 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                    <span class="menu-title">Ưu đãi</span>
-                                </a>
-                            </div>
-                            <div class="menu-item">
                                 <div class="menu-content pt-8 pb-0">
                                     <span class="menu-section text-muted text-uppercase fs-8 ls-1">Quản lý cho thuê mặt bằng</span>
                                 </div>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Orders" ? "active" : "")"
-                                   href="@Url.Action("Index","Orders")">
+                                <a class="menu-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Contracts" ? "active" : "")"
+                                   href="@Url.Action("Index","Contracts")">
                                     <span class="menu-icon">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                         <span class="svg-icon svg-icon-2">
@@ -196,8 +180,8 @@
                                 </div>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Auth" ? "active" : "")"
-                                   href="@Url.Action("Index","Auth")">
+                                <a class="menu-link @(ViewContext.RouteData.Values["Controller"].ToString() == "#" ? "active" : "")"
+                                   href="#">
                                     <span class="menu-icon">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                         <span class="svg-icon svg-icon-2">
@@ -229,8 +213,8 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Emails" ? "active" : "")"
-                                   href="@Url.Action("Index","Emails")">
+                                <a class="menu-link @(ViewContext.RouteData.Values["Controller"].ToString() == "#" ? "active" : "")"
+                                   href="#">
                                     <span class="menu-icon">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                                         <span class="svg-icon svg-icon-2">

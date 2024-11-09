@@ -50,8 +50,6 @@
                                     <th class="min-w-150px">Nội dung</th>
                                     <th class="min-w-125px">Ngày bắt đâu</th>
                                     <th class="min-w-125px">Ngày kết thúc</th> <!-- Thêm cột Danh mục -->
-                                    <th class="min-w-125px">Đơn vị tổ chức</th>
-                                    <th class="text-end min-w-100px">Thương hiệu</th>
                                 </tr>
                             </thead>
                             <!--end::Table head-->
@@ -76,12 +74,6 @@
                                             <td>@Truncate(item.Description, 50)</td>
                                             <td>@item.StartDate</td>
                                             <td>@item.EndDate</td>
-                                            <td>@item.Register</td>
-
-                                            <!-- Hiển thị tên Danh mục -->
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Brand.BrandName)
-                                            </td>
                                             <td class="text-end">
                                                 <div class="dropdown">
                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
