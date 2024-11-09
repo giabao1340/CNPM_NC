@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Mall_Management.Models.Brand>
+
+@{
+    ViewBag.Title = "Brands";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@functions {
+    public string Truncate(string text, int maxLength)
+    {
+        if (string.IsNullOrEmpty(text)) return text;
+
+        return text.Length > maxLength ? text.Substring(0, maxLength) + "..." : text;
+    }
+}
+
+<!-- Custom Hover Styles -->
+<style>
+    .card-link:hover .card-title,
+    .card-link:hover .card-text {
+        color: #FF9C67;
+        text-decoration: none;
+    }
+
+    /* CSS Grid layout */
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        width: 270px;
+        height: 380px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        justify-content: center;
+    }
+
+    .card-img-top {
+        height: 100px;
+        object-fit: cover;
+    }
+
+    .img-responsive {
+        width: 100%;
+        height: 200px; /* hoặc kích thước phù hợp với yêu cầu */
+        object-fit: contain; /* hoặc dùng cover nếu muốn ảnh cắt vừa khung */
+    }
+
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+</style>
+
+<h2>Brands</h2>
+
+<div class="container">
+    <div class="grid-container">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="col medium-3 small-6 large-3">
+                    <a href="@item.Url" target="_blank" class="card-link text-decoration-none text-dark">
+                        <div class="card">
+                            @if (!string.IsNullOrEmpty(item.Image))
+                            {
+                                <img src="@Url.Content(item.Image)" class="card-img-top img-responsive" alt="Brand Image" />
+                            }
+                            else
+                            {
+                                <img src="~/images/no-image-available.png" class="card-img-top" alt="No Image" />
+                            }
+
+                            <div class="card-body">
+                                <h5 class="card-title">@item.BrandName</h5>
+                                <h5 class="card-title">@item.Category.CategoryName</h5>
+                                <hr />
+                                <h5 class="card-title">@item.Floor</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No brands available.</p>
+        }
+    </div>
+</div>
+
+</div>

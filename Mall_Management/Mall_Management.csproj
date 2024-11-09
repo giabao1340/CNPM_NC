@@ -421,6 +421,8 @@
     <Content Include="Views\Contracts\Index.cshtml" />
     <Content Include="Views\Home\Events.cshtml" />
     <Content Include="Views\Home\EventDetails.cshtml" />
+    <Content Include="Views\Home\Brands.cshtml" />
+    <Content Include="Views\Home\Map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

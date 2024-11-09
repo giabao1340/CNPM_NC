@@ -13,11 +13,13 @@ namespace Mall_Management.Controllers
         mall_dbEntities db = new mall_dbEntities();
         public ActionResult Index()
         {
-            return View();
+            var events = db.Events.ToList();
+            return View(events);
         }
         public ActionResult Brands()
         {
-            return View();
+            var brands = db.Brands.ToList();
+            return View(brands);
         }
 
         public ActionResult Events()
@@ -32,6 +34,10 @@ namespace Mall_Management.Controllers
         }
 
         public ActionResult Spaces()
+        {
+            return View();
+        }
+        public ActionResult Map()
         {
             return View();
         }

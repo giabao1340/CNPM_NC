@@ -41,12 +41,29 @@
     </div>
 
     <main>
-        <div class="highlight-container">
+        @functions {
+            public string Truncate(string text, int maxLength)
+            {
+                if (string.IsNullOrEmpty(text)) return text;
+
+                return text.Length > maxLength ? text.Substring(0, maxLength) + "..." : text;
+            }
+        }
+
+        <!-- Custom Hover Styles -->
+        <style>
+            .card-link:hover .card-title,
+            .card-link:hover .card-text {
+                color: #FF9C67; /* Change to desired color on hover */
+                text-decoration: none;
+            }
+        </style>
+
+        <div class="highlight-container" style="margin-top:125px; margin-bottom:25px">
             <div class="left-div"></div>
-            <h3 style="color: #FBA2D0;">TIÊU ĐIỂM</h3>
+            <h3 style="color: #FBA2D0;">SỰ KIỆN</h3>
             <div class="right-div"></div>
         </div>
-
         <div class="container">
             <div class="row">
                 @if (Model != null && Model.Any())
@@ -55,7 +72,7 @@
                     {
                         <div class="col-md-4 mb-4">
                             <!-- Link to Event Details -->
-                            <a href="@Url.Action("Details", "Events", new { id = item.EventID })" class="text-decoration-none text-dark">
+                            <a href="@Url.Action("EventDetails", "Home", new { id = item.EventID })" class="card-link text-decoration-none text-dark">
                                 <div class="card shadow-sm h-100">
                                     <!-- Event Image -->
                                     @if (!string.IsNullOrEmpty(item.Image))
@@ -76,8 +93,8 @@
 
                                         <!-- Start and End Date -->
                                         <p class="card-text">
-                                            <small class="text-muted">Start Date: @item.StartDate?.ToString("MM/dd/yyyy")</small><br />
-                                            <small class="text-muted">End Date: @item.EndDate?.ToString("MM/dd/yyyy")</small>
+                                            <small class="text-muted">Start Date: @item.StartDate</small><br />
+                                            <small class="text-muted">End Date: @item.EndDate</small>
                                         </p>
                                     </div>
                                 </div>
@@ -92,14 +109,7 @@
             </div>
         </div>
 
+
     </main>
 </body>
 </html>
-@functions {
-    public string Truncate(string text, int maxLength)
-    {
-        if (string.IsNullOrEmpty(text)) return text;
-
-        return text.Length > maxLength ? text.Substring(0, maxLength) + "..." : text;
-    }
-}
