@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,28 +10,28 @@ namespace Mall_Management.Controllers
 {
     public class HomeController : Controller
     {
-
+        mall_dbEntities db = new mall_dbEntities();
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult ThuongHieu()
+        public ActionResult Brands()
         {
             return View();
         }
-        public ActionResult DanhMuc()
+
+        public ActionResult Events()
         {
-            return View();
+            var events = db.Events.ToList(); 
+            return View(events);
         }
-        public ActionResult UuDai()
+        public ActionResult EventDetails()
         {
-            return View();
+            var events = db.Events.ToList();
+            return View(events);
         }
-        public ActionResult SuKien()
-        {
-            return View();
-        }
-        public ActionResult MatBang()
+
+        public ActionResult Spaces()
         {
             return View();
         }

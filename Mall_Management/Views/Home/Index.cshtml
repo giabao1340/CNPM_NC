@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<Mall_Management.Models.Event>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Trang Chủ</title>
@@ -45,23 +47,59 @@
             <div class="right-div"></div>
         </div>
 
-        @*<div class="event-list">
-            @foreach (var item in Model)
-            {
-                <div class="event-item">
-                    <h3>@Html.DisplayFor(modelItem => item.EventName)</h3>
-                    <p><strong>Mô tả:</strong> @Html.DisplayFor(modelItem => item.Description)</p>
-                    <p><strong>Ngày bắt đầu:</strong> @Html.DisplayFor(modelItem => item.StartDate)</p>
-                    <p><strong>Ngày kết thúc:</strong> @Html.DisplayFor(modelItem => item.EndDate)</p>
-
-                    @if (!string.IsNullOrEmpty(item.Image))
+        <div class="container">
+            <div class="row">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
                     {
-                        <img src="@Url.Content("~/Images/" + item.Image)" alt="@item.EventName" style="width:200px;height:150px;" />
+                        <div class="col-md-4 mb-4">
+                            <!-- Link to Event Details -->
+                            <a href="@Url.Action("Details", "Events", new { id = item.EventID })" class="text-decoration-none text-dark">
+                                <div class="card shadow-sm h-100">
+                                    <!-- Event Image -->
+                                    @if (!string.IsNullOrEmpty(item.Image))
+                                    {
+                                        <img src="@Url.Content(item.Image)" class="card-img-top" alt="Event Image" style="height: 200px; object-fit: cover;" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/images/no-image-available.png" class="card-img-top" alt="No Image" style="height: 200px; object-fit: cover;" />
+                                    }
+
+                                    <div class="card-body">
+                                        <!-- Event Name -->
+                                        <h5 class="card-title">@item.EventName</h5>
+
+                                        <!-- Event Description -->
+                                        <p class="card-text">@Truncate(item.Description, 50)</p>
+
+                                        <!-- Start and End Date -->
+                                        <p class="card-text">
+                                            <small class="text-muted">Start Date: @item.StartDate?.ToString("MM/dd/yyyy")</small><br />
+                                            <small class="text-muted">End Date: @item.EndDate?.ToString("MM/dd/yyyy")</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     }
-                </div>
-                <hr />
-            }
-        </div>*@
+                }
+                else
+                {
+                    <p>No events available.</p>
+                }
+            </div>
+        </div>
+
     </main>
 </body>
 </html>
+@functions {
+    public string Truncate(string text, int maxLength)
+    {
+        if (string.IsNullOrEmpty(text)) return text;
+
+        return text.Length > maxLength ? text.Substring(0, maxLength) + "..." : text;
+    }
+}

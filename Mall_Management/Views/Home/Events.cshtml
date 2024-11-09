@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Mall_Management.Models.Event>
+
+@{
+    ViewBag.Title = "Events";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@functions {
+    public string Truncate(string text, int maxLength)
+    {
+        if (string.IsNullOrEmpty(text)) return text;
+
+        return text.Length > maxLength ? text.Substring(0, maxLength) + "..." : text;
+    }
+}
+
+<!-- Custom Hover Styles -->
+<style>
+    .card-link:hover .card-title,
+    .card-link:hover .card-text {
+        color: #FF9C67; /* Change to desired color on hover */
+        text-decoration: none;
+    }
+</style>
+
+<h2>Events</h2>
+
+<div class="container">
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <!-- Link to Event Details -->
+                    <a href="@Url.Action("EventDetails", "Home", new { id = item.EventID })" class="card-link text-decoration-none text-dark">
+                        <div class="card shadow-sm h-100">
+                            <!-- Event Image -->
+                            @if (!string.IsNullOrEmpty(item.Image))
+                            {
+                                <img src="@Url.Content(item.Image)" class="card-img-top" alt="Event Image" style="height: 200px; object-fit: cover;" />
+                            }
+                            else
+                            {
+                                <img src="~/images/no-image-available.png" class="card-img-top" alt="No Image" style="height: 200px; object-fit: cover;" />
+                            }
+
+                            <div class="card-body">
+                                <!-- Event Name -->
+                                <h5 class="card-title">@item.EventName</h5>
+
+                                <!-- Event Description -->
+                                <p class="card-text">@Truncate(item.Description, 50)</p>
+
+                                <!-- Start and End Date -->
+                                <p class="card-text">
+                                    <small class="text-muted">Start Date: @item.StartDate?.ToString("MM/dd/yyyy")</small><br />
+                                    <small class="text-muted">End Date: @item.EndDate?.ToString("MM/dd/yyyy")</small>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No events available.</p>
+        }
+    </div>
+</div>
