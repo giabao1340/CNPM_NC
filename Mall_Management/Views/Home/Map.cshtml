@@ -3,10 +3,8 @@
     ViewBag.Title = "Map";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link href="~/Content/floor.css" rel="stylesheet" />
+
 <main>
 
     <div class="highlight-container" style="margin-top:125px; margin-bottom:25px">
@@ -20,22 +18,124 @@
     <p>
         Tải thông tin tầng chi tiết/Floor guide <a href="https://drive.google.com/file/d/1vUzliDv6lWT8lEV3M_T9tKXrPuPoSefv/view">tại đây</a>
     </p>
-
-
-    <div class="container mt-lg-20">
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Thành phần 1</a>
-                <a class="dropdown-item" href="#">Thành phần 2</a>
-                <a class="dropdown-item" href="#">Thành phần 3</a>
+    <hr />
+    <div class="custom-dropdown floor-map-dropdown">
+        <button class="dropdown-toggle floor-map-toggle">
+            Sky Mall | Tầng 1
+        </button>
+        <div class="dropdown-menu floor-map-menu">
+            <div class="img-inner">
+                <img width="1631" height="2197" src="https://vanhanhmall.com/wp-content/uploads/2024/10/Website-Map-02.png">
             </div>
         </div>
     </div>
+    <hr />
+    <div class="custom-dropdown">
+        <button class="dropdown-toggle">
+            Sky Mall Tầng | 2
+        </button>
+        <div class="dropdown-menu">
+            <div class="img-inner">
+                <img width="1631" height="2197" src="https://vanhanhmall.com/wp-content/uploads/2024/08/Website-Map-03.png" alt="" decoding="async">
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="custom-dropdown">
+        <button class="dropdown-toggle">
+            Sky Mall Tầng | 3
+        </button>
+        <div class="dropdown-menu">
+            <div class="img-inner">
+                <img width="1631" height="2197" src="https://vanhanhmall.com/wp-content/uploads/2024/08/Website-Map-04.png" alt="" decoding="async">
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="custom-dropdown">
+        <button class="dropdown-toggle">
+            Sky Mall Tầng | 4
+        </button>
+        <div class="dropdown-menu">
+            <div class="img-inner ">
+                <img width="1631" height="2197" src="https://vanhanhmall.com/wp-content/uploads/2024/08/Website-Map-05.png" alt="" decoding="async">
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="custom-dropdown">
+        <button class="dropdown-toggle">
+            Sky Mall Tầng | 5
+        </button>
+        <div class="dropdown-menu">
+            <div class="img-inner ">
+                <img width="1631" height="2197" src="https://vanhanhmall.com/wp-content/uploads/2024/08/Website-Map-06.png" alt="" decoding="async">
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="custom-dropdown">
+        <button class="dropdown-toggle">
+            Sky Mall Tầng | 6
+        </button>
+        <div class="dropdown-menu">
+            <div class="img-inner ">
+                <img width="1631" height="2197" src="https://vanhanhmall.com/wp-content/uploads/2024/08/Website-Map-07.png" alt="" decoding="async">
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="custom-dropdown">
+        <button class="dropdown-toggle">
+            Sky Mall Tầng | 7
+        </button>
+        <div class="dropdown-menu">
+            <div class="img-inner ">
+                <img width="1631" height="2197" src="https://vanhanhmall.com/wp-content/uploads/2022/08/Website-Map-08.jpg" alt="" decoding="async">
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="custom-dropdown">
+        <button class="dropdown-toggle">
+            Sky Mall Tầng | B
+        </button>
+        <div class="dropdown-menu">
+            <div class="img-inner ">
+                <img width="1631" height="2197" src="https://vanhanhmall.com/wp-content/uploads/2024/04/Website-Map-01.png" alt="" decoding="async">
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div>
+        <img style="width:1050px; height:218px" src="https://vanhanhmall.com/wp-content/uploads/2018/04/footer-banner.jpg" alt="Alternate Text" />
+    </div>
+    <script>
+        // Lắng nghe sự kiện click trên nút dropdown
+        document.querySelectorAll('.dropdown-toggle').forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                // Ngăn không cho sự kiện click của nút đi ra ngoài
+                event.stopPropagation();
 
+                // Lấy phần tử .custom-dropdown gần nhất để thay đổi trạng thái hiển thị menu
+                var dropdown = this.closest('.custom-dropdown');
 
-    <img width="1920" height="400" src="https://vanhanhmall.com/wp-content/uploads/2018/04/footer-banner.jpg" class="image wp-image-2995  attachment-full size-full" alt="" decoding="async" style="max-width: 100%; height: auto;" loading="lazy" srcset="https://vanhanhmall.com/wp-content/uploads/2018/04/footer-banner.jpg 1920w, https://vanhanhmall.com/wp-content/uploads/2018/04/footer-banner-800x167.jpg 800w, https://vanhanhmall.com/wp-content/uploads/2018/04/footer-banner-768x160.jpg 768w, https://vanhanhmall.com/wp-content/uploads/2018/04/footer-banner-1400x292.jpg 1400w" sizes="(max-width: 1920px) 100vw, 1920px">
+                // Toggle lớp 'show' để mở hoặc đóng menu
+                dropdown.classList.toggle('show');
+            });
+        });
+
+        // Đóng tất cả dropdown nếu click ra ngoài
+        window.addEventListener('click', function (event) {
+            // Kiểm tra xem có click vào bên trong dropdown không
+            document.querySelectorAll('.custom-dropdown').forEach(function (dropdown) {
+                // Nếu click vào phần tử ngoài dropdown thì ẩn tất cả dropdown
+                if (!dropdown.contains(event.target)) {
+                    dropdown.classList.remove('show');
+                }
+            });
+        });
+
+    </script>
 
 </main>

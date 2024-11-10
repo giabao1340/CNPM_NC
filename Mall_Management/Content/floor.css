@@ -1,0 +1,68 @@
+﻿/* Style chung cho tất cả các dropdown */
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%; /* Đảm bảo các dropdown không bị co lại và chiếm toàn bộ chiều ngang */
+    margin-bottom: 10px; /* Khoảng cách giữa các dropdown */
+}
+
+/* Style cho nút dropdown, có thể tùy chỉnh kích thước và màu sắc */
+     .dropdown-toggle {
+        background-color: white; /* Màu nền */
+        color: black;
+        transition: color 0.3s ease-in-out;
+        padding: 12px 24px; /* Kích thước */
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        width: 100%; /* Đảm bảo nút chiếm hết chiều ngang của dropdown */
+        text-align: left; /* Căn trái chữ */
+    }
+
+    /* Hover effect cho nút dropdown */
+    .dropdown-toggle:hover {
+        color: #FFC4A4; /* Màu chữ khi hover */
+    }
+
+/* Mũi tên */
+.dropdown-arrow {
+    margin-left: 10px;
+}
+
+.dropdown-menu {
+    display: none; 
+    position: relative; 
+    background-color: white; 
+    min-width: 200px;  
+    z-index: 10; 
+    margin-top: 8px;  
+}
+
+/* Style cho các item trong dropdown */
+.dropdown-item {
+    padding: 12px 16px;
+    display: block;
+    color: black; /* Màu chữ của item */
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+    /* Hover effect cho item */
+    .dropdown-item:hover {
+        background-color: #f1f1f1;
+    }
+
+/* Khi dropdown menu hiển thị */
+.custom-dropdown.show .dropdown-menu {
+    display: block; /* Hiển thị menu khi toggle */
+}
+
+/* Style cho hình ảnh bên trong dropdown (đảm bảo hình ảnh không làm đẩy xuống các phần tử khác) */
+.img-inner img {
+    width: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước menu */
+    height: auto; /* Tự động điều chỉnh chiều cao theo tỷ lệ */
+    border: none; /* Bỏ viền của ảnh */
+}

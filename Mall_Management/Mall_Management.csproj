@@ -239,6 +239,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\floor.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Register.css" />

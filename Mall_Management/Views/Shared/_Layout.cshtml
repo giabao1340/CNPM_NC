@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Trang Chủ</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <link href="@Url.Content("~/Content/custom.css")" rel="stylesheet" />
@@ -10,24 +9,29 @@
 </head>
 <body>
     <nav id="mynavbar" class="navbar navbar-expand-sm fixed-top bg-white">
-        <div class="container-fluid">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <!-- Logo -->
             <a class="logo navbar-brand" href="@Url.Action("Index", "Home")">
                 <img src="~/images/logo.png" alt="Logo" style="width:120px; margin-left:20px">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar" aria-controls="mynavbar" aria-expanded="false" aria-label="Toggle navigation">
+
+            <!-- Nút Toggler cho thiết bị di động -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-center" id="mynavbar">
+
+            <!-- Các mục trong thanh navbar -->
+            <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
                 <ul class="nav-cus navbar-nav">
                     <li class="nav-item ms-4">
                         <a class="nav-link main-color" href="@Url.Action("Index", "Home")">TRANG CHỦ</a>
                     </li>
                     <li class="nav-item dropdown ms-5">
-                        <a class="nav-link main-color" href="@Url.Action("Brands", "Home")" role="button">
+                        <a class="nav-link main-color dropdown-toggle" href="@Url.Action("Brands", "Home")"  data-bs-toggle="dropdown">
                             THƯƠNG HIỆU
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">ẨM THỰC</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Brands", "Home")">ẨM THỰC</a></li>
                             <li><a class="dropdown-item" href="#">THỜI TRANG</a></li>
                             <li><a class="dropdown-item" href="#">THỂ THAO</a></li>
                             <li><a class="dropdown-item" href="#">GIÁO DỤC</a></li>
@@ -43,7 +47,6 @@
                         @{
                             var role = Session["Role"] as string;
                         }
-
                         @if (role == "Admin")
                         {
                             <a class="nav-link main-color" href="@Url.Action("Index", "Brands")">ADMIN PANEL</a>
@@ -53,36 +56,41 @@
                             <a class="nav-link main-color" href="#">MẶT BẰNG</a>
                         }
                     </li>
-
                 </ul>
-                <form class="d-flex ms-4">
+            </div>
+
+            <!-- Tìm kiếm và avatar -->
+            <div class="d-flex align-items-center">
+                <!-- Ô tìm kiếm -->
+                <form class="d-flex me-3">
                     <input class="form-control me-2" type="text" placeholder="Search">
                     <button class="btn btn-primary" type="button">Search</button>
                 </form>
-                <div class="nav-item dropdown ms-5">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+
+                <!-- Avatar -->
+                <div class="nav-item dropdown profile-dropdown ms-3">
+                    <a class="nav-link dropdown-toggle profile-toggle" href="#" role="button">
                         <img src="~/images/user.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
                     </a>
-                    <ul class="dropdown-menu custom-dropdown-menu">
+                    <ul class="dropdown-menu profile-menu dropdown-menu-end">
                         @if (Session["IsActive"] != null && (bool)Session["IsActive"] == true)
                         {
-                            <!-- User is logged in (IsActive = true) -->
                             <li><a class="dropdown-item" href="@Url.Action("DangXuat", "Account")">Đăng xuất</a></li>
                             <li><a class="dropdown-item" href="@Url.Action("DoiMatKhau", "Account")">Đổi mật khẩu</a></li>
                         }
                         else
                         {
-                            <!-- User is not logged in (IsActive = false) -->
                             <li><a class="dropdown-item" href="@Url.Action("DangKy", "Account")">Đăng Ký</a></li>
                             <li><a class="dropdown-item" href="@Url.Action("DangNhap", "Account")">Đăng Nhập</a></li>
                         }
                     </ul>
-
                 </div>
+
             </div>
         </div>
     </nav>
-    <div class="container body-content" style="margin-top: 80px;">
+
+    <div class="container body-content" style="margin-top: 120px;">
         @RenderBody()
         <footer>
             <div class="container mt-5 myft">
@@ -129,7 +137,7 @@
                                 <a href="#">Giờ hoạt động</a>
                             </li>
                             <li>
-                                <a href="#">Sơ đồ tầng</a>
+                                <a href="@Url.Action("Map", "Home")">Sơ đồ tầng</a>
                             </li>
                             <li>
                                 <a href="#">Tiện Ích</a>
@@ -153,6 +161,31 @@
     <script src="@Url.Content("~/Scripts/script.js")"></script>
     @RenderSection("scripts", required: false)
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Floor Map Dropdown
+            document.querySelector('.floor-map-toggle').addEventListener('click', function (event) {
+                event.stopPropagation();
+                document.querySelector('.floor-map-menu').classList.toggle('show');
+            });
 
+            // Profile Dropdown
+            document.querySelector('.profile-toggle').addEventListener('click', function (event) {
+                event.stopPropagation();
+                document.querySelector('.profile-menu').classList.toggle('show');
+            });
+
+            // Close dropdowns if clicking outside
+            window.addEventListener('click', function (event) {
+                if (!event.target.closest('.floor-map-dropdown')) {
+                    document.querySelector('.floor-map-menu').classList.remove('show');
+                }
+                if (!event.target.closest('.profile-dropdown')) {
+                    document.querySelector('.profile-menu').classList.remove('show');
+                }
+            });
+        });
+
+    </script>
 </body>
 </html>
