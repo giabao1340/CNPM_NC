@@ -8,14 +8,11 @@
     <Property Name="Username" Type="nvarchar" MaxLength="50" />
     <Property Name="PasswordHash" Type="nvarchar" MaxLength="256" />
     <Property Name="FullName" Type="nvarchar" MaxLength="100" />
-    <Property Name="IdentityNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="Email" Type="nvarchar" MaxLength="100" />
     <Property Name="Phone" Type="nvarchar" MaxLength="20" />
-    <Property Name="Avatar" Type="nvarchar(max)" />
     <Property Name="Role" Type="nvarchar" MaxLength="50" />
     <Property Name="CreatedDate" Type="date" />
     <Property Name="IsActive" Type="bit" />
-    <Property Name="BusinessName" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Brands">
     <Key>

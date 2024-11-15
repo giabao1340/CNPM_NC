@@ -5,8 +5,15 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
     <link href="~/Content/AdminCSS/PagedList.css" rel="stylesheet" />
 }
+@functions {
+    public string Truncate(string text, int maxLength)
+    {
+        if (string.IsNullOrEmpty(text)) return text;
+
+        return text.Length > maxLength ? text.Substring(0, maxLength) + "..." : text;
+    }
+}
 <br />
-<!--begin::container-fluid-->
 <div class="d-flex flex-column-fluid">
     <div class="container  ">
         <div class="card">
@@ -50,16 +57,6 @@
                             </thead>
                             <!--end::Table head-->
                             <!--begin::Table body-->
-
-                            @functions {
-                                public string Truncate(string text, int maxLength)
-                                {
-                                    if (string.IsNullOrEmpty(text)) return text;
-
-                                    return text.Length > maxLength ? text.Substring(0, maxLength) + "..." : text;
-                                }
-                            }
-
                             <tbody class="text-gray-600 fw-bold h-100">
                                 @if (Model != null)
                                 {
@@ -79,13 +76,11 @@
                                                 }
                                             </td>
                                             <td>@item.Floor</td>
-
-                                            <!-- Hiển thị tên Danh mục -->
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Category.CategoryName)
                                             </td>
                                             <td>@Truncate(item.Description, 50)</td>
-                                            <td>@item.Url</td>
+                                            <td>@Truncate(item.Url, 50)</td>
                                             <td class="text-end">
                                                 <div class="dropdown">
                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
@@ -109,7 +104,7 @@
                                                         <!-- Delete -->
                                                         <!-- Delete -->
                                                         <li>
-                                                            <a href="javascript:void(0);" class="dropdown-item" onclick="openDeleteModal('@Url.Action("Delete", "Brands", new { id = item.BrandID })');">
+                                                            <a href="javascript:void(0);" class="dropdown-item" onclick="openDeleteModal('@Url.Action("Delete", "Events", new { id = item.BrandID })');">
                                                                 <span class="svg-icon svg-icon-5 me-2">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" /></svg>
                                                                 </span>
@@ -141,7 +136,6 @@
         </div>
     </div>
 </div>
-
 
 @section scripts{
     <script src="~/Scripts/AdminJs/brands.js"></script>

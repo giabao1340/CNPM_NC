@@ -66,6 +66,7 @@ namespace Mall_Management.Controllers
 
                     // Lưu đường dẫn ảnh vào thuộc tính Image của đối tượng Brand
                     space.Image = "/images/" + fileName;
+                    space.Status = "Available";
                 }
 
                 // Lưu đối tượng Brand vào cơ sở dữ liệu

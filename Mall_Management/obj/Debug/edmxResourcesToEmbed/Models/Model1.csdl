@@ -8,14 +8,11 @@
     <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PasswordHash" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
     <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="IdentityNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="Avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CreatedDate" Type="DateTime" Precision="0" />
     <Property Name="IsActive" Type="Boolean" />
-    <Property Name="BusinessName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Contracts" Relationship="Self.FK__Contracts__Accou__4D94879B" FromRole="Accounts" ToRole="Contracts" />
   </EntityType>
   <EntityType Name="Brand">

@@ -62,8 +62,8 @@ public class AccountController : Controller
             // Thiết lập các thuộc tính mặc định
             account.CreatedDate = DateTime.Now;
             account.Role = "User";  // Vai trò mặc định là "User"
-            account.IsActive = false;  // Tài khoản chưa được kích hoạt
-
+            account.IsActive = true;  // Tài khoản chưa được kích hoạt
+            account.FullName = "";
             // Thêm tài khoản vào cơ sở dữ liệu
             db.Accounts.Add(account);
             try
@@ -74,18 +74,20 @@ public class AccountController : Controller
                 TempData["SuccessMessage"] = "Đăng ký thành công. Vui lòng đăng nhập!";
                 return RedirectToAction("DangNhap", "Account");
             }
-            catch (Exception ex)
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                if (ex.InnerException != null)
+                Console.WriteLine("Validation errors occurred:");
+                foreach (var validationErrors in ex.EntityValidationErrors)
                 {
-                    Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                    }
                 }
                 Console.WriteLine("Stack Trace: " + ex.StackTrace);
-                ModelState.AddModelError(string.Empty, "Đã xảy ra lỗi. Vui lòng thử lại.");
+
+                ModelState.AddModelError(string.Empty, "Đã xảy ra lỗi xác thực dữ liệu. Vui lòng thử lại.");
             }
-
-
         }
 
         // Xử lý lỗi xác thực mô hình khác
@@ -93,65 +95,63 @@ public class AccountController : Controller
         return View(account);
     }
 
-
-
-
     public ActionResult DangNhap()
     {
         return View();
     }
     [HttpPost]
-    public async Task<ActionResult> DangNhap(string username, string password)
+    [ValidateAntiForgeryToken]
+    public ActionResult DangNhap(string username, string password)
     {
-        // Tìm kiếm tài khoản theo tên đăng nhập
-        var user = await db.Accounts.FirstOrDefaultAsync(a => a.Username == username);
+        // Tìm tài khoản theo tên đăng nhập
+        var account = db.Accounts.SingleOrDefault(a => a.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
 
-        // So sánh mật khẩu đã băm
-        if (user != null && user.PasswordHash == HashPassword(password))
+        if (account == null)
         {
-            // Nếu đăng nhập thành công, thiết lập xác thực cookie
-            var identity = new ClaimsIdentity(
-                new[]
-                {
-                    new Claim(ClaimTypes.Name, user.Username),
-                    new Claim(ClaimTypes.NameIdentifier, user.AccountID.ToString()),
-                    new Claim("IsActive", user.IsActive.ToString()) // Thêm các claim khác nếu cần
-                },
-                DefaultAuthenticationTypes.ApplicationCookie);
-
-            // Lưu trạng thái đăng nhập
-            var authManager = HttpContext.GetOwinContext().Authentication;
-            authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, identity);
-
-            return Json(new { success = true, message = "Đăng nhập thành công!" });
+            ModelState.AddModelError("", "Tên đăng nhập không tồn tại.");
+            return View();
         }
 
-        // Trả về lỗi nếu thông tin đăng nhập không chính xác
-        return Json(new { success = false, message = "Tên đăng nhập hoặc mật khẩu không đúng." });
-    }
-
-    private string HashPassword(string password)
-    {
-        using (var sha256 = SHA256.Create())
+        // Kiểm tra mật khẩu có khớp không
+        if (!BCrypt.Net.BCrypt.Verify(password, account.PasswordHash))
         {
-            byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password.Trim()));
-            StringBuilder builder = new StringBuilder();
-            foreach (var b in hashedBytes)
-            {
-                builder.Append(b.ToString("x2"));
-            }
-            return builder.ToString();
+            ModelState.AddModelError("", "Mật khẩu không chính xác.");
+            return View();
         }
+
+        // Kiểm tra tài khoản có được kích hoạt không
+        if (!account.IsActive)
+        {
+            ModelState.AddModelError("", "Tài khoản của bạn chưa được kích hoạt.");
+            return View();
+        }
+        Session["Role"] = account.Role; // Giả sử tài khoản có thuộc tính Role lưu vai trò
+        // Đăng nhập thành công, cập nhật trạng thái IsActive = true
+        account.IsActive = true;
+        db.SaveChanges();
+
+        // Thiết lập cookie xác thực
+        FormsAuthentication.SetAuthCookie(account.Username, false);
+
+        // Chuyển hướng đến trang chủ hoặc trang khác
+        return RedirectToAction("Index", "Home");
     }
-        [HttpPost]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public ActionResult DangXuat()
     {
-        // Đăng xuất
-        var authManager = HttpContext.GetOwinContext().Authentication;
-        authManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        // Xóa thông tin xác thực
+        FormsAuthentication.SignOut();
 
-        return RedirectToAction("DangNhap");
+        // Xóa Session nếu cần
+        Session.Clear();
+
+        // Chuyển hướng đến trang đăng nhập hoặc trang chủ
+        return RedirectToAction("DangNhap", "Account");
     }
+
+
+
 
 
     [HttpGet]

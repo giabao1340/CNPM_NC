@@ -8,14 +8,11 @@
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="IdentityNumber" ColumnName="IdentityNumber" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Avatar" ColumnName="Avatar" />
           <ScalarProperty Name="Role" ColumnName="Role" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
