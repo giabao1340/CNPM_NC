@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -72,15 +73,15 @@ namespace Mall_Management.Controllers
 
             try
             {
-                var user = await db.Accounts.FindAsync(User.Identity.GetUserId());
+                var username = User.Identity.Name;
+                var user = await db.Accounts.SingleOrDefaultAsync(a => a.Username == username);
+
 
                 if (user == null)
                 {
                     return Json(new { success = false, message = "Không tìm thấy người dùng." });
                 }
 
-                // Cập nhật trạng thái IsActive
-                user.IsActive = true;
                 db.Entry(user).State = System.Data.Entity.EntityState.Modified;
 
                 // Kiểm tra xem mặt bằng có đang khả dụng không
@@ -97,7 +98,7 @@ namespace Mall_Management.Controllers
                     SpaceID = space.SpaceID,
                     StartDate = DateTime.Now,
                     RentAmount = space.RentalPrice,
-                    Status = "Active"
+                    Status = "Pending"
                 };
                 db.Contracts.Add(contract);
 
