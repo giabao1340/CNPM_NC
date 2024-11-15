@@ -15,58 +15,60 @@
     <link href="~/Content/Login.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="login-container">
-        @using (Html.BeginForm("DangNhap", "Account", FormMethod.Post, new { @class = "Login-form" }))
-        {
-            @Html.AntiForgeryToken()
-            <h2>Đăng Nhập</h2>
+    <main>
+        <div class="login-container">
+            @using (Html.BeginForm("DangNhap", "Account", FormMethod.Post, new { @class = "Login-form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h2>Đăng Nhập</h2>
 
-            <!-- Validation Summary -->
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <!-- Validation Summary -->
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <!-- Username or Email -->
-            <div class="input">
-                @Html.TextBox("UsernameOrEmail", null, new { placeholder = "Tên đăng nhập hoặc Email", @class = "form-control" })
-                @Html.Label("UsernameOrEmail", "Tên đăng nhập hoặc Email", new { @class = "form-label" })
+                <!-- Username or Email -->
+                <div class="input">
+                    @Html.TextBox("username", null, new { placeholder = "Tên đăng nhập hoặc Email", @class = "form-control" })
+                    @Html.Label("username", "Tên đăng nhập hoặc Email", new { @class = "form-label" })
+                </div>
+
+                <!-- Password -->
+                <div class="input">
+                    @Html.Password("password", null, new { placeholder = "Mật khẩu", @class = "form-control" })
+                    @Html.Label("password", "Mật khẩu", new { @class = "form-label" })
+                </div>
+
+                <!-- Submit Button -->
+                <button class="btn btn-primary w-100" type="submit">Đăng Nhập</button>
+            }
+            <a href="#" class="forgot-password">Quên mật khẩu</a>
+            <div class="line-with-text">
+                <span class="line-text">Hoặc</span>
             </div>
-
-            <!-- Password -->
-            <div class="input">
-                @Html.Password("Password", null, new { placeholder = "Mật khẩu", @class = "form-control" })
-                @Html.Label("Password", "Mật khẩu", new { @class = "form-label" })
+            <div class="fb-gg-btn">
+                <button class="fb-btn">
+                    <div class="chua-fb">
+                        <div class="fb">
+                            <img src="~/images/fb.jpg" alt="Facebook Logo">
+                        </div>
+                    </div>
+                </button>
+                <button class="gg-btn">
+                    <div class="chua-gg">
+                        <div class="gg">
+                            <img src="~/images/icon-gg.png" alt="Google Logo">
+                        </div>
+                    </div>
+                </button>
             </div>
-
-            <!-- Submit Button -->
-            <button class="login" type="submit">Đăng Nhập</button>
-        }
-        <a href="#" class="forgot-password">Quên mật khẩu</a>
-        <div class="line-with-text">
-            <span class="line-text">Hoặc</span>
-        </div>
-        <div class="fb-gg-btn">
-            <button class="fb-btn">
-                <div class="chua-fb">
-                    <div class="fb">
-                        <img src="~/images/fb.jpg" alt="Facebook Logo">
+            <div class="dangki">
+                <div class="textbt">
+                    Bạn chưa có tài khoản?
+                    <div class="link">
+                        <a style="text-decoration:none" href="@Url.Action("DangKy", "Account")">Đăng Ký</a>
                     </div>
                 </div>
-            </button>
-            <button class="gg-btn">
-                <div class="chua-gg">
-                    <div class="gg">
-                        <img src="~/images/icon-gg.png" alt="Google Logo">
-                    </div>
-                </div>
-            </button>
-        </div>
-        <div class="dangki">
-            <div class="textbt">
-                Bạn chưa có tài khoản?
-                <div class="link">
-                    <a href="@Url.Action("DangKy", "Account")">Đăng Ký</a>
-                </div>
             </div>
         </div>
-    </div>
+    </main>
 </body>
 </html>

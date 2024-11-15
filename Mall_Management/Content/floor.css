@@ -33,13 +33,15 @@
 }
 
 .dropdown-menu {
-    display: none; 
-    position: relative; 
-    background-color: white; 
-    min-width: 200px;  
-    z-index: 10; 
-    margin-top: 8px;  
+    display: none;
+    position: relative;
+    background-color: white;
+    min-width: 200px;
+    z-index: 10;
+    margin-top: 8px;
+    border: none; /* Bỏ viền xung quanh */
 }
+
 
 /* Style cho các item trong dropdown */
 .dropdown-item {
@@ -64,5 +66,5 @@
 .img-inner img {
     width: 100%; /* Đảm bảo hình ảnh không vượt quá kích thước menu */
     height: auto; /* Tự động điều chỉnh chiều cao theo tỷ lệ */
-    border: none; /* Bỏ viền của ảnh */
+    border:none;
 }

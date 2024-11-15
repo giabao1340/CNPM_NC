@@ -1,0 +1,191 @@
+﻿@model IEnumerable<Mall_Management.Models.Space>
+<Mall_Management.Models>
+    @{
+        ViewBag.Title = "Spaces";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    @functions {
+        public string Truncate(string text, int maxLength)
+        {
+            if (string.IsNullOrEmpty(text)) return text;
+
+            return text.Length > maxLength ? text.Substring(0, maxLength) + "..." : text;
+        }
+    }
+    <!-- Custom Hover Styles -->
+    <style>
+        .card-link:hover .card-title,
+        .card-link:hover .card-text {
+            color: #FF9C67; /* Change to desired color on hover */
+            text-decoration: none;
+        }
+
+        .card-highlight {
+            transform: scale(1.05); /* Phóng to một chút khi di chuột */
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Tăng độ bóng đổ */
+            transition: transform 0.3s, box-shadow 0.3s; /* Hiệu ứng mượt */
+        }
+
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-rent-now:hover {
+            background-color: #f0f0f0; /* Example color on hover */
+            color: #333;
+        }
+
+        .btn-rent-now {
+            background-color: white;
+            color: black;
+            transition: all 0.3s ease;
+        }
+
+            .btn-rent-now:hover {
+                transform: scale(1.05);
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+    </style>
+    <main>
+        <div class="highlight-container" style="margin-top:130px; margin-bottom:25px">
+            <div class="left-div"></div>
+            <h3 style="color: #FBA2D0;">MẶT BẰNG</h3>
+            <div class="right-div"></div>
+        </div>
+        <div class="container">
+            <div class="row">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm h-100 position-relative">
+                                <!-- Event Image -->
+                                @if (!string.IsNullOrEmpty(item.Image))
+                                {
+                                    <img src="@Url.Content(item.Image)" class="card-img-top" alt="Event Image" style="height: 200px; object-fit: cover;" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/no-image-available.png" class="card-img-top" alt="No Image" style="height: 200px; object-fit: cover;" />
+                                }
+
+                                <div class="card-body">
+                                    <!-- Event Name -->
+                                    <h5 class="card-title">Tên mặt bằng: @item.SpaceName</h5>
+
+                                    <!-- Event Description -->
+                                    <p class="card-text">Địa điểm: @Truncate(item.Location, 50)</p>
+
+                                    <!-- Start and End Date -->
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            Diện tích:
+                                            <b>@item.Area</b>
+                                        </small><br />
+                                        <small class="text-muted">
+                                            Trạng thái:
+                                            <b>@item.Status</b>
+                                        </small><br />
+                                    </p>
+                                    <h5>Giá Thuê: @item.RentalPrice$</h5>
+                                    <!-- Nút "Thuê Ngay" sử dụng button thay vì a -->
+                                    <a class="btn btn-rent-now border border-dark position-absolute bottom-0 end-0 m-2 rent-now-btn"
+                                       data-space-id="@item.SpaceID">
+                                        Thuê Ngay
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No events available.</p>
+                }
+            </div>
+        </div>
+    </main>
+    <!-- Modal Xác Nhận -->
+    <div class="modal fade" id="rentConfirmModal" tabindex="-1" aria-labelledby="rentConfirmLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rentConfirmLabel">Xác nhận thuê mặt bằng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn thuê mặt bằng này không?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="confirmRentBtn">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //float card
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy tất cả thẻ card
+            document.querySelectorAll('.card').forEach(function (card) {
+                // Thêm sự kiện khi di chuột vào
+                card.addEventListener('mouseover', function () {
+                    card.classList.add('card-highlight');
+                });
+
+                // Thêm sự kiện khi rời khỏi
+                card.addEventListener('mouseout', function () {
+                    card.classList.remove('card-highlight');
+                });
+            });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.btn-rent-now').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const spaceID = this.getAttribute('data-space-id');
+
+                    // Lưu SpaceID vào nút xác nhận
+                    const confirmButton = document.getElementById('confirmRentBtn');
+                    confirmButton.setAttribute('data-space-id', spaceID);
+
+                    // Mở modal
+                    const rentConfirmModal = new bootstrap.Modal(document.getElementById('rentConfirmModal'));
+                    rentConfirmModal.show();
+                });
+            });
+
+            document.getElementById('confirmRentBtn').addEventListener('click', function () {
+                const spaceID = this.getAttribute('data-space-id');
+
+                fetch('/Home/RentNow', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include', // Gửi kèm cookie để xác thực
+                    body: JSON.stringify({ spaceId: spaceID })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                        } else {
+                            alert("Lỗi: " + data.message);
+                        }
+
+                        const rentConfirmModal = bootstrap.Modal.getInstance(document.getElementById('rentConfirmModal'));
+                        rentConfirmModal.hide();
+                    })
+                    .catch(error => {
+                        console.error('Lỗi khi gọi API:', error);
+                    });
+
+            });
+
+        });
+
+    </script>

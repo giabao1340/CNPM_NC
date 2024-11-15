@@ -9,6 +9,10 @@ using System.Data.Entity;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System.Security.Claims;
+using System.Web;
 
 public class AccountController : Controller
 {
@@ -25,58 +29,71 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            // Check if username or email already exists
-            var existingUser = db.Accounts.FirstOrDefault(a => a.Username == account.Username);
-            var existingEmail = db.Accounts.FirstOrDefault(a => a.Email == account.Email);
-            if (existingUser != null)
+            // Kiểm tra tên đăng nhập và email đã tồn tại
+            bool isUsernameExists = db.Accounts.Any(a => a.Username.Equals(account.Username, StringComparison.OrdinalIgnoreCase));
+            bool isEmailExists = db.Accounts.Any(a => a.Email.Equals(account.Email, StringComparison.OrdinalIgnoreCase));
+
+            if (isUsernameExists)
             {
-                ModelState.AddModelError("Username", "Username already exists. Please try again.");
+                ModelState.AddModelError("Username", "Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.");
             }
-            if (existingEmail != null)
+            if (isEmailExists)
             {
-                ModelState.AddModelError("Email", "Email already exists. Please try again.");
+                ModelState.AddModelError("Email", "Email đã được sử dụng. Vui lòng sử dụng email khác.");
             }
-            if (existingUser != null || existingEmail != null)
+
+            // Nếu có lỗi trùng lặp, trả về trang đăng ký cùng với thông báo lỗi
+            if (isUsernameExists || isEmailExists)
             {
                 return View(account);
             }
 
-            // Check if password and confirm password match
-            if (account.Password != CFPassword)
+            // Kiểm tra mật khẩu và mật khẩu xác nhận có khớp không
+            if (!string.Equals(account.Password, CFPassword))
             {
-                ModelState.AddModelError(string.Empty, "The password and confirm password do not match. Please try again.");
+                ModelState.AddModelError(string.Empty, "Mật khẩu và mật khẩu xác nhận không khớp. Vui lòng thử lại.");
                 return View(account);
             }
 
-            // Hash the password using BCrypt before saving to the database
+            // Băm mật khẩu trước khi lưu
             account.PasswordHash = BCrypt.Net.BCrypt.HashPassword(account.Password);
+            account.Password = null; // Xóa mật khẩu gốc để bảo mật
 
-            // Additional properties
+            // Thiết lập các thuộc tính mặc định
             account.CreatedDate = DateTime.Now;
-            account.Role = "User";
-            // Add the new account to the database
-            db.Accounts.Add(account);
+            account.Role = "User";  // Vai trò mặc định là "User"
+            account.IsActive = false;  // Tài khoản chưa được kích hoạt
 
+            // Thêm tài khoản vào cơ sở dữ liệu
+            db.Accounts.Add(account);
             try
             {
-                // Save the changes to the database
-                db.SaveChanges();
+                db.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu
+
+                // Đăng ký thành công, chuyển hướng đến trang đăng nhập
+                TempData["SuccessMessage"] = "Đăng ký thành công. Vui lòng đăng nhập!";
                 return RedirectToAction("DangNhap", "Account");
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-                // Log the detailed exception message (using logger is recommended)
-                var errorMessage = ex.InnerException?.Message;
-                Console.WriteLine(errorMessage);
-                ModelState.AddModelError(string.Empty, "An error occurred while saving to the database. Please try again.");
-                return View(account);
+                Console.WriteLine("Error: " + ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                }
+                Console.WriteLine("Stack Trace: " + ex.StackTrace);
+                ModelState.AddModelError(string.Empty, "Đã xảy ra lỗi. Vui lòng thử lại.");
             }
+
+
         }
 
-        // If we get here, something went wrong with model validation
-        ModelState.AddModelError(string.Empty, "Registration failed. Please check your input and try again.");
-        return RedirectToAction("DangNhap", "Account");
+        // Xử lý lỗi xác thực mô hình khác
+        ModelState.AddModelError(string.Empty, "Đăng ký thất bại. Vui lòng kiểm tra và thử lại.");
+        return View(account);
     }
+
+
 
 
     public ActionResult DangNhap()
@@ -84,67 +101,58 @@ public class AccountController : Controller
         return View();
     }
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult DangNhap(string UsernameOrEmail, string Password)
+    public async Task<ActionResult> DangNhap(string username, string password)
     {
-        if (string.IsNullOrEmpty(UsernameOrEmail) || string.IsNullOrEmpty(Password))
+        // Tìm kiếm tài khoản theo tên đăng nhập
+        var user = await db.Accounts.FirstOrDefaultAsync(a => a.Username == username);
+
+        // So sánh mật khẩu đã băm
+        if (user != null && user.PasswordHash == HashPassword(password))
         {
-            ModelState.AddModelError(string.Empty, "Username/Email and Password are required.");
-            return View();
-        }
-        var account = db.Accounts.FirstOrDefault(a => a.Username == UsernameOrEmail || a.Email == UsernameOrEmail);
+            // Nếu đăng nhập thành công, thiết lập xác thực cookie
+            var identity = new ClaimsIdentity(
+                new[]
+                {
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.NameIdentifier, user.AccountID.ToString()),
+                    new Claim("IsActive", user.IsActive.ToString()) // Thêm các claim khác nếu cần
+                },
+                DefaultAuthenticationTypes.ApplicationCookie);
 
-        if (account != null)
-        {
-            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(Password, account.PasswordHash);
+            // Lưu trạng thái đăng nhập
+            var authManager = HttpContext.GetOwinContext().Authentication;
+            authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, identity);
 
-            if (isPasswordValid)
-            {
-                FormsAuthentication.SetAuthCookie(account.Username, false);
-
-                Session["Username"] = account.Username;
-                Session["Role"] = account.Role;
-                Session["IsActive"] = account.IsActive;
-
-                account.IsActive = true;
-
-                db.Entry(account).State = EntityState.Modified; // Ensure the entity is marked as modified
-                db.SaveChanges();
-
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Invalid password. Please try again.");
-            }
-        }
-        else
-        {
-            ModelState.AddModelError(string.Empty, "User not found. Please try again.");
+            return Json(new { success = true, message = "Đăng nhập thành công!" });
         }
 
-        return View();
+        // Trả về lỗi nếu thông tin đăng nhập không chính xác
+        return Json(new { success = false, message = "Tên đăng nhập hoặc mật khẩu không đúng." });
     }
 
-
+    private string HashPassword(string password)
+    {
+        using (var sha256 = SHA256.Create())
+        {
+            byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password.Trim()));
+            StringBuilder builder = new StringBuilder();
+            foreach (var b in hashedBytes)
+            {
+                builder.Append(b.ToString("x2"));
+            }
+            return builder.ToString();
+        }
+    }
+        [HttpPost]
     public ActionResult DangXuat()
     {
-        var username = Session["Username"];
-        if (username != null)
-        {
-            var account = db.Accounts.FirstOrDefault(a => a.Username == (string)username);
+        // Đăng xuất
+        var authManager = HttpContext.GetOwinContext().Authentication;
+        authManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
-            if (account != null)
-            {
-                account.IsActive = false;
-
-                db.SaveChanges();
-            }
-            Session.Clear();
-            FormsAuthentication.SignOut();
-        }
-        return RedirectToAction("DangNhap", "Account");
+        return RedirectToAction("DangNhap");
     }
+
 
     [HttpGet]
     public ActionResult DoiMatKhau()

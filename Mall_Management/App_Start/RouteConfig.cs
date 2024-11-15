@@ -10,5 +10,12 @@ public class RouteConfig
             url: "{controller}/{action}/{id}",
             defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
         );
+        routes.MapRoute(
+        name: "RentNow",
+        url: "Home/RentNow",
+        defaults: new { controller = "Home", action = "RentNow" }
+);
+
     }
+
 }

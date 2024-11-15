@@ -27,6 +27,21 @@
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 20px;
     }
+    .card-link:hover .card-title,
+    .card-link:hover .card-text {
+        color: #FF9C67; /* Change to desired color on hover */
+        text-decoration: none;
+    }
+
+    .card-highlight {
+        transform: scale(1.05); /* Phóng to một chút khi di chuột */
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Tăng độ bóng đổ */
+        transition: transform 0.3s, box-shadow 0.3s; /* Hiệu ứng mượt */
+    }
+
+    .card {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
 
     .card {
         width: 270px;
@@ -56,42 +71,64 @@
     }
 </style>
 
-<h2>Brands</h2>
 
-<div class="container">
-    <div class="grid-container">
-        @if (Model != null && Model.Any())
-        {
-            foreach (var item in Model)
+<main>
+
+    <div class="container">
+        <div class="highlight-container" style="margin-top:125px; margin-bottom:25px">
+            <div class="left-div"></div>
+            <h3 style="color: #FBA2D0;">THƯƠNG HIỆU</h3>
+            <div class="right-div"></div>
+        </div>
+        <div class="grid-container">
+            @if (Model != null && Model.Any())
             {
-                <div class="col medium-3 small-6 large-3">
-                    <a href="@item.Url" target="_blank" class="card-link text-decoration-none text-dark">
-                        <div class="card">
-                            @if (!string.IsNullOrEmpty(item.Image))
-                            {
-                                <img src="@Url.Content(item.Image)" class="card-img-top img-responsive" alt="Brand Image" />
-                            }
-                            else
-                            {
-                                <img src="~/images/no-image-available.png" class="card-img-top" alt="No Image" />
-                            }
+                foreach (var item in Model)
+                {
+                    <div class="col medium-3 small-6 large-3">
+                        <a href="@item.Url" target="_blank" class="card-link text-decoration-none text-dark">
+                            <div class="card">
+                                @if (!string.IsNullOrEmpty(item.Image))
+                                {
+                                    <img src="@Url.Content(item.Image)" class="card-img-top img-responsive" alt="Brand Image" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/no-image-available.png" class="card-img-top" alt="No Image" />
+                                }
 
-                            <div class="card-body">
-                                <h5 class="card-title">@item.BrandName</h5>
-                                <h5 class="card-title">@item.Category.CategoryName</h5>
-                                <hr />
-                                <h5 class="card-title">@item.Floor</h5>
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.BrandName</h5>
+                                    <h5 class="card-title">@item.Category.CategoryName</h5>
+                                    <hr />
+                                    <h5 class="card-title">@item.Floor</h5>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                }
             }
-        }
-        else
-        {
-            <p>No brands available.</p>
-        }
-    </div>
-</div>
+            else
+            {
+                <p>No brands available.</p>
+            }
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Lấy tất cả thẻ card
+                document.querySelectorAll('.card').forEach(function (card) {
+                    // Thêm sự kiện khi di chuột vào
+                    card.addEventListener('mouseover', function () {
+                        card.classList.add('card-highlight');
+                    });
 
-</div>
+                    // Thêm sự kiện khi rời khỏi
+                    card.addEventListener('mouseout', function () {
+                        card.classList.remove('card-highlight');
+                    });
+                });
+            });
+        </script>
+    </div>
+
+</main>

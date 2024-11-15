@@ -1,4 +1,5 @@
 ﻿using Mall_Management.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,8 @@ namespace Mall_Management.Controllers
 
         public ActionResult Spaces()
         {
-            return View();
+            var spaces = db.Spaces.ToList();
+            return View(spaces);
         }
         public ActionResult Map()
         {
@@ -59,5 +61,60 @@ namespace Mall_Management.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public async Task<JsonResult> RentNow(int spaceId)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Json(new { success = false, message = "Bạn cần đăng nhập để thuê mặt bằng." });
+            }
+
+            try
+            {
+                var user = await db.Accounts.FindAsync(User.Identity.GetUserId());
+
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "Không tìm thấy người dùng." });
+                }
+
+                // Cập nhật trạng thái IsActive
+                user.IsActive = true;
+                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+
+                // Kiểm tra xem mặt bằng có đang khả dụng không
+                var space = await db.Spaces.FindAsync(spaceId);
+                if (space == null || space.Status != "Available")
+                {
+                    return Json(new { success = false, message = "Mặt bằng không khả dụng." });
+                }
+
+                // Tạo hợp đồng thuê mới
+                var contract = new Contract
+                {
+                    AccountID = user.AccountID,
+                    SpaceID = space.SpaceID,
+                    StartDate = DateTime.Now,
+                    RentAmount = space.RentalPrice,
+                    Status = "Active"
+                };
+                db.Contracts.Add(contract);
+
+                // Cập nhật trạng thái của mặt bằng thành "Rented"
+                space.Status = "Rented";
+                db.Entry(space).State = System.Data.Entity.EntityState.Modified;
+
+                // Lưu các thay đổi vào cơ sở dữ liệu
+                await db.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Thuê mặt bằng thành công!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Đã xảy ra lỗi: " + ex.Message });
+            }
+        }
+
     }
 }
