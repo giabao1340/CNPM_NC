@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Mall_Management.Models;
+using System.Net.Mail;
 
 namespace Mall_Management.Controllers
 {
@@ -139,38 +140,86 @@ namespace Mall_Management.Controllers
         {
             try
             {
+                // Tìm hợp đồng theo ContractID
                 var contract = db.Contracts.FirstOrDefault(c => c.ContractID == contractId);
                 if (contract == null)
                 {
                     return Json(new { success = false, message = "Hợp đồng không tồn tại!" });
                 }
 
-                // Kiểm tra trạng thái hiện tại và trạng thái mới
+                // Lấy tài khoản dựa vào AccountID từ bảng Contracts
+                var account = db.Accounts.FirstOrDefault(a => a.AccountID == contract.AccountID);
+                if (account == null)
+                {
+                    return Json(new { success = false, message = "Tài khoản không tồn tại!" });
+                }
+
+                // Lấy email của người dùng
+                string email = account.Email;
+                string newStatus = null;
+
+                // Kiểm tra trạng thái và cập nhật
                 if (contract.Status == "Pending" && status == "Active")
                 {
-                    // Chuyển từ Pending -> Active
                     contract.Status = "Active";
+                    newStatus = "Active";
                 }
                 else if (contract.Status == "Active" && status == "Terminated")
                 {
-                    // Chuyển từ Active -> Terminated
                     contract.Status = "Terminated";
+                    newStatus = "Terminated";
+
+                    // Lấy Space liên kết với Contract và cập nhật trạng thái
+                    var space = db.Spaces.FirstOrDefault(s => s.SpaceID == contract.SpaceID);
+                    if (space != null)
+                    {
+                        space.Status = "Available";
+                    }
                 }
                 else
                 {
-                    // Trả về lỗi nếu trạng thái mới không hợp lệ
                     return Json(new { success = false, message = "Không thể thay đổi trạng thái theo hướng này." });
                 }
 
                 // Lưu thay đổi vào cơ sở dữ liệu
                 db.SaveChanges();
 
+                // Gửi email thông báo
+                SendStatusChangeEmail(email, contract.ContractID, newStatus);
+
                 return Json(new { success = true });
             }
             catch (Exception ex)
             {
-                // Xử lý lỗi nếu có
                 return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+
+        private void SendStatusChangeEmail(string email, int contractId, string newStatus)
+        {
+            try
+            {
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("luonggiabao060904@gmail.com"), // Email gửi
+                    Subject = "Cập nhật trạng thái hợp đồng",
+                    Body = $"Kính chào bạn,<br><br>Hợp đồng có ID {contractId} của bạn đã được cập nhật trạng thái mới: <strong>{newStatus}</strong>.<br><br>Trân trọng,<br>Đội ngũ quản lý.",
+                    IsBodyHtml = true
+                };
+                mailMessage.To.Add(email);
+
+                using (var smtpClient = new SmtpClient("smtp.gmail.com"))
+                {
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new NetworkCredential("luonggiabao060904@gmail.com", "cqpo mdjt sflr bpzg"); // Thay "your-app-password" bằng mật khẩu ứng dụng
+                    smtpClient.Send(mailMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Gửi email thất bại: {ex.Message}");
             }
         }
 
