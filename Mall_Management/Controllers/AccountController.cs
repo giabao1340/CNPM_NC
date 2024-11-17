@@ -125,6 +125,8 @@ public class AccountController : Controller
             ModelState.AddModelError("", "Tài khoản của bạn chưa được kích hoạt.");
             return View();
         }
+        Session["AccountID"] = account.AccountID;
+        Session["UserName"] = account.Username;
         Session["Role"] = account.Role; // Giả sử tài khoản có thuộc tính Role lưu vai trò
         // Đăng nhập thành công, cập nhật trạng thái IsActive = true
         account.IsActive = true;

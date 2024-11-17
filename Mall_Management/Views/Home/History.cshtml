@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<Mall_Management.Models.Contract>
+@{
+    ViewBag.Title = "Lịch Sử Thuê";
+}
+<h2>Lịch Sử Thuê</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Tên Không Gian</th>
+            <th>Vị Trí</th>
+            <th>Diện Tích (m²)</th>
+            <th>Giá Thuê (VNĐ)</th>
+            <th>Ngày Bắt Đầu</th>
+            <th>Ngày Kết Thúc</th>
+            <th>Trạng Thái Hợp Đồng</th>
+            <th>Hình Ảnh</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contract in Model)
+        {
+            <tr>
+                <td>@(contract.Space != null ? contract.Space.SpaceName : "Không có")</td>
+                <td>@(contract.Space != null ? contract.Space.Location : "Không có")</td>
+                <td>@(contract.Space != null ? contract.Space.Area : 0)</td>
+                <td>@contract.RentAmount.ToString("N0")$</td>
+                <td>@contract.StartDate.ToString("dd/MM/yyyy")</td>
+                <td>
+                    @(contract.EndDate.HasValue ? contract.EndDate.Value.ToString("dd/MM/yyyy") : "Chưa xác định")
+                </td>
+                @if (contract.Status == "Pending")
+                {
+                    <td>
+                        Chờ phê duyệt
+                    </td>
+
+                }
+                else if (contract.Status == "Active")
+                {
+                    <td>
+                        Đã duyệt
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Đã hủy hợp đồng
+                    </td>
+                }
+                <td>
+                    @if (!string.IsNullOrEmpty(contract.Space?.Image))
+                    {
+                        <img src="@contract.Space.Image" alt="Hình ảnh" style="width:100px; height:auto;" />
+                    }
+                    else
+                    {
+                        <span>Không có hình</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

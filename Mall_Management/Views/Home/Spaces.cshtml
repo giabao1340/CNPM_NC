@@ -188,4 +188,23 @@
 
         });
 
+            $.ajax({
+        url: '@Url.Action("RentNow", "Home")',
+        type: 'POST',
+        data: { spaceId: selectedSpaceId },
+        success: function (response) {
+            if (response.redirectUrl) {
+                window.location.href = response.redirectUrl;
+            } else if (response.success) {
+                alert(response.message);
+                // Additional success handling (e.g., refresh page or update UI)
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function () {
+            alert("Đã xảy ra lỗi.");
+        }
+    });
+
     </script>

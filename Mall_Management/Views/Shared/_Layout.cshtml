@@ -157,12 +157,16 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>
+                            <a class="dropdown-item" href="@Url.Action("Infor", "Home")">@Session["UserName"]</a>
+                        </li>
+                        <li>
                             <form class="dropdown-item" action="@Url.Action("DangXuat", "Account")" method="post" style="display:inline;">
                                 @Html.AntiForgeryToken()
-                                <button type="submit"  style="border: none; background: none; padding: 0;">Đăng xuất</button>
+                                <button type="submit" style="border: none; background: none; padding: 0;">Đăng xuất</button>
                             </form>
                         </li>
                         <li><a class="dropdown-item" href="@Url.Action("DoiMatKhau", "Account")">Đổi mật khẩu</a></li>
+                        <li><a class="dropdown-item" href="@Url.Action("History", "Home")">Lịch sử thuê</a></li>
                     }
                     else
                     {

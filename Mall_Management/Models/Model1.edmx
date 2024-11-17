@@ -4,18 +4,18 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="mall_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="mall_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="AccountID" />
           </Key>
-          <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" />
-          <Property Name="PasswordHash" Type="nvarchar" MaxLength="256" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
-          <Property Name="Email" Type="nvarchar" MaxLength="100" />
-          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
-          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccountID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Username" MaxLength="50" Type="nvarchar" />
+          <Property Name="PasswordHash" MaxLength="256" Type="nvarchar" />
+          <Property Name="FullName" MaxLength="100" Type="nvarchar" />
+          <Property Name="Email" MaxLength="100" Type="nvarchar" />
+          <Property Name="Phone" MaxLength="20" Type="nvarchar" />
+          <Property Name="Role" MaxLength="50" Type="nvarchar" />
           <Property Name="CreatedDate" Type="date" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
@@ -23,94 +23,94 @@
           <Key>
             <PropertyRef Name="BrandID" />
           </Key>
-          <Property Name="BrandID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BrandName" Type="nvarchar" MaxLength="100" />
+          <Property Name="BrandID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="BrandName" MaxLength="100" Type="nvarchar" />
           <Property Name="Image" Type="nvarchar(max)" />
           <Property Name="Url" Type="varchar(max)" />
           <Property Name="Description" Type="text" />
-          <Property Name="Floor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Floor" MaxLength="50" Type="nvarchar" />
           <Property Name="CategoryID" Type="int" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="CategoryID" />
           </Key>
-          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CategoryName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CategoryID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="CategoryName" MaxLength="100" Type="nvarchar" />
         </EntityType>
         <EntityType Name="Contracts">
           <Key>
             <PropertyRef Name="ContractID" />
           </Key>
-          <Property Name="ContractID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SpaceID" Type="int" Nullable="false" />
-          <Property Name="AccountID" Type="int" Nullable="false" />
-          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="ContractID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="SpaceID" Nullable="false" Type="int" />
+          <Property Name="AccountID" Nullable="false" Type="int" />
+          <Property Name="StartDate" Nullable="false" Type="date" />
           <Property Name="EndDate" Type="date" />
-          <Property Name="RentAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="RentAmount" Nullable="false" Precision="18" Scale="2" Type="decimal" />
+          <Property Name="Status" MaxLength="50" Type="nvarchar" />
         </EntityType>
         <EntityType Name="Events">
           <Key>
             <PropertyRef Name="EventID" />
           </Key>
-          <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EventName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EventID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="EventName" Nullable="false" Type="nvarchar(max)" />
           <Property Name="Description" Type="ntext" />
           <Property Name="Image" Type="nvarchar(max)" />
           <Property Name="StartDate" Type="date" />
           <Property Name="EndDate" Type="date" />
           <Property Name="BrandID" Type="int" />
-          <Property Name="Register" Type="nvarchar" MaxLength="255" />
+          <Property Name="Register" MaxLength="255" Type="nvarchar" />
         </EntityType>
         <EntityType Name="Invoices">
           <Key>
             <PropertyRef Name="InvoiceID" />
           </Key>
-          <Property Name="InvoiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ContractID" Type="int" Nullable="false" />
-          <Property Name="InvoiceDate" Type="date" Nullable="false" />
-          <Property Name="DueDate" Type="date" Nullable="false" />
-          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="PaidAmount" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="InvoiceID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="ContractID" Nullable="false" Type="int" />
+          <Property Name="InvoiceDate" Nullable="false" Type="date" />
+          <Property Name="DueDate" Nullable="false" Type="date" />
+          <Property Name="TotalAmount" Nullable="false" Precision="18" Scale="2" Type="decimal" />
+          <Property Name="PaidAmount" Precision="18" Scale="2" Type="decimal" />
+          <Property Name="Status" MaxLength="50" Type="nvarchar" />
         </EntityType>
         <EntityType Name="Payments">
           <Key>
             <PropertyRef Name="PaymentID" />
           </Key>
-          <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ContractID" Type="int" Nullable="false" />
-          <Property Name="PaymentDate" Type="date" Nullable="false" />
-          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaymentID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="ContractID" Nullable="false" Type="int" />
+          <Property Name="PaymentDate" Nullable="false" Type="date" />
+          <Property Name="Amount" Nullable="false" Precision="18" Scale="2" Type="decimal" />
+          <Property Name="Status" MaxLength="50" Type="nvarchar" />
         </EntityType>
         <EntityType Name="Spaces">
           <Key>
             <PropertyRef Name="SpaceID" />
           </Key>
-          <Property Name="SpaceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SpaceName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Location" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SpaceID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="SpaceName" Nullable="false" MaxLength="100" Type="nvarchar" />
+          <Property Name="Location" Nullable="false" MaxLength="255" Type="nvarchar" />
           <Property Name="Image" Type="nvarchar(max)" />
-          <Property Name="Area" Type="float" Nullable="false" />
-          <Property Name="RentalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Area" Nullable="false" Type="float" />
+          <Property Name="RentalPrice" Nullable="false" Precision="18" Scale="2" Type="decimal" />
+          <Property Name="Status" MaxLength="50" Type="nvarchar" />
         </EntityType>
         <EntityType Name="Staffs">
           <Key>
             <PropertyRef Name="StaffID" />
           </Key>
-          <Property Name="StaffID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StaffName" Type="nvarchar" MaxLength="255" />
-          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="StaffID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="StaffName" MaxLength="255" Type="nvarchar" />
+          <Property Name="Gender" MaxLength="10" Type="nvarchar" />
           <Property Name="BirthYear" Type="int" />
-          <Property Name="Position" Type="nvarchar" MaxLength="255" />
+          <Property Name="Position" MaxLength="255" Type="nvarchar" />
           <Property Name="BrandID" Type="int" />
         </EntityType>
         <Association Name="FK__Brands__Category__403A8C7D">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
-          <End Role="Brands" Type="Self.Brands" Multiplicity="*" />
+          <End Type="Self.Categories" Multiplicity="0..1" Role="Categories" />
+          <End Type="Self.Brands" Multiplicity="*" Role="Brands" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="CategoryID" />
@@ -121,8 +121,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Contracts__Accou__4D94879B">
-          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
-          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <End Type="Self.Accounts" Multiplicity="1" Role="Accounts" />
+          <End Type="Self.Contracts" Multiplicity="*" Role="Contracts" />
           <ReferentialConstraint>
             <Principal Role="Accounts">
               <PropertyRef Name="AccountID" />
@@ -133,8 +133,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Contracts__Space__4CA06362">
-          <End Role="Spaces" Type="Self.Spaces" Multiplicity="1" />
-          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <End Type="Self.Spaces" Multiplicity="1" Role="Spaces" />
+          <End Type="Self.Contracts" Multiplicity="*" Role="Contracts" />
           <ReferentialConstraint>
             <Principal Role="Spaces">
               <PropertyRef Name="SpaceID" />
@@ -145,8 +145,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Events__BrandID__45F365D3">
-          <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
-          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <End Type="Self.Brands" Multiplicity="0..1" Role="Brands" />
+          <End Type="Self.Events" Multiplicity="*" Role="Events" />
           <ReferentialConstraint>
             <Principal Role="Brands">
               <PropertyRef Name="BrandID" />
@@ -157,8 +157,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Invoices__Contra__5629CD9C">
-          <End Role="Contracts" Type="Self.Contracts" Multiplicity="1" />
-          <End Role="Invoices" Type="Self.Invoices" Multiplicity="*" />
+          <End Type="Self.Contracts" Multiplicity="1" Role="Contracts" />
+          <End Type="Self.Invoices" Multiplicity="*" Role="Invoices" />
           <ReferentialConstraint>
             <Principal Role="Contracts">
               <PropertyRef Name="ContractID" />
@@ -169,8 +169,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Payments__Contra__5165187F">
-          <End Role="Contracts" Type="Self.Contracts" Multiplicity="1" />
-          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <End Type="Self.Contracts" Multiplicity="1" Role="Contracts" />
+          <End Type="Self.Payments" Multiplicity="*" Role="Payments" />
           <ReferentialConstraint>
             <Principal Role="Contracts">
               <PropertyRef Name="ContractID" />
@@ -181,8 +181,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Staffs__BrandID__4316F928">
-          <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
-          <End Role="Staffs" Type="Self.Staffs" Multiplicity="*" />
+          <End Type="Self.Brands" Multiplicity="0..1" Role="Brands" />
+          <End Type="Self.Staffs" Multiplicity="*" Role="Staffs" />
           <ReferentialConstraint>
             <Principal Role="Brands">
               <PropertyRef Name="BrandID" />
@@ -203,32 +203,32 @@
           <EntitySet Name="Spaces" EntityType="Self.Spaces" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Brands__Category__403A8C7D" Association="Self.FK__Brands__Category__403A8C7D">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Brands" EntitySet="Brands" />
+            <End EntitySet="Categories" Role="Categories" />
+            <End EntitySet="Brands" Role="Brands" />
           </AssociationSet>
           <AssociationSet Name="FK__Contracts__Accou__4D94879B" Association="Self.FK__Contracts__Accou__4D94879B">
-            <End Role="Accounts" EntitySet="Accounts" />
-            <End Role="Contracts" EntitySet="Contracts" />
+            <End EntitySet="Accounts" Role="Accounts" />
+            <End EntitySet="Contracts" Role="Contracts" />
           </AssociationSet>
           <AssociationSet Name="FK__Contracts__Space__4CA06362" Association="Self.FK__Contracts__Space__4CA06362">
-            <End Role="Spaces" EntitySet="Spaces" />
-            <End Role="Contracts" EntitySet="Contracts" />
+            <End EntitySet="Spaces" Role="Spaces" />
+            <End EntitySet="Contracts" Role="Contracts" />
           </AssociationSet>
           <AssociationSet Name="FK__Events__BrandID__45F365D3" Association="Self.FK__Events__BrandID__45F365D3">
-            <End Role="Brands" EntitySet="Brands" />
-            <End Role="Events" EntitySet="Events" />
+            <End EntitySet="Brands" Role="Brands" />
+            <End EntitySet="Events" Role="Events" />
           </AssociationSet>
           <AssociationSet Name="FK__Invoices__Contra__5629CD9C" Association="Self.FK__Invoices__Contra__5629CD9C">
-            <End Role="Contracts" EntitySet="Contracts" />
-            <End Role="Invoices" EntitySet="Invoices" />
+            <End EntitySet="Contracts" Role="Contracts" />
+            <End EntitySet="Invoices" Role="Invoices" />
           </AssociationSet>
           <AssociationSet Name="FK__Payments__Contra__5165187F" Association="Self.FK__Payments__Contra__5165187F">
-            <End Role="Contracts" EntitySet="Contracts" />
-            <End Role="Payments" EntitySet="Payments" />
+            <End EntitySet="Contracts" Role="Contracts" />
+            <End EntitySet="Payments" Role="Payments" />
           </AssociationSet>
           <AssociationSet Name="FK__Staffs__BrandID__4316F928" Association="Self.FK__Staffs__BrandID__4316F928">
-            <End Role="Brands" EntitySet="Brands" />
-            <End Role="Staffs" EntitySet="Staffs" />
+            <End EntitySet="Brands" Role="Brands" />
+            <End EntitySet="Staffs" Role="Staffs" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>

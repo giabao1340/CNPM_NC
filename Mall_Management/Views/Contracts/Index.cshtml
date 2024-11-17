@@ -14,9 +14,9 @@
                     <!--begin::Table row-->
                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                         <th class="min-w-50px" tabindex="1" arowspan="1" colspan="1" style="width:50px;">ID</th>
-                        <th class="min-w-110px" tabindex="2" rowspan="1" colspan="1" style="width:110px;">Họ tên</th>
-                        <th class="min-w-70px" tabindex="5" rowspan="1" colspan="1" style="width:80px;">Số điện thoại</th>
-                        <th class="min-w-70px" tabindex="5" rowspan="1" colspan="1" style="width:80px;">Mặt bằng</th>
+                        <th class="min-w-110px" tabindex="2" rowspan="1" colspan="1" style="width:150px;">Họ tên</th>
+                        <th class="min-w-70px" tabindex="5" rowspan="1" colspan="1" style="width:120px;">Số điện thoại</th>
+                        <th class="min-w-70px" tabindex="5" rowspan="1" colspan="1" style="width:100px;">Mặt bằng</th>
                         <th class="min-w-275px" tabindex="5" rowspan="1" colspan="1" style="width:280px;">Trạng thái</th>
                         <th class="min-w-100px" tabindex="5" rowspan="1" colspan="1" style="width: 120px;">Ngày bắt đầu</th>
                         <th class="min-w-100px" tabindex="5" rowspan="1" colspan="1" style="width:120px;">Ngày kết thúc</th>
@@ -32,7 +32,7 @@
                     {
                         <tr class="odd" id="item_@item.ContractID">
                             <td>@item.ContractID </td>
-                            <td>@item.Account.FullName </td>
+                            <td>@item.Account.Username </td>
                             <td>@item.Account.Phone</td>
                             <td>@item.Space.SpaceName</td>
                             <td>

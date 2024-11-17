@@ -68,9 +68,9 @@ namespace Mall_Management.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return Json(new { success = false, message = "Bạn cần đăng nhập để thuê mặt bằng." });
+                // Send a JSON response indicating that the user should be redirected to login
+                return Json(new { success = false, redirectUrl = Url.Action("Login", "Account"), message = "Bạn cần đăng nhập để thuê mặt bằng." });
             }
-
             try
             {
                 var username = User.Identity.Name;
@@ -115,6 +115,69 @@ namespace Mall_Management.Controllers
             {
                 return Json(new { success = false, message = "Đã xảy ra lỗi: " + ex.Message });
             }
+        }
+        public ActionResult History()
+        {
+            // Lấy tên người dùng hiện tại từ Forms Authentication
+            string username = User.Identity.Name;
+
+            // Truy xuất AccountID từ bảng Accounts dựa trên UserName
+            var userAccount = db.Accounts.FirstOrDefault(a => a.Username == username);
+
+            if (userAccount != null)
+            {
+                int userId = userAccount.AccountID;
+
+                // Lấy danh sách hợp đồng của người dùng
+                var contracts = db.Contracts
+                                  .Include(c => c.Space)
+                                  .Where(c => c.AccountID == userId)
+                                  .OrderByDescending(c => c.StartDate)
+                                  .ToList();
+
+                return View(contracts);
+            }
+
+            // Nếu không tìm thấy người dùng, trả về view rỗng
+            return View(new List<Contract>());
+        }
+        public ActionResult Infor()
+        {
+            // Lấy UserId từ Session (ví dụ nếu lưu trong session)
+            int? userId = Session["AccountID"] as int?;
+            if (userId == null)
+            {
+                return RedirectToAction("DangNhap", "Account"); // Điều hướng nếu chưa đăng nhập
+            }
+
+            var account = db.Accounts.SingleOrDefault(a => a.AccountID == userId.Value);
+            if (account == null)
+            {
+                return HttpNotFound("Account not found.");
+            }
+
+            return View(account);
+        }
+        public ActionResult Edit(int id)
+        {
+            var account = db.Accounts.SingleOrDefault(a => a.AccountID == id);
+            if (account == null)
+            {
+                return HttpNotFound("Account not found.");
+            }
+            return View(account);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Account account)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(account).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Infor", new { id = account.AccountID });
+            }
+            return View(account);
         }
 
     }

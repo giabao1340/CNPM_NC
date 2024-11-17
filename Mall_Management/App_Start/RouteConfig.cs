@@ -14,8 +14,17 @@ public class RouteConfig
         name: "RentNow",
         url: "Home/RentNow",
         defaults: new { controller = "Home", action = "RentNow" }
-);
-
+        );
+        routes.MapRoute(
+            name: "ContractHistory",
+            url: "home/history/{id}",
+            defaults: new { controller = "Home", action = "History", id = UrlParameter.Optional }
+        );
+        routes.MapRoute(
+        name: "Infor",
+        url: "{Home}/{action}/{id}",
+        defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+         );
     }
 
 }
